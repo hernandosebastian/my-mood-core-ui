@@ -1,35 +1,37 @@
-import js from "@eslint/js";
 import globals from "globals";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+import ts from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 
-export default tseslint.config({
-  ignores: ["dist"],
+export default {
+  ignores: ["dist", "playwright/**", "playwright.config.ts"],
   languageOptions: {
     ecmaVersion: 2020,
     globals: globals.browser,
+    parser: tsParser,
     parserOptions: {
       project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
-  extends: [
-    js.configs.recommended,
-    tseslint.configs.recommendedTypeChecked,
-    tseslint.configs.stylisticTypeChecked,
-  ],
   files: ["**/*.{ts,tsx}"],
   plugins: {
     react,
     "react-hooks": reactHooks,
     "react-refresh": reactRefresh,
+    "@typescript-eslint": ts,
   },
   settings: {
     react: { version: "18.3" },
   },
   rules: {
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
     ...react.configs.recommended.rules,
     ...react.configs["jsx-runtime"].rules,
     ...reactHooks.configs.recommended.rules,
@@ -38,5 +40,4 @@ export default tseslint.config({
       { allowConstantExport: true },
     ],
   },
-});
-
+};
