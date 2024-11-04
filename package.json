@@ -16,7 +16,8 @@
     "preview": "vite preview",
     "test": "npx playwright test",
     "test:ui": "npx playwright test --ui",
-    "test:report": "npx playwright show-report"
+    "test:report": "npx playwright show-report",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.1",
