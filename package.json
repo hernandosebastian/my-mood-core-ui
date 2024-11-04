@@ -1,8 +1,14 @@
 {
   "name": "my-mood-core-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mipmipp/my-mood-core-ui.git"
+  },
+  "author": "Mipmipp",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -27,3 +33,4 @@
     "vite": "^5.4.10"
   }
 }
+
