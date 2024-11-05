@@ -10,6 +10,8 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
+import { LifeBuoy, Send } from "lucide-react";
+import { NavSecondary } from "./nav-secondary";
 
 // This is sample data.
 const data = {
@@ -18,6 +20,10 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
+  navSecondary: [
+    { title: "Support", url: "#", icon: LifeBuoy },
+    { title: "Feedback", url: "#", icon: Send },
+  ],
 };
 
 export function AppSidebar({
@@ -31,6 +37,9 @@ export function AppSidebar({
       <SidebarContent>
         <DatePicker />
         <SidebarSeparator className="mx-0" />
+      </SidebarContent>
+      <SidebarContent>
+        <NavSecondary items={data.navSecondary} className="mt-auto" />{" "}
       </SidebarContent>
       <SidebarFooter className="text-center">
         <small>
