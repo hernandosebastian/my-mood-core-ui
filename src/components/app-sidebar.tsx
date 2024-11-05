@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { DatePicker } from "@/components/date-picker";
-import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -12,6 +11,8 @@ import {
 } from "@/components/ui/sidebar";
 import { LifeBuoy, Send } from "lucide-react";
 import { NavSecondary } from "./nav-secondary";
+import { NavUserLogged } from "./nav-user-logged";
+import { NavUserAnonymous } from "./nav-user-anonymous";
 
 // This is sample data.
 const data = {
@@ -26,17 +27,40 @@ const data = {
   ],
 };
 
+function SidebarContentUserLogged(): JSX.Element {
+  return (
+    <>
+      <DatePicker />
+      <SidebarSeparator className="mx-0" />
+    </>
+  );
+}
+
+function SidebarContentUserAnonymous(): JSX.Element {
+  return (
+    <>
+      <SidebarSeparator className="mx-0" />
+    </>
+  );
+}
+
 export function AppSidebar({
+  isLoggedIn = false,
   ...props
-}: React.ComponentProps<typeof Sidebar>): JSX.Element {
+}: React.ComponentProps<typeof Sidebar> & {
+  isLoggedIn?: boolean;
+}): JSX.Element {
   return (
     <Sidebar {...props}>
       <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <NavUser user={data.user} />
+        {isLoggedIn ? <NavUserLogged user={data.user} /> : <NavUserAnonymous />}
       </SidebarHeader>
       <SidebarContent>
-        <DatePicker />
-        <SidebarSeparator className="mx-0" />
+        {isLoggedIn ? (
+          <SidebarContentUserLogged />
+        ) : (
+          <SidebarContentUserAnonymous />
+        )}
       </SidebarContent>
       <SidebarContent>
         <NavSecondary items={data.navSecondary} className="mt-auto" />{" "}
