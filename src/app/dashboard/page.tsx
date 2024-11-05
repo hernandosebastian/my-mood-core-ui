@@ -1,18 +1,18 @@
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
-export default function Page() {
+export default function Page(): JSX.Element {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -31,11 +31,15 @@ export default function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4">
           <div className="grid auto-rows-min gap-4 md:grid-cols-5">
             {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="aspect-square rounded-xl bg-slate-100/50 dark:bg-slate-800/50" />
+              <div
+                key={i}
+                className="aspect-square rounded-xl bg-slate-100/50 dark:bg-slate-800/50"
+              />
             ))}
           </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }
+
