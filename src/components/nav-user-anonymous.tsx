@@ -15,10 +15,8 @@ export function NavUserAnonymous(): JSX.Element {
         </Avatar>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="truncate font-semibold">My Mood</span>
-          <span className="truncate text-xs">Monitor your daily mood</span>
         </div>
       </SidebarMenuButton>
     </DropdownMenu>
   );
 }
-

@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import { DatePicker } from "@/components/date-picker";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { LifeBuoy, Send } from "lucide-react";
 import { NavSecondary } from "./nav-secondary";
 import { NavUserLogged } from "./nav-user-logged";
 import { NavUserAnonymous } from "./nav-user-anonymous";
+import { SidebarContentUserLogged } from "./sidebar-content-user-logged";
+import { SidebarContentUserAnonymous } from "./sidebar-content-user-anonymous";
 
 // This is sample data.
 const data = {
@@ -26,23 +26,6 @@ const data = {
     { title: "Feedback", url: "#", icon: Send },
   ],
 };
-
-function SidebarContentUserLogged(): JSX.Element {
-  return (
-    <>
-      <DatePicker />
-      <SidebarSeparator className="mx-0" />
-    </>
-  );
-}
-
-function SidebarContentUserAnonymous(): JSX.Element {
-  return (
-    <>
-      <SidebarSeparator className="mx-0" />
-    </>
-  );
-}
 
 export function AppSidebar({
   isLoggedIn = false,
@@ -63,7 +46,7 @@ export function AppSidebar({
         )}
       </SidebarContent>
       <SidebarContent>
-        <NavSecondary items={data.navSecondary} className="mt-auto" />{" "}
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter className="text-center">
         <small>
