@@ -3,20 +3,41 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { logInSchema } from "../schemas";
 import { LogInForm } from "../components";
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useGetMe, useLogIn } from "../hooks";
 
 export function LogInPage(): JSX.Element {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const logInMutation = useLogIn();
+  const getMeQuery = useGetMe();
+
   const form = useForm<z.infer<typeof logInSchema>>({
     resolver: zodResolver(logInSchema),
     defaultValues: {
-      username: "",
+      username: state?.username ?? "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof logInSchema>): void {
-    console.log("User signed in with:", values);
+  async function onSubmit(values: z.infer<typeof logInSchema>): Promise<void> {
+    setIsLoading(true);
+
+    try {
+      await logInMutation.mutateAsync(values, {
+        onSuccess: () => {
+          navigate("/");
+          getMeQuery.refetch();
+        },
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  return <LogInForm form={form} onSubmit={onSubmit} />;
+  return <LogInForm form={form} onSubmit={onSubmit} isLoading={isLoading} />;
 }
-

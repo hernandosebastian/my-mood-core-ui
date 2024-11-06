@@ -1,4 +1,4 @@
-# Logs
+# LOGS
 logs
 *.log
 npm-debug.log*
@@ -7,12 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# DEPENDENCIES AND BUILDS
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# EDITOR DIRECTORIES AND FILES
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -23,8 +24,12 @@ dist-ssr
 *.sln
 *.sw?
 
-# Playwright
+# PLAYWRIGHT
 /playwright/test-results/
 /playwright/playwright-report/
 /playwright/blob-report/
 /playwright/.cache/
+
+
+# ENVIRONMENT VARIABLES
+.env

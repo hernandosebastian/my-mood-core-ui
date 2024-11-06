@@ -3,8 +3,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { signUpSchema } from "../schemas";
 import { SignUpForm } from "../components";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSignUp } from "../hooks";
 
 export function SignUpPage(): JSX.Element {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+
+  const signUpMutation = useSignUp();
+
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -13,10 +22,21 @@ export function SignUpPage(): JSX.Element {
     },
   });
 
-  function onSubmit(values: z.infer<typeof signUpSchema>): void {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof signUpSchema>): Promise<void> {
+    setIsLoading(true);
+
+    try {
+      await signUpMutation.mutateAsync(values, {
+        onSuccess: () => {
+          navigate("/confirm-user", {
+            state: { user: values.username },
+          });
+        },
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  return <SignUpForm form={form} onSubmit={onSubmit} />;
+  return <SignUpForm form={form} onSubmit={onSubmit} isLoading={isLoading} />;
 }
-

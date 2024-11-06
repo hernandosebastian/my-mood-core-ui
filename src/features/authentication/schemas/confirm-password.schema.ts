@@ -4,11 +4,9 @@ import { confirmPasswordErrorMessages } from "../messages/confirm-password.messa
 const confirmPasswordSchema = z.object({
   username: z
     .string()
+    .email({ message: confirmPasswordErrorMessages.username.invalidEmail })
     .min(2, { message: confirmPasswordErrorMessages.username.minLength })
-    .max(50, { message: confirmPasswordErrorMessages.username.maxLength })
-    .regex(/^[a-zA-Z0-9_-]+$/, {
-      message: confirmPasswordErrorMessages.username.invalidChars,
-    }),
+    .max(50, { message: confirmPasswordErrorMessages.username.maxLength }),
 
   newPassword: z
     .string()
@@ -32,4 +30,3 @@ const confirmPasswordSchema = z.object({
 });
 
 export default confirmPasswordSchema;
-

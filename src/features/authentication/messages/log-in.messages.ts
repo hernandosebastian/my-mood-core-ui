@@ -2,8 +2,7 @@ export const logInErrorMessages = {
   username: {
     minLength: "Username must be at least 2 characters.",
     maxLength: "Username cannot be longer than 50 characters.",
-    invalidChars:
-      "Username can only contain letters, numbers, dashes, and underscores.",
+    invalidEmail: "Username must be a valid email address.",
   },
   password: {
     minLength: "Password must be at least 8 characters long.",
@@ -15,4 +14,3 @@ export const logInErrorMessages = {
       "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
   },
 };
-

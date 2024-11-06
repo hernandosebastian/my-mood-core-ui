@@ -25,24 +25,21 @@ interface IForgotPasswordFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof forgotPasswordSchema>) => void;
+  isLoading: boolean;
 }
 
 export function ForgotPasswordForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<IForgotPasswordFormProps>): JSX.Element {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
+
     const result = await form.trigger();
 
     if (result) {
-      setIsLoading(true);
       onSubmit(form.getValues());
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
     }
   };
 
@@ -54,7 +51,7 @@ export function ForgotPasswordForm({
             Forgot Password
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your username to reset your password.
+            Enter your email to reset your password.
           </p>
         </div>
 
@@ -65,19 +62,20 @@ export function ForgotPasswordForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="username"
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the username associated with your account to reset
-                    your password.
+                    Enter the email address associated with your account to
+                    reset your password.
                   </FormDescription>
+
                   <FormMessage />
                 </FormItem>
               )}
@@ -95,4 +93,3 @@ export function ForgotPasswordForm({
     </div>
   );
 }
-

@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "@/components/ui/Icons";
 
 interface IConfirmPasswordFormProps {
   form: UseFormReturn<
@@ -26,11 +27,13 @@ interface IConfirmPasswordFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof confirmPasswordSchema>) => void;
+  isLoading: boolean;
 }
 
 export function ConfirmPasswordForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<IConfirmPasswordFormProps>): JSX.Element {
   const navigate = useNavigate();
 
@@ -63,12 +66,16 @@ export function ConfirmPasswordForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your username" {...field} />
+                    <Input
+                      placeholder="Enter your email"
+                      {...field}
+                      disabled={isLoading}
+                    />
                   </FormControl>
                   <FormDescription>
-                    Enter the username to confirm your identity.
+                    Enter the email to confirm your identity.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -86,6 +93,7 @@ export function ConfirmPasswordForm({
                       type="password"
                       placeholder="Enter new password"
                       {...field}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
@@ -107,6 +115,7 @@ export function ConfirmPasswordForm({
                       placeholder="Enter 6-digit code"
                       {...field}
                       maxLength={6}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
@@ -117,7 +126,10 @@ export function ConfirmPasswordForm({
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? (
+                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               Confirm Password
             </Button>
           </form>
@@ -139,4 +151,3 @@ export function ConfirmPasswordForm({
     </div>
   );
 }
-

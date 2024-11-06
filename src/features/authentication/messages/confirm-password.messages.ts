@@ -2,8 +2,7 @@ export const confirmPasswordErrorMessages = {
   username: {
     minLength: "Username must be at least 2 characters.",
     maxLength: "Username cannot be longer than 50 characters.",
-    invalidChars:
-      "Username can only contain letters, numbers, dashes, and underscores.",
+    invalidEmail: "Username must be a valid email address.",
   },
   newPassword: {
     minLength: "New password must be at least 8 characters long.",
@@ -19,4 +18,3 @@ export const confirmPasswordErrorMessages = {
     digitsOnly: "Code must only contain digits.",
   },
 };
-

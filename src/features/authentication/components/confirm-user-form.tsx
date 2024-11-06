@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "@/components/ui/Icons";
 
 interface IConfirmUserFormProps {
   form: UseFormReturn<
@@ -25,11 +26,13 @@ interface IConfirmUserFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof confirmUserSchema>) => void;
+  isLoading: boolean;
 }
 
 export function ConfirmUserForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<IConfirmUserFormProps>): JSX.Element {
   const navigate = useNavigate();
 
@@ -54,7 +57,7 @@ export function ConfirmUserForm({
             Confirm User
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter the username and confirmation code to confirm your account.
+            Enter the email and confirmation code to confirm your account.
           </p>
         </div>
 
@@ -65,16 +68,17 @@ export function ConfirmUserForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="username"
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       {...field}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the username to confirm your account.
+                    Enter the email to confirm your account.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -93,6 +97,7 @@ export function ConfirmUserForm({
                       placeholder="Enter 6-digit code"
                       {...field}
                       maxLength={6}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
@@ -103,7 +108,10 @@ export function ConfirmUserForm({
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? (
+                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               Confirm
             </Button>
           </form>
@@ -123,4 +131,3 @@ export function ConfirmUserForm({
     </div>
   );
 }
-
