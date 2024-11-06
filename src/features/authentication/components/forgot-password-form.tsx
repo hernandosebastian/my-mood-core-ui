@@ -1,6 +1,17 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { forgotPasswordSchema } from "../schemas";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface IForgotPasswordFormProps {
   form: UseFormReturn<
@@ -19,26 +30,29 @@ export function ForgotPasswordForm({
   onSubmit,
 }: Readonly<IForgotPasswordFormProps>): JSX.Element {
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-      <div>
-        <label htmlFor="username" aria-label="Username">
-          Username
-        </label>
-        <input
-          id="username"
-          {...form.register("username")}
-          placeholder="Enter your username"
-          className="border p-2"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your username" {...field} />
+              </FormControl>
+              <FormDescription>
+                Enter the username associated with your account to reset your
+                password.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {form.formState.errors.username && (
-          <p className="text-red-500">
-            {form.formState.errors.username?.message}
-          </p>
-        )}
-      </div>
 
-      <button type="submit">Reset Password</button>
-    </form>
+        <Button type="submit">Reset Password</Button>
+      </form>
+    </Form>
   );
 }
 

@@ -1,6 +1,17 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { signUpSchema } from "../schemas";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface ISignUpFormProps {
   form: UseFormReturn<
@@ -8,7 +19,6 @@ interface ISignUpFormProps {
       username: string;
       password: string;
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any,
     undefined
   >;
@@ -20,44 +30,50 @@ export function SignUpForm({
   onSubmit,
 }: Readonly<ISignUpFormProps>): JSX.Element {
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-      <div>
-        <label htmlFor="username" aria-label="Username">
-          Username
-        </label>
-        <input
-          id="username"
-          {...form.register("username")}
-          placeholder="Enter your username"
-          className="border p-2"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your username" {...field} />
+              </FormControl>
+              <FormDescription>
+                Your username will be visible publicly. Choose something unique.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {form.formState.errors.username && (
-          <p className="text-red-500">
-            {form.formState.errors.username?.message}
-          </p>
-        )}
-      </div>
 
-      <div>
-        <label htmlFor="password" aria-label="Password">
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          {...form.register("password")}
-          placeholder="Enter your password"
-          className="border p-2"
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Enter your password"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Your password should be at least 8 characters long and contain a
+                mix of letters and numbers.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {form.formState.errors.password && (
-          <p className="text-red-500">
-            {form.formState.errors.password?.message}
-          </p>
-        )}
-      </div>
 
-      <button type="submit">Sign Up</button>
-    </form>
+        <Button type="submit">Sign Up</Button>
+      </form>
+    </Form>
   );
 }
 

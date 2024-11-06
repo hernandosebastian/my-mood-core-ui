@@ -1,6 +1,17 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { confirmUserSchema } from "../schemas";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  FormDescription,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface IConfirmUserFormProps {
   form: UseFormReturn<
@@ -20,41 +31,49 @@ export function ConfirmUserForm({
   onSubmit,
 }: Readonly<IConfirmUserFormProps>): JSX.Element {
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
-      <div>
-        <label htmlFor="username" aria-label="Username">
-          Username
-        </label>
-        <input
-          id="username"
-          {...form.register("username")}
-          placeholder="Enter your username"
-          className="border p-2"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter your username" {...field} />
+              </FormControl>
+              <FormDescription>
+                Enter the username to confirm your account.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {form.formState.errors.username && (
-          <p className="text-red-500">
-            {form.formState.errors.username?.message}
-          </p>
-        )}
-      </div>
 
-      <div>
-        <label htmlFor="code" aria-label="Code">
-          Code
-        </label>
-        <input
-          id="code"
-          {...form.register("code")}
-          placeholder="Enter 6-digit code"
-          className="border p-2"
+        <FormField
+          control={form.control}
+          name="code"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Code</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Enter 6-digit code"
+                  {...field}
+                  maxLength={6}
+                />
+              </FormControl>
+              <FormDescription>
+                Enter the 6-digit code sent to your email.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-        {form.formState.errors.code && (
-          <p className="text-red-500">{form.formState.errors.code?.message}</p>
-        )}
-      </div>
 
-      <button type="submit">Confirm</button>
-    </form>
+        <Button type="submit">Confirm</Button>
+      </form>
+    </Form>
   );
 }
 
