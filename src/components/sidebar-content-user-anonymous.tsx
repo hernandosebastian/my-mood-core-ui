@@ -12,11 +12,11 @@ export function SidebarContentUserAnonymous(): JSX.Element {
   const navigate = useNavigate();
 
   const handleLoginClick = (): void => {
-    navigate("/login");
+    navigate("/log-in");
   };
 
   const handleSignUpClick = (): void => {
-    navigate("/signup");
+    navigate("/sign-up");
   };
 
   return (
