@@ -6,10 +6,15 @@ import { ConfirmPasswordForm } from "../components";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useConfirmPassword } from "../hooks";
+import { useSEO } from "@/hooks";
 
 export function ConfirmPasswordPage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: "My Mood - Confirm Password",
+    description: "Set your new password for My Mood and regain full access.",
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { state } = useLocation();
 

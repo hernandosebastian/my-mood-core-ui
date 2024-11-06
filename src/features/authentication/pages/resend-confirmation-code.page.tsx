@@ -6,10 +6,16 @@ import { ResendConfirmationCodeForm } from "../components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useResendConfirmationCode } from "../hooks";
+import { useSEO } from "@/hooks";
 
 export function ResendConfirmationCodePage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: "My Mood - Resend Confirmation Code",
+    description:
+      "Resend the confirmation code to your My Mood account to complete the registration process.",
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const resendConfirmationCodeMutation = useResendConfirmationCode();

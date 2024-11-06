@@ -6,8 +6,15 @@ import { LogInForm } from "../components";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetMe, useLogIn } from "../hooks";
+import { useSEO } from "@/hooks";
 
 export function LogInPage(): JSX.Element {
+  useSEO({
+    title: "My Mood - Log In",
+    description:
+      "Log in to your My Mood account to track your mood and well-being.",
+  });
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();

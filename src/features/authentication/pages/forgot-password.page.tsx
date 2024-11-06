@@ -6,10 +6,16 @@ import { ForgotPasswordForm } from "../components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForgotPassword } from "../hooks";
+import { useSEO } from "@/seo/hooks";
 
 export function ForgotPasswordPage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: "My Mood - Forgot Password",
+    description:
+      "Reset your password and regain access to your My Mood account.",
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const forgotPasswordMutation = useForgotPassword();

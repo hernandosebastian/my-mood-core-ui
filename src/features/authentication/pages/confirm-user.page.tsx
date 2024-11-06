@@ -6,10 +6,16 @@ import { ConfirmUserForm } from "../components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useConfirmUser } from "../hooks";
+import { useSEO } from "@/seo/hooks";
 
 export function ConfirmUserPage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: "My Mood - Confirm Your Account",
+    description:
+      "Confirm your account to complete registration and start using My Mood.",
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { state } = useLocation();
 
