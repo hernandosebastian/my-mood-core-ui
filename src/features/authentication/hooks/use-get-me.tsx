@@ -4,12 +4,13 @@ import { IGetMeResponse } from "../dto";
 import { getItem, StorageKeys } from "@/services/local-storage";
 import { mapToUser } from "../mapper";
 import { User } from "../entity";
+import { AxiosError } from "axios";
 
 const getMeKeys = (): string[] => ["getMe"];
 
-export const useGetMe = (): UseQueryResult<{ user: User }, unknown> => {
+export const useGetMe = (): UseQueryResult<{ user: User }, AxiosError> => {
   const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
-  return useQuery<IGetMeResponse, unknown, { user: User }>({
+  return useQuery<IGetMeResponse, AxiosError, { user: User }>({
     queryKey: getMeKeys(),
     queryFn: getMe,
     enabled: !!accessToken,

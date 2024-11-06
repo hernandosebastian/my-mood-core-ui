@@ -10,14 +10,15 @@ import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { signUpToastMessages } from "../messages";
+import { AxiosError } from "axios";
 
 export function SignUpPage(): JSX.Element {
   useSEO({
     title: authenticationSeoConfig.signUp.title,
     description: authenticationSeoConfig.signUp.description,
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { showSuccessToast, showErrorToast } = useToast();
 
@@ -41,15 +42,17 @@ export function SignUpPage(): JSX.Element {
             signUpToastMessages.success.title,
             signUpToastMessages.success.description
           );
-
           navigate("/confirm-user", {
             state: { user: values.username },
           });
         },
-        onError: () => {
+        onError: (error: AxiosError) => {
+          const errorMessage = (error.response?.data as { message?: string })
+            ?.message;
+
           showErrorToast(
             signUpToastMessages.error.title,
-            signUpToastMessages.error.description
+            errorMessage ?? signUpToastMessages.error.description
           );
         },
       });

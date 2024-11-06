@@ -1,16 +1,17 @@
 import { useMutation, UseMutationResult } from "react-query";
 import { IForgotPasswordDto, ISuccessfulOperationResponse } from "../dto";
 import { forgotPassword } from "../services";
+import { AxiosError } from "axios";
 
 export const useForgotPassword = (): UseMutationResult<
   ISuccessfulOperationResponse,
-  unknown,
+  AxiosError,
   IForgotPasswordDto,
   unknown
 > => {
   return useMutation<
     ISuccessfulOperationResponse,
-    unknown,
+    AxiosError,
     IForgotPasswordDto,
     unknown
   >({
@@ -18,4 +19,3 @@ export const useForgotPassword = (): UseMutationResult<
       forgotPassword({ username }),
   });
 };
-

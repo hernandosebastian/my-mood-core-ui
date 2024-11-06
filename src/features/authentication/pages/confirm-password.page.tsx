@@ -10,6 +10,7 @@ import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { confirmPasswordToastMessages } from "../messages";
+import { AxiosError } from "axios";
 
 export function ConfirmPasswordPage(): JSX.Element {
   useSEO({
@@ -49,10 +50,13 @@ export function ConfirmPasswordPage(): JSX.Element {
             state: { user: values.username },
           });
         },
-        onError: () => {
+        onError: (error: AxiosError) => {
+          const errorMessage = (error.response?.data as { message?: string })
+            ?.message;
+
           showErrorToast(
             confirmPasswordToastMessages.error.title,
-            confirmPasswordToastMessages.error.description
+            errorMessage ?? confirmPasswordToastMessages.error.description
           );
         },
       });

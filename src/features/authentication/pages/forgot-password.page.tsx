@@ -10,6 +10,7 @@ import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { forgotPasswordToastMessages } from "../messages";
+import { AxiosError } from "axios";
 
 export function ForgotPasswordPage(): JSX.Element {
   useSEO({
@@ -46,10 +47,13 @@ export function ForgotPasswordPage(): JSX.Element {
             state: { user: values.username },
           });
         },
-        onError: () => {
+        onError: (error: AxiosError) => {
+          const errorMessage = (error.response?.data as { message?: string })
+            ?.message;
+
           showErrorToast(
             forgotPasswordToastMessages.error.title,
-            forgotPasswordToastMessages.error.description
+            errorMessage ?? forgotPasswordToastMessages.error.description
           );
         },
       });

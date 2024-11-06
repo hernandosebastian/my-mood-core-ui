@@ -10,6 +10,7 @@ import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { logInToastMessages } from "../messages";
+import { AxiosError } from "axios";
 
 export function LogInPage(): JSX.Element {
   useSEO({
@@ -46,10 +47,13 @@ export function LogInPage(): JSX.Element {
           navigate("/");
           getMeQuery.refetch();
         },
-        onError: () => {
+        onError: (error: AxiosError) => {
+          const errorMessage = (error.response?.data as { message?: string })
+            ?.message;
+
           showErrorToast(
             logInToastMessages.error.title,
-            logInToastMessages.error.description
+            errorMessage ?? logInToastMessages.error.description
           );
         },
       });

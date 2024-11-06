@@ -1,14 +1,15 @@
 import { useMutation, UseMutationResult } from "react-query";
 import { ISignUpDto, ISignUpResponse } from "../dto";
 import { signUp } from "../services";
+import { AxiosError } from "axios";
 
 export const useSignUp = (): UseMutationResult<
   ISignUpResponse,
-  unknown,
+  AxiosError,
   ISignUpDto,
   unknown
 > => {
-  return useMutation<ISignUpResponse, unknown, ISignUpDto, unknown>({
+  return useMutation<ISignUpResponse, AxiosError, ISignUpDto, unknown>({
     mutationFn: ({ username, password }: ISignUpDto) =>
       signUp({ username, password }),
   });
