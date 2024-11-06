@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useForgotPassword } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
+import { useToast } from "@/hooks";
+import { forgotPasswordToastMessages } from "../messages";
 
 export function ForgotPasswordPage(): JSX.Element {
   useSEO({
@@ -17,6 +19,7 @@ export function ForgotPasswordPage(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { showSuccessToast, showErrorToast } = useToast();
 
   const forgotPasswordMutation = useForgotPassword();
 
@@ -35,9 +38,19 @@ export function ForgotPasswordPage(): JSX.Element {
     try {
       await forgotPasswordMutation.mutateAsync(values, {
         onSuccess: () => {
+          showSuccessToast(
+            forgotPasswordToastMessages.success.title,
+            forgotPasswordToastMessages.success.description
+          );
           navigate("/confirm-password", {
             state: { user: values.username },
           });
+        },
+        onError: () => {
+          showErrorToast(
+            forgotPasswordToastMessages.error.title,
+            forgotPasswordToastMessages.error.description
+          );
         },
       });
     } finally {

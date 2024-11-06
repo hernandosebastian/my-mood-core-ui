@@ -8,6 +8,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useGetMe, useLogIn } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
+import { useToast } from "@/hooks";
+import { logInToastMessages } from "../messages";
 
 export function LogInPage(): JSX.Element {
   useSEO({
@@ -16,9 +18,9 @@ export function LogInPage(): JSX.Element {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { showSuccessToast, showErrorToast } = useToast();
 
   const logInMutation = useLogIn();
   const getMeQuery = useGetMe();
@@ -37,8 +39,18 @@ export function LogInPage(): JSX.Element {
     try {
       await logInMutation.mutateAsync(values, {
         onSuccess: () => {
+          showSuccessToast(
+            logInToastMessages.success.title,
+            logInToastMessages.success.description
+          );
           navigate("/");
           getMeQuery.refetch();
+        },
+        onError: () => {
+          showErrorToast(
+            logInToastMessages.error.title,
+            logInToastMessages.error.description
+          );
         },
       });
     } finally {

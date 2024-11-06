@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useConfirmUser } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
+import { useToast } from "@/hooks";
+import { confirmUserToastMessages } from "../messages";
 
 export function ConfirmUserPage(): JSX.Element {
   useSEO({
@@ -18,6 +20,7 @@ export function ConfirmUserPage(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { showSuccessToast, showErrorToast } = useToast();
 
   const confirmUserMutation = useConfirmUser();
 
@@ -37,9 +40,19 @@ export function ConfirmUserPage(): JSX.Element {
     try {
       await confirmUserMutation.mutateAsync(values, {
         onSuccess: () => {
+          showSuccessToast(
+            confirmUserToastMessages.success.title,
+            confirmUserToastMessages.success.description
+          );
           navigate("/log-in", {
             state: { user: values.username },
           });
+        },
+        onError: () => {
+          showErrorToast(
+            confirmUserToastMessages.error.title,
+            confirmUserToastMessages.error.description
+          );
         },
       });
     } finally {

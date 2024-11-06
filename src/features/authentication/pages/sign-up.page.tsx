@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useSignUp } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
+import { useToast } from "@/hooks";
+import { signUpToastMessages } from "../messages";
 
 export function SignUpPage(): JSX.Element {
   useSEO({
@@ -17,6 +19,7 @@ export function SignUpPage(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const { showSuccessToast, showErrorToast } = useToast();
 
   const signUpMutation = useSignUp();
 
@@ -34,9 +37,20 @@ export function SignUpPage(): JSX.Element {
     try {
       await signUpMutation.mutateAsync(values, {
         onSuccess: () => {
+          showSuccessToast(
+            signUpToastMessages.success.title,
+            signUpToastMessages.success.description
+          );
+
           navigate("/confirm-user", {
             state: { user: values.username },
           });
+        },
+        onError: () => {
+          showErrorToast(
+            signUpToastMessages.error.title,
+            signUpToastMessages.error.description
+          );
         },
       });
     } finally {
