@@ -18,3 +18,16 @@ export const confirmPasswordErrorMessages = {
     digitsOnly: "Code must only contain digits.",
   },
 };
+
+export const confirmPasswordToastMessages = {
+  success: {
+    title: "Password Confirmed",
+    description:
+      "Your password has been successfully confirmed. You can now log in.",
+  },
+  error: {
+    title: "Confirmation Failed",
+    description:
+      "There was an error confirming your password. Please try again.",
+  },
+};

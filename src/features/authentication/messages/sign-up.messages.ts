@@ -14,3 +14,15 @@ export const signUpErrorMessages = {
       "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
   },
 };
+
+export const signUpToastMessages = {
+  success: {
+    title: "Sign Up Successful",
+    description:
+      "Your account has been created successfully. You can now log in.",
+  },
+  error: {
+    title: "Sign Up Failed",
+    description: "There was an error signing up. Please try again.",
+  },
+};

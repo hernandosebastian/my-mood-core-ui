@@ -5,3 +5,15 @@ export const forgotPasswordErrorMessages = {
     invalidEmail: "Username must be a valid email address.",
   },
 };
+
+export const forgotPasswordToastMessages = {
+  success: {
+    title: "Password Reset Requested",
+    description: "A password reset link has been sent to your email address.",
+  },
+  error: {
+    title: "Password Reset Failed",
+    description:
+      "There was an error requesting the password reset. Please try again.",
+  },
+};

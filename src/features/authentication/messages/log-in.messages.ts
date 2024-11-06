@@ -14,3 +14,15 @@ export const logInErrorMessages = {
       "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
   },
 };
+
+export const logInToastMessages = {
+  success: {
+    title: "Login Successful",
+    description: "You have successfully logged in. Welcome back!",
+  },
+  error: {
+    title: "Login Failed",
+    description:
+      "There was an error logging in. Please check your credentials and try again.",
+  },
+};
