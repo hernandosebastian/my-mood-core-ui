@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { logInSchema } from "../schemas";
-import { SignInForm } from "../components";
+import { LogInForm } from "../components";
 
-export function SignInPage(): JSX.Element {
+export function LogInPage(): JSX.Element {
   const form = useForm<z.infer<typeof logInSchema>>({
     resolver: zodResolver(logInSchema),
     defaultValues: {
@@ -17,6 +17,6 @@ export function SignInPage(): JSX.Element {
     console.log("User signed in with:", values);
   }
 
-  return <SignInForm form={form} onSubmit={onSubmit} />;
+  return <LogInForm form={form} onSubmit={onSubmit} />;
 }
 

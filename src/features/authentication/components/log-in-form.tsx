@@ -2,7 +2,7 @@ import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { logInSchema } from "../schemas";
 
-interface ISignInFormProps {
+interface ILogInFormProps {
   form: UseFormReturn<
     {
       username: string;
@@ -15,10 +15,10 @@ interface ISignInFormProps {
   onSubmit: (values: z.infer<typeof logInSchema>) => void;
 }
 
-export function SignInForm({
+export function LogInForm({
   form,
   onSubmit,
-}: Readonly<ISignInFormProps>): JSX.Element {
+}: Readonly<ILogInFormProps>): JSX.Element {
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
       <div>
@@ -56,7 +56,7 @@ export function SignInForm({
         )}
       </div>
 
-      <button type="submit">Sign In</button>
+      <button type="submit">Log In</button>
     </form>
   );
 }
