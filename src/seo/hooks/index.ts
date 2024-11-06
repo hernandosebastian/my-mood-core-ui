@@ -1,1 +1,1 @@
-export { useSEO } from "./useSeo";
+export { useSEO } from "./use-seo";
