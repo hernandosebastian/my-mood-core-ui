@@ -20,6 +20,7 @@ interface IConfirmUserFormProps {
       username: string;
       code: string;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any,
     undefined
   >;
@@ -42,7 +43,7 @@ export function ConfirmUserForm({
   };
 
   const handleRedirectToResendCode = (): void => {
-    navigate("/resend-confirmation-code"); // Redirigir al endpoint de reenvío de código
+    navigate("/resend-confirmation-code");
   };
 
   return (
