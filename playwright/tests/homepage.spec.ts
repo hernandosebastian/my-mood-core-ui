@@ -11,6 +11,6 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("Homepage", () => {
   test("should display the correct title", async ({ page }) => {
-    await expect(page).toHaveTitle(/Vite \+ React/);
+    await expect(page).toHaveTitle(/My Mood/);
   });
 });

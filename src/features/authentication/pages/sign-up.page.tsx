@@ -6,8 +6,14 @@ import { SignUpForm } from "../components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignUp } from "../hooks";
+import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function SignUpPage(): JSX.Element {
+  useSEO({
+    title: authenticationSeoConfig.signUp.title,
+    description: authenticationSeoConfig.signUp.description,
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();

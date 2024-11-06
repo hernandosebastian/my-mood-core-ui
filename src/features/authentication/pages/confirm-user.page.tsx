@@ -6,10 +6,16 @@ import { ConfirmUserForm } from "../components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useConfirmUser } from "../hooks";
+import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function ConfirmUserPage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: authenticationSeoConfig.confirmUser.title,
+    description: authenticationSeoConfig.confirmUser.description,
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { state } = useLocation();
 

@@ -6,10 +6,16 @@ import { ForgotPasswordForm } from "../components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForgotPassword } from "../hooks";
+import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function ForgotPasswordPage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: authenticationSeoConfig.forgotPassword.title,
+    description: authenticationSeoConfig.forgotPassword.description,
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const forgotPasswordMutation = useForgotPassword();

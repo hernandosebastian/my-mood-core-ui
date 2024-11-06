@@ -11,9 +11,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { FormFieldContext } from "@/hooks/form-field-context";
-import { FormItemContext } from "@/hooks/form-item-context";
-import { useFormField } from "@/hooks/use-form-field";
+import { FormFieldContext, FormItemContext, useFormField } from "@/hooks";
 
 const Form = FormProvider;
 
@@ -144,4 +142,3 @@ export {
   FormMessage,
   FormField,
 };
-

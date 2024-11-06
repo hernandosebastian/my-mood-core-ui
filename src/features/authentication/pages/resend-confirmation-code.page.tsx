@@ -6,10 +6,16 @@ import { ResendConfirmationCodeForm } from "../components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useResendConfirmationCode } from "../hooks";
+import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function ResendConfirmationCodePage(): JSX.Element {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  useSEO({
+    title: authenticationSeoConfig.resendConfirmationCode.title,
+    description: authenticationSeoConfig.resendConfirmationCode.description,
+  });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const resendConfirmationCodeMutation = useResendConfirmationCode();
