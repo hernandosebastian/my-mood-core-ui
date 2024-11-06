@@ -66,16 +66,16 @@ export function ConfirmPasswordForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the username to confirm your identity.
+                    Enter the email to confirm your identity.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

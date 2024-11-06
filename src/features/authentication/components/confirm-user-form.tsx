@@ -57,7 +57,7 @@ export function ConfirmUserForm({
             Confirm User
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter the username and confirmation code to confirm your account.
+            Enter the email and confirmation code to confirm your account.
           </p>
         </div>
 
@@ -68,17 +68,17 @@ export function ConfirmUserForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="username"
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the username to confirm your account.
+                    Enter the email to confirm your account.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

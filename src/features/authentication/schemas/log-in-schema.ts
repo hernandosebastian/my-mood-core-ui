@@ -4,11 +4,9 @@ import { logInErrorMessages } from "../messages/log-in.messages";
 const logInSchema = z.object({
   username: z
     .string()
+    .email({ message: logInErrorMessages.username.invalidEmail })
     .min(2, { message: logInErrorMessages.username.minLength })
-    .max(50, { message: logInErrorMessages.username.maxLength })
-    .regex(/^[a-zA-Z0-9_-]+$/, {
-      message: logInErrorMessages.username.invalidChars,
-    }),
+    .max(50, { message: logInErrorMessages.username.maxLength }),
 
   password: z
     .string()
@@ -23,4 +21,3 @@ const logInSchema = z.object({
 });
 
 export default logInSchema;
-

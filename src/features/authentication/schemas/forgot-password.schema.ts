@@ -4,12 +4,9 @@ import { forgotPasswordErrorMessages } from "../messages/forgot-password.message
 const forgotPasswordSchema = z.object({
   username: z
     .string()
+    .email({ message: forgotPasswordErrorMessages.username.invalidEmail })
     .min(2, { message: forgotPasswordErrorMessages.username.minLength })
-    .max(50, { message: forgotPasswordErrorMessages.username.maxLength })
-    .regex(/^[a-zA-Z0-9_-]+$/, {
-      message: forgotPasswordErrorMessages.username.invalidChars,
-    }),
+    .max(50, { message: forgotPasswordErrorMessages.username.maxLength }),
 });
 
 export default forgotPasswordSchema;
-

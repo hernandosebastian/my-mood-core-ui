@@ -4,11 +4,9 @@ import { confirmUserErrorMessages } from "../messages/confirm-user.messages";
 const confirmUserSchema = z.object({
   username: z
     .string()
+    .email({ message: confirmUserErrorMessages.username.invalidEmail })
     .min(2, { message: confirmUserErrorMessages.username.minLength })
-    .max(50, { message: confirmUserErrorMessages.username.maxLength })
-    .regex(/^[a-zA-Z0-9_-]+$/, {
-      message: confirmUserErrorMessages.username.invalidChars,
-    }),
+    .max(50, { message: confirmUserErrorMessages.username.maxLength }),
 
   code: z
     .string()
@@ -17,4 +15,3 @@ const confirmUserSchema = z.object({
 });
 
 export default confirmUserSchema;
-

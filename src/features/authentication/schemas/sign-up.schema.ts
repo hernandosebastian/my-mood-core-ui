@@ -4,11 +4,9 @@ import { signUpErrorMessages } from "../messages/sign-up.messages";
 const signUpSchema = z.object({
   username: z
     .string()
+    .email({ message: signUpErrorMessages.username.invalidEmail })
     .min(2, { message: signUpErrorMessages.username.minLength })
-    .max(50, { message: signUpErrorMessages.username.maxLength })
-    .regex(/^[a-zA-Z0-9_-]+$/, {
-      message: signUpErrorMessages.username.invalidChars,
-    }),
+    .max(50, { message: signUpErrorMessages.username.maxLength }),
 
   password: z
     .string()
@@ -23,4 +21,3 @@ const signUpSchema = z.object({
 });
 
 export default signUpSchema;
-

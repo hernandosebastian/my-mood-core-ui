@@ -56,7 +56,7 @@ export function SignUpForm({
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Sign Up</h1>
           <p className="text-sm text-muted-foreground">
-            Create your account by entering a username and password.
+            Create your account by entering a email and password.
           </p>
         </div>
 
@@ -67,11 +67,11 @@ export function SignUpForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       id="username"
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
                     />

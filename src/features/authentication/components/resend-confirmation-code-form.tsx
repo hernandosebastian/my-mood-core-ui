@@ -56,7 +56,7 @@ export function ResendConfirmationCodeForm({
             Resend Confirmation Code
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your username to resend the confirmation code.
+            Enter your email to resend the confirmation code.
           </p>
         </div>
 
@@ -67,18 +67,19 @@ export function ResendConfirmationCodeForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your username"
+                      placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the username to which you want to resend the
+                    Enter the email address to which you want to resend the
                     confirmation code.
                   </FormDescription>
+
                   <FormMessage />
                 </FormItem>
               )}
