@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { resendConfirmationCodeErrorMessages } from "../messages/resend-confirmation-code.messages";
+import { resendConfirmationCodeErrorMessages } from "../messages";
 
 const resendConfirmationCodeSchema = z.object({
   username: z

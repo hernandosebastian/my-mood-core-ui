@@ -1,4 +1,4 @@
-import { AppRole } from "../entity/User";
+import { AppRole } from "../enum";
 
 export interface IGetMeResponse {
   id: number;

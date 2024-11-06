@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { confirmPasswordErrorMessages } from "../messages/confirm-password.messages";
+import { confirmPasswordErrorMessages } from "../messages";
 
 const confirmPasswordSchema = z.object({
   username: z

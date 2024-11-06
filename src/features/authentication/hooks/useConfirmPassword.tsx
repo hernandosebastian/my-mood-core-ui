@@ -1,8 +1,6 @@
 import { useMutation, UseMutationResult } from "react-query";
-import {
-  IConfirmPasswordDto,
-  ISuccessfulOperationResponse,
-} from "../dto/index";
+
+import { IConfirmPasswordDto, ISuccessfulOperationResponse } from "../dto";
 import { confirmPassword } from "../services";
 
 export const useConfirmPassword = (): UseMutationResult<
@@ -21,4 +19,3 @@ export const useConfirmPassword = (): UseMutationResult<
       confirmPassword({ username, newPassword, code }),
   });
 };
-

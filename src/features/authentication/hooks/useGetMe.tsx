@@ -1,9 +1,9 @@
 import { useQuery, UseQueryResult } from "react-query";
 import { getMe } from "../services";
 import { IGetMeResponse } from "../dto";
-import { mapToUser } from "../mapper/mapToUser";
-import { User } from "../entity/User";
 import { getItem, StorageKeys } from "@/services/local-storage";
+import { mapToUser } from "../mapper";
+import { User } from "../entity";
 
 const getMeKeys = (): string[] => ["getMe"];
 
@@ -34,4 +34,3 @@ export const useGetMe = (): UseQueryResult<{ user: User }, unknown> => {
     }),
   });
 };
-

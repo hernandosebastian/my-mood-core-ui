@@ -18,4 +18,3 @@ export const useConfirmUser = (): UseMutationResult<
       confirmUser({ username, code }),
   });
 };
-

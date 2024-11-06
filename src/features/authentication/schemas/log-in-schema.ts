@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { logInErrorMessages } from "../messages/log-in.messages";
+import { logInErrorMessages } from "../messages";
 
 const logInSchema = z.object({
   username: z

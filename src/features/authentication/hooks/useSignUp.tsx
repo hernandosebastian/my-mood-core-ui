@@ -13,4 +13,3 @@ export const useSignUp = (): UseMutationResult<
       signUp({ username, password }),
   });
 };
-

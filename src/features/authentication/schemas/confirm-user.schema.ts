@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { confirmUserErrorMessages } from "../messages/confirm-user.messages";
+import { confirmUserErrorMessages } from "../messages";
 
 const confirmUserSchema = z.object({
   username: z

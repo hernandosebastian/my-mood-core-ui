@@ -1,7 +1,4 @@
-export enum AppRole {
-  Admin = "admin",
-  Regular = "regular",
-}
+import { AppRole } from "../enum";
 
 export class User {
   constructor(
@@ -14,4 +11,3 @@ export class User {
     public deletedAt: Date | null
   ) {}
 }
-
