@@ -14,6 +14,11 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Icons } from "@/components/ui/Icons";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 interface IConfirmUserFormProps {
   form: UseFormReturn<
@@ -92,13 +97,16 @@ export function ConfirmUserForm({
                 <FormItem>
                   <FormLabel>Code</FormLabel>
                   <FormControl>
-                    <Input
-                      id="code"
-                      placeholder="Enter 6-digit code"
-                      {...field}
-                      maxLength={6}
-                      disabled={isLoading}
-                    />
+                    <InputOTP maxLength={6} {...field}>
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
                   </FormControl>
                   <FormDescription>
                     Enter the 6-digit code sent to your email.
