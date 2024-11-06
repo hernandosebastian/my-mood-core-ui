@@ -72,8 +72,8 @@ export function ForgotPasswordForm({
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the email address associated with your account to
-                    reset your password.
+                    Enter the email associated with your account to reset your
+                    password.
                   </FormDescription>
 
                   <FormMessage />

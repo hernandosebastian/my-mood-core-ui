@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { useResendConfirmationCode } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
+import { useToast } from "@/hooks";
+import { resendConfirmationCodeToastMessages } from "../messages";
+import { AxiosError } from "axios";
 
 export function ResendConfirmationCodePage(): JSX.Element {
   useSEO({
@@ -17,6 +20,7 @@ export function ResendConfirmationCodePage(): JSX.Element {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { showSuccessToast, showErrorToast } = useToast();
 
   const resendConfirmationCodeMutation = useResendConfirmationCode();
 
@@ -35,9 +39,23 @@ export function ResendConfirmationCodePage(): JSX.Element {
     try {
       await resendConfirmationCodeMutation.mutateAsync(values, {
         onSuccess: () => {
+          showSuccessToast(
+            resendConfirmationCodeToastMessages.success.title,
+            resendConfirmationCodeToastMessages.success.description
+          );
           navigate("/confirm-user", {
             state: { user: values.username },
           });
+        },
+        onError: (error: AxiosError) => {
+          const errorMessage = (error.response?.data as { message?: string })
+            ?.message;
+
+          showErrorToast(
+            resendConfirmationCodeToastMessages.error.title,
+            errorMessage ??
+              resendConfirmationCodeToastMessages.error.description
+          );
         },
       });
     } finally {

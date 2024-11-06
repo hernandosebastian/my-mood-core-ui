@@ -4,16 +4,17 @@ import {
   ISuccessfulOperationResponse,
 } from "../dto";
 import { resendConfirmationCode } from "../services";
+import { AxiosError } from "axios";
 
 export const useResendConfirmationCode = (): UseMutationResult<
   ISuccessfulOperationResponse,
-  unknown,
+  AxiosError,
   IResendConfirmationCodeDto,
   unknown
 > => {
   return useMutation<
     ISuccessfulOperationResponse,
-    unknown,
+    AxiosError,
     IResendConfirmationCodeDto,
     unknown
   >({
@@ -21,4 +22,3 @@ export const useResendConfirmationCode = (): UseMutationResult<
       resendConfirmationCode({ username }),
   });
 };
-

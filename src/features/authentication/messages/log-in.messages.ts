@@ -1,8 +1,8 @@
 export const logInErrorMessages = {
   username: {
-    minLength: "Username must be at least 2 characters.",
-    maxLength: "Username cannot be longer than 50 characters.",
-    invalidEmail: "Username must be a valid email address.",
+    minLength: "Email must be at least 2 characters.",
+    maxLength: "Email cannot be longer than 50 characters.",
+    invalidEmail: "Email must be a valid email address.",
   },
   password: {
     minLength: "Password must be at least 8 characters long.",
@@ -12,5 +12,17 @@ export const logInErrorMessages = {
     number: "Password must contain at least one number.",
     specialChar:
       "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
+  },
+};
+
+export const logInToastMessages = {
+  success: {
+    title: "Login Successful",
+    description: "You have successfully logged in. Welcome back!",
+  },
+  error: {
+    title: "Login Failed",
+    description:
+      "There was an error logging in. Please check your credentials and try again.",
   },
 };

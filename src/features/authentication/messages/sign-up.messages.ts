@@ -1,8 +1,8 @@
 export const signUpErrorMessages = {
   username: {
-    minLength: "Username must be at least 2 characters.",
-    maxLength: "Username cannot be longer than 50 characters.",
-    invalidEmail: "Username must be a valid email address.",
+    minLength: "Email must be at least 2 characters.",
+    maxLength: "Email cannot be longer than 50 characters.",
+    invalidEmail: "Email must be a valid email address.",
   },
   password: {
     minLength: "Password must be at least 8 characters long.",
@@ -12,5 +12,17 @@ export const signUpErrorMessages = {
     number: "Password must contain at least one number.",
     specialChar:
       "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
+  },
+};
+
+export const signUpToastMessages = {
+  success: {
+    title: "Sign Up Successful",
+    description:
+      "Your account has been created successfully. You can now log in.",
+  },
+  error: {
+    title: "Sign Up Failed",
+    description: "There was an error signing up. Please try again.",
   },
 };

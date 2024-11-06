@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { forgotPasswordErrorMessages } from "../messages/forgot-password.messages";
+import { forgotPasswordErrorMessages } from "../messages";
 
 const forgotPasswordSchema = z.object({
   username: z

@@ -1,7 +1,7 @@
-export { useConfirmPassword } from "./useConfirmPassword";
-export { useConfirmUser } from "./useConfirmUser";
-export { useForgotPassword } from "./useForgotPassword";
-export { useGetMe } from "./useGetMe";
-export { useLogIn } from "./useLogIn";
-export { useResendConfirmationCode } from "./useResendConfirmationCode";
-export { useSignUp } from "./useSignUp";
+export { useConfirmPassword } from "./use-confirm-password";
+export { useConfirmUser } from "./use-confirm-user";
+export { useForgotPassword } from "./use-forgot-password";
+export { useGetMe } from "./use-get-me";
+export { useLogIn } from "./use-log-in";
+export { useResendConfirmationCode } from "./use-resend-confirmation-code";
+export { useSignUp } from "./use-sign-up";
