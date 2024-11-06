@@ -7,12 +7,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForgotPassword } from "../hooks";
 import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function ForgotPasswordPage(): JSX.Element {
   useSEO({
-    title: "My Mood - Forgot Password",
-    description:
-      "Reset your password and regain access to your My Mood account.",
+    title: authenticationSeoConfig.forgotPassword.title,
+    description: authenticationSeoConfig.forgotPassword.description,
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);

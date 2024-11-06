@@ -7,12 +7,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSignUp } from "../hooks";
 import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function SignUpPage(): JSX.Element {
   useSEO({
-    title: "My Mood - Sign Up",
-    description:
-      "Create an account on My Mood to track and improve your mood and well-being.",
+    title: authenticationSeoConfig.signUp.title,
+    description: authenticationSeoConfig.signUp.description,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

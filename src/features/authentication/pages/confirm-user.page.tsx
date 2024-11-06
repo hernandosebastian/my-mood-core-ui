@@ -7,12 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useConfirmUser } from "../hooks";
 import { useSEO } from "@/seo/hooks";
+import { authenticationSeoConfig } from "@/seo/config";
 
 export function ConfirmUserPage(): JSX.Element {
   useSEO({
-    title: "My Mood - Confirm Your Account",
-    description:
-      "Confirm your account to complete registration and start using My Mood.",
+    title: authenticationSeoConfig.confirmUser.title,
+    description: authenticationSeoConfig.confirmUser.description,
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
