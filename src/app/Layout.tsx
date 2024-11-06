@@ -9,7 +9,9 @@ export default function Layout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+        {children}
+      </SidebarInset>
     </SidebarProvider>
   );
 }
