@@ -1,21 +1,31 @@
-import { LogIn, LucideIcon, UserPlus } from "lucide-react";
+import { LogIn, UserPlus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
 } from "./ui/sidebar";
 
 export function SidebarContentUserAnonymous(): JSX.Element {
+  const navigate = useNavigate();
+
+  const handleLoginClick = (): void => {
+    navigate("/log-in");
+  };
+
+  const handleSignUpClick = (): void => {
+    navigate("/sign-up");
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupContent>
         <SidebarMenu>
           <SidebarMenuItem key="Log in">
             <SidebarMenuButton asChild size="default">
-              <button>
+              <button onClick={handleLoginClick}>
                 <LogIn />
                 <span>Log in</span>
               </button>
@@ -23,7 +33,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
           </SidebarMenuItem>
           <SidebarMenuItem key="Sign up">
             <SidebarMenuButton asChild size="default">
-              <button>
+              <button onClick={handleSignUpClick}>
                 <UserPlus />
                 <span>Sign up</span>
               </button>
@@ -34,4 +44,3 @@ export function SidebarContentUserAnonymous(): JSX.Element {
     </SidebarGroup>
   );
 }
-
