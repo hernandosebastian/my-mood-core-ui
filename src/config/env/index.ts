@@ -9,6 +9,7 @@ interface CoreApiConfig {
 }
 
 interface AppConfig {
+  mode: string;
   port: number;
   baseUrl: string;
 }
@@ -21,6 +22,7 @@ interface EnvConfig {
 
 export const env: EnvConfig = {
   app: {
+    mode: import.meta.env.VITE_APP_MODE,
     port: import.meta.env.VITE_APP_PORT,
     baseUrl: import.meta.env.VITE_APP_BASE_URL,
   },
