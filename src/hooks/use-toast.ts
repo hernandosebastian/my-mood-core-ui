@@ -6,12 +6,12 @@ interface IUseToast {
     description: string,
     undoAction: () => void
   ) => void;
-  success: (
+  showSuccessToast: (
     message: string,
     description: string,
     undoAction?: () => void
   ) => void;
-  error: (
+  showErrorToast: (
     message: string,
     description: string,
     undoAction?: () => void
@@ -33,7 +33,7 @@ export function useToast(): IUseToast {
     });
   };
 
-  const success = (
+  const showSuccessToast = (
     message: string,
     description: string,
     undoAction?: () => void
@@ -49,7 +49,7 @@ export function useToast(): IUseToast {
     });
   };
 
-  const error = (
+  const showErrorToast = (
     message: string,
     description: string,
     undoAction?: () => void
@@ -65,6 +65,6 @@ export function useToast(): IUseToast {
     });
   };
 
-  return { showToast, success, error };
+  return { showToast, showSuccessToast, showErrorToast };
 }
 
