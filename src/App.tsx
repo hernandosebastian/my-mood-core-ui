@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { env } from "./config/env";
+import { Toaster } from "./components/ui/sonner";
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ export default function App(): ReactNode {
         <Routes>{RoutesList}</Routes>
         {env.app.mode === "development" && <ReactQueryDevtools />}
       </QueryClientProvider>
+      <Toaster />
     </Layout>
   );
 }
