@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "@/components/ui/Icons";
 
 interface IConfirmUserFormProps {
   form: UseFormReturn<
@@ -25,11 +26,13 @@ interface IConfirmUserFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof confirmUserSchema>) => void;
+  isLoading: boolean;
 }
 
 export function ConfirmUserForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<IConfirmUserFormProps>): JSX.Element {
   const navigate = useNavigate();
 
@@ -71,6 +74,7 @@ export function ConfirmUserForm({
                       id="username"
                       placeholder="Enter your username"
                       {...field}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
@@ -93,6 +97,7 @@ export function ConfirmUserForm({
                       placeholder="Enter 6-digit code"
                       {...field}
                       maxLength={6}
+                      disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription>
@@ -103,7 +108,10 @@ export function ConfirmUserForm({
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? (
+                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               Confirm
             </Button>
           </form>
@@ -123,4 +131,3 @@ export function ConfirmUserForm({
     </div>
   );
 }
-

@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "@/components/ui/Icons";
 
 interface IResendConfirmationCodeFormProps {
   form: UseFormReturn<
@@ -24,11 +25,13 @@ interface IResendConfirmationCodeFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof resendConfirmationCodeSchema>) => void;
+  isLoading: boolean;
 }
 
 export function ResendConfirmationCodeForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<IResendConfirmationCodeFormProps>): JSX.Element {
   const navigate = useNavigate();
 
@@ -42,7 +45,7 @@ export function ResendConfirmationCodeForm({
   };
 
   const handleRedirectToSignIn = (): void => {
-    navigate("/sign-in");
+    navigate("/log-in");
   };
 
   return (
@@ -66,7 +69,11 @@ export function ResendConfirmationCodeForm({
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your username" {...field} />
+                    <Input
+                      placeholder="Enter your username"
+                      {...field}
+                      disabled={isLoading}
+                    />
                   </FormControl>
                   <FormDescription>
                     Enter the username to which you want to resend the
@@ -77,7 +84,10 @@ export function ResendConfirmationCodeForm({
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={isLoading} className="w-full">
+              {isLoading ? (
+                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               Resend Confirmation Code
             </Button>
           </form>
@@ -97,4 +107,3 @@ export function ResendConfirmationCodeForm({
     </div>
   );
 }
-

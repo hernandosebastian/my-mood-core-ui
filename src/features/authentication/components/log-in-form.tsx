@@ -19,20 +19,24 @@ interface ILogInFormProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: UseFormReturn<{ username: string; password: string }, any, undefined>;
   onSubmit: (values: z.infer<typeof logInSchema>) => void;
+  isLoading: boolean;
 }
 
 export function LogInForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<ILogInFormProps>): JSX.Element {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
-    setIsLoading(true);
 
-    form.handleSubmit(onSubmit)();
+    const result = await form.trigger();
+
+    if (result) {
+      onSubmit(form.getValues());
+    }
   };
 
   const handleRedirectToSignUp = (): void => {
@@ -127,4 +131,3 @@ export function LogInForm({
     </div>
   );
 }
-

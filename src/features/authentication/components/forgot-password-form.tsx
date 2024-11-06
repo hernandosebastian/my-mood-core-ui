@@ -25,24 +25,21 @@ interface IForgotPasswordFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof forgotPasswordSchema>) => void;
+  isLoading: boolean;
 }
 
 export function ForgotPasswordForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<IForgotPasswordFormProps>): JSX.Element {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
+
     const result = await form.trigger();
 
     if (result) {
-      setIsLoading(true);
       onSubmit(form.getValues());
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
     }
   };
 
@@ -95,4 +92,3 @@ export function ForgotPasswordForm({
     </div>
   );
 }
-

@@ -26,26 +26,23 @@ interface ISignUpFormProps {
     undefined
   >;
   onSubmit: (values: z.infer<typeof signUpSchema>) => void;
+  isLoading: boolean;
 }
 
 export function SignUpForm({
   form,
   onSubmit,
+  isLoading,
 }: Readonly<ISignUpFormProps>): JSX.Element {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
+
     const result = await form.trigger();
 
     if (result) {
       onSubmit(form.getValues());
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        navigate("/confirm-user");
-      }, 3000);
     }
   };
 
@@ -127,4 +124,3 @@ export function SignUpForm({
     </div>
   );
 }
-
