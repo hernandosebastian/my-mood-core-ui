@@ -76,8 +76,8 @@ export function ResendConfirmationCodeForm({
                     />
                   </FormControl>
                   <FormDescription>
-                    Enter the email address to which you want to resend the
-                    confirmation code.
+                    Enter the email to which you want to resend the confirmation
+                    code.
                   </FormDescription>
 
                   <FormMessage />
