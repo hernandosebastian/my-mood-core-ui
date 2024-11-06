@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import confirmPasswordSchema from "../schemas/confirm-password.schema";
+import { confirmPasswordSchema } from "../schemas";
 
 interface IConfirmPasswordFormProps {
   form: UseFormReturn<

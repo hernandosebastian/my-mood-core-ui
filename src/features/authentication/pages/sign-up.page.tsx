@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import signUpSchema from "../schemas/sign-up.schema";
-import { SignUpForm } from "../components/sign-up-form";
+import { signUpSchema } from "../schemas";
+import { SignUpForm } from "../components";
 
 export function SignUpPage(): JSX.Element {
   const form = useForm<z.infer<typeof signUpSchema>>({

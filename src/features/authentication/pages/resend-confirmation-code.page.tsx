@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import resendConfirmationCodeSchema from "../schemas/resend-confirmation-code.schemas";
-import { ResendConfirmationCodeForm } from "../components/resend-confirmation-code-form";
-
+import { resendConfirmationCodeSchema } from "../schemas";
+import { ResendConfirmationCodeForm } from "../components";
 export function ResendConfirmationCodePage(): JSX.Element {
   const form = useForm<z.infer<typeof resendConfirmationCodeSchema>>({
     resolver: zodResolver(resendConfirmationCodeSchema),

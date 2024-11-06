@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import resendConfirmationCodeSchema from "../schemas/resend-confirmation-code.schemas";
+import { resendConfirmationCodeSchema } from "../schemas";
 
 interface IResendConfirmationCodeFormProps {
   form: UseFormReturn<

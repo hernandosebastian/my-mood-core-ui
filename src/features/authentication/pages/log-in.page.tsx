@@ -1,19 +1,19 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { SignInForm } from "../components/log-in-form";
-import signInSchema from "../schemas/log-in-schema";
+import { logInSchema } from "../schemas";
+import { SignInForm } from "../components";
 
 export function SignInPage(): JSX.Element {
-  const form = useForm<z.infer<typeof signInSchema>>({
-    resolver: zodResolver(signInSchema),
+  const form = useForm<z.infer<typeof logInSchema>>({
+    resolver: zodResolver(logInSchema),
     defaultValues: {
       username: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof signInSchema>): void {
+  function onSubmit(values: z.infer<typeof logInSchema>): void {
     console.log("User signed in with:", values);
   }
 

@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import signInSchema from "../schemas/log-in-schema";
+import { logInSchema } from "../schemas";
 
 interface ISignInFormProps {
   form: UseFormReturn<
@@ -12,7 +12,7 @@ interface ISignInFormProps {
     any,
     undefined
   >;
-  onSubmit: (values: z.infer<typeof signInSchema>) => void;
+  onSubmit: (values: z.infer<typeof logInSchema>) => void;
 }
 
 export function SignInForm({

@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import confirmUserSchema from "../schemas/confirm-user.schema";
-import { ConfirmUserForm } from "../components/confirm-user-form";
+import { confirmUserSchema } from "../schemas";
+import { ConfirmUserForm } from "../components";
 
 export function ConfirmUserPage(): JSX.Element {
   const form = useForm<z.infer<typeof confirmUserSchema>>({

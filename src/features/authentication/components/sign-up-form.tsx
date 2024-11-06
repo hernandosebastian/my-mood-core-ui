@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
-import signUpSchema from "../schemas/sign-up.schema";
 import { z } from "zod";
+import { signUpSchema } from "../schemas";
 
 interface ISignUpFormProps {
   form: UseFormReturn<

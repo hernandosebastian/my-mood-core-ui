@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import forgotPasswordSchema from "../schemas/forgot-password.schema";
+import { forgotPasswordSchema } from "../schemas";
 
 interface IForgotPasswordFormProps {
   form: UseFormReturn<

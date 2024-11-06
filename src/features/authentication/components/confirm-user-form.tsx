@@ -1,6 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import confirmUserSchema from "../schemas/confirm-user.schema";
+import { confirmUserSchema } from "../schemas";
 
 interface IConfirmUserFormProps {
   form: UseFormReturn<
