@@ -8,7 +8,7 @@ import {
 export const resendConfirmationCode = async (
   resendConfirmationCodeDto: IResendConfirmationCodeDto
 ): Promise<ISuccessfulOperationResponse> => {
-  const apiUrl = `${env.coreApi.baseUrl}/auth/sign-in`;
+  const apiUrl = `${env.coreApi.baseUrl}/auth/resend-confirmation-code`;
 
   const response = await axios.post<ISuccessfulOperationResponse>(
     apiUrl,

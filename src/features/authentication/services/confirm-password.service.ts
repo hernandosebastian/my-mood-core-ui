@@ -5,7 +5,7 @@ import { IConfirmPasswordDto, ISuccessfulOperationResponse } from "../dto";
 export const confirmPassword = async (
   confirmPasswordDto: IConfirmPasswordDto
 ): Promise<ISuccessfulOperationResponse> => {
-  const apiUrl = `${env.coreApi.baseUrl}/auth/sign-in`;
+  const apiUrl = `${env.coreApi.baseUrl}/auth/confirm-password`;
 
   const response = await axios.post<ISuccessfulOperationResponse>(
     apiUrl,

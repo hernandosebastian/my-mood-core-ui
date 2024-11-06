@@ -5,7 +5,7 @@ import { IForgotPasswordDto, ISuccessfulOperationResponse } from "../dto";
 export const forgotPassword = async (
   forgotPasswordDto: IForgotPasswordDto
 ): Promise<ISuccessfulOperationResponse> => {
-  const apiUrl = `${env.coreApi.baseUrl}/auth/sign-in`;
+  const apiUrl = `${env.coreApi.baseUrl}/auth/forgot-password`;
 
   const response = await axios.post<ISuccessfulOperationResponse>(
     apiUrl,
