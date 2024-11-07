@@ -5,7 +5,6 @@ const logInSchema = z.object({
   username: z
     .string()
     .email({ message: logInErrorMessages.username.invalidEmail })
-    .min(2, { message: logInErrorMessages.username.minLength })
     .max(50, { message: logInErrorMessages.username.maxLength }),
 
   password: z

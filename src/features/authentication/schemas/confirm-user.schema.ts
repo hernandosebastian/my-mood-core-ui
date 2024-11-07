@@ -5,7 +5,6 @@ const confirmUserSchema = z.object({
   username: z
     .string()
     .email({ message: confirmUserErrorMessages.username.invalidEmail })
-    .min(2, { message: confirmUserErrorMessages.username.minLength })
     .max(50, { message: confirmUserErrorMessages.username.maxLength }),
 
   code: z
