@@ -28,7 +28,7 @@ export function ConfirmUserPage(): JSX.Element {
   const form = useForm<z.infer<typeof confirmUserSchema>>({
     resolver: zodResolver(confirmUserSchema),
     defaultValues: {
-      username: state?.user ?? "",
+      username: state?.username ?? "",
       code: "",
     },
   });
@@ -46,7 +46,7 @@ export function ConfirmUserPage(): JSX.Element {
             confirmUserToastMessages.success.description
           );
           navigate("/log-in", {
-            state: { user: values.username },
+            state: { username: values.username },
           });
         },
         onError: (error: AxiosError) => {

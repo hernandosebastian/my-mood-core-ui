@@ -5,7 +5,6 @@ const signUpSchema = z.object({
   username: z
     .string()
     .email({ message: signUpErrorMessages.username.invalidEmail })
-    .min(2, { message: signUpErrorMessages.username.minLength })
     .max(50, { message: signUpErrorMessages.username.maxLength }),
 
   password: z

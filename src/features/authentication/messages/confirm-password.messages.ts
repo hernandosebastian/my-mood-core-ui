@@ -1,6 +1,5 @@
 export const confirmPasswordErrorMessages = {
   username: {
-    minLength: "Email must be at least 2 characters.",
     maxLength: "Email cannot be longer than 50 characters.",
     invalidEmail: "Email must be a valid email address.",
   },

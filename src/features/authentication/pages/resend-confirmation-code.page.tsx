@@ -44,7 +44,7 @@ export function ResendConfirmationCodePage(): JSX.Element {
             resendConfirmationCodeToastMessages.success.description
           );
           navigate("/confirm-user", {
-            state: { user: values.username },
+            state: { username: values.username },
           });
         },
         onError: (error: AxiosError) => {

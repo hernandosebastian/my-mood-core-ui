@@ -14,8 +14,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "npx playwright test",
-    "test:ui": "npx playwright test --ui",
+    "pretest": "tsc --incremental -p playwright/tsconfig.json",
+    "test": "npm run pretest && npx playwright test",
+    "test:ui": "npm run pretest && npx playwright test --ui",
     "test:report": "npx playwright show-report",
     "prepare": "husky install"
   },

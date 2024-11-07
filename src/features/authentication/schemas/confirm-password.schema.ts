@@ -5,7 +5,6 @@ const confirmPasswordSchema = z.object({
   username: z
     .string()
     .email({ message: confirmPasswordErrorMessages.username.invalidEmail })
-    .min(2, { message: confirmPasswordErrorMessages.username.minLength })
     .max(50, { message: confirmPasswordErrorMessages.username.maxLength }),
 
   newPassword: z
