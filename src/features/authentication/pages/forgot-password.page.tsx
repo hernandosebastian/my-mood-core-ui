@@ -44,7 +44,7 @@ export function ForgotPasswordPage(): JSX.Element {
             forgotPasswordToastMessages.success.description
           );
           navigate("/confirm-password", {
-            state: { user: values.username },
+            state: { username: values.username },
           });
         },
         onError: (error: AxiosError) => {

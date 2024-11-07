@@ -74,6 +74,7 @@ export function ConfirmPasswordForm({
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
+                      id="username"
                       placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
@@ -95,6 +96,7 @@ export function ConfirmPasswordForm({
                   <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
+                      id="newPassword"
                       type="password"
                       placeholder="Enter new password"
                       {...field}
@@ -146,6 +148,7 @@ export function ConfirmPasswordForm({
 
         <div className="mt-4 text-center text-sm">
           <button
+            id="redirect-to-forgot-password"
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToForgotPassword}

@@ -112,6 +112,7 @@ export function SignUpForm({
 
         <div className="mt-4 text-center text-sm">
           <button
+            id="redirect-to-log-in"
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToLogIn}

@@ -47,7 +47,7 @@ export function ConfirmPasswordPage(): JSX.Element {
             confirmPasswordToastMessages.success.description
           );
           navigate("/log-in", {
-            state: { user: values.username },
+            state: { username: values.username },
           });
         },
         onError: (error: AxiosError) => {

@@ -44,7 +44,7 @@ export function ResendConfirmationCodeForm({
     }
   };
 
-  const handleRedirectToSignIn = (): void => {
+  const handleRedirectToLogIn = (): void => {
     navigate("/log-in");
   };
 
@@ -70,6 +70,7 @@ export function ResendConfirmationCodeForm({
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
+                      id="username"
                       placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
@@ -96,9 +97,10 @@ export function ResendConfirmationCodeForm({
 
         <div className="mt-4 text-center text-sm">
           <button
+            id="redirect-to-log-in"
             type="button"
             className="text-muted-foreground hover:text-primary"
-            onClick={handleRedirectToSignIn}
+            onClick={handleRedirectToLogIn}
           >
             Already have an account?{" "}
             <span className="underline underline-offset-4">Sign In</span>
