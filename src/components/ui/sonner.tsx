@@ -6,8 +6,11 @@ type ToasterProps = React.ComponentProps<typeof Sonner>;
 const Toaster = ({ ...props }: ToasterProps): JSX.Element => {
   const { theme = "system" } = useTheme();
 
+  const generateToastKey = (): number => Date.now();
+
   return (
     <Sonner
+      key={generateToastKey()}
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
       toastOptions={{
@@ -28,4 +31,3 @@ const Toaster = ({ ...props }: ToasterProps): JSX.Element => {
 };
 
 export { Toaster };
-
