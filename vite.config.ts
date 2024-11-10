@@ -7,22 +7,18 @@ import tsconfig from './tsconfig.json';
 
 dotenv.config();
 
-const rawAlias: { [key: string]: string[] } =
-  tsconfig.compilerOptions.paths || [];
-const alias = [] as { find: string; replacement: string }[];
+const rawAlias = tsconfig.compilerOptions.paths;
+const alias = {};
 
-for (const key in rawAlias) {
-  alias.push({
-    find: key.replace('/*', ''),
-    replacement: path.resolve(__dirname, rawAlias[key][0].replace('/*', '')),
-  });
+for (const x in rawAlias) {
+  alias[x.replace('/*', '')] = rawAlias[x].map((p) =>
+    path.resolve(__dirname, p.replace('/*', '')),
+  );
 }
 
 export default defineConfig({
+  resolve: { alias },
   plugins: [react()],
-  resolve: {
-    alias,
-  },
   server: {
     host: true,
     port: process.env.VITE_APP_PORT ? +process.env.VITE_APP_PORT : 5173,
