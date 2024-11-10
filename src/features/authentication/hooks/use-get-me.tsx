@@ -6,7 +6,7 @@ import { mapToUser } from "../mapper";
 import { User } from "../entity";
 import { AxiosError } from "axios";
 
-const getMeKeys = (): string[] => ["getMe"];
+export const getMeKeys = (): string[] => ["getMe"];
 
 export const useGetMe = (): UseQueryResult<{ user: User }, AxiosError> => {
   const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
