@@ -1,5 +1,9 @@
 {
-  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "singleQuote": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": true,
+  "endOfLine": "auto",
   "importOrder": [
     "^react$",
     "^@react$",
@@ -16,7 +20,5 @@
     "^@services/(.*)$"
   ],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "trailingComma": "es5",
-  "singleQuote": true
+  "importOrderSortSpecifiers": true
 }
