@@ -1,5 +1,5 @@
+import { SidebarSeparator } from "../ui/sidebar";
 import { DatePicker } from "./date-picker";
-import { SidebarSeparator } from "./ui/sidebar";
 
 export function SidebarContentUserLogged(): JSX.Element {
   return (
@@ -9,4 +9,3 @@ export function SidebarContentUserLogged(): JSX.Element {
     </>
   );
 }
-

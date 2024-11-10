@@ -6,7 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "./ui/sidebar";
+} from "../ui/sidebar";
 
 export function SidebarContentUserAnonymous(): JSX.Element {
   const navigate = useNavigate();

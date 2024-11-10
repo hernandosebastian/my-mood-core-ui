@@ -1,24 +1,21 @@
 import * as React from "react";
-import { type LucideIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "./ui/sidebar";
+} from "../ui/sidebar";
+import { navSecondaryItems } from "./utils/navSecondaryItems";
 
 export function NavSecondary({
-  items,
   ...props
-}: {
-  items: { title: string; url: string; icon: LucideIcon }[];
-} & React.ComponentPropsWithoutRef<typeof SidebarGroup>): JSX.Element {
+}: Readonly<React.ComponentPropsWithoutRef<typeof SidebarGroup>>): JSX.Element {
   return (
-    <SidebarGroup {...props}>
+    <SidebarGroup className="mt-auto" {...props}>
       <SidebarGroupContent>
         <SidebarMenu>
-          {items.map((item) => (
+          {navSecondaryItems.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild size="sm">
                 <a href={item.url}>
