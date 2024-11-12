@@ -120,7 +120,7 @@ test.describe("LogInForm Validation Tests", () => {
       route.fulfill(successLoginFixture);
     });
 
-    await page.route("**/api/v1/user/get-me", (route) => {
+    await page.route("**/api/v1/user/me", (route) => {
       route.fulfill(successGetMeFixture);
     });
 
@@ -199,4 +199,3 @@ test.describe("LogInForm Validation Tests", () => {
     await expect(page).toHaveURL(`${BASE_URL}sign-up`);
   });
 });
-
