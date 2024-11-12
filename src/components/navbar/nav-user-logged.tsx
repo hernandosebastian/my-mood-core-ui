@@ -8,28 +8,36 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { SidebarMenuButton } from "./ui/sidebar";
+import { SidebarMenuButton } from "../ui/sidebar";
+import { User } from "@/features/authentication/entity";
+import { useLogOut } from "@/features/authentication/hooks/use-log-out";
 
 interface NavUserLoggedProps {
-  user: {
-    name: string;
-    email: string;
-    avatar: string;
-  };
+  user: User;
 }
 
 export function NavUserLogged({
   user,
 }: Readonly<NavUserLoggedProps>): JSX.Element {
+  const logout = useLogOut();
+
+  const handleLogout = (): void => {
+    logout();
+  };
+
   const renderAvatar = (): JSX.Element => (
     <>
       <Avatar className="h-8 w-8 rounded-lg">
-        <AvatarImage src={user.avatar} alt={user.name} />
+        <AvatarImage
+          src={
+            "https://i.pinimg.com/736x/77/88/7e/77887e10a46a811c26ffcacec6fd4259.jpg"
+          }
+          alt={"Avatar from user"}
+        />
         <AvatarFallback className="rounded-lg">CN</AvatarFallback>
       </Avatar>
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <span className="truncate font-semibold">{user.name}</span>
-        <span className="truncate text-xs">{user.email}</span>
+        <span className="truncate font-semibold">{user.username}</span>
       </div>
     </>
   );
@@ -40,6 +48,7 @@ export function NavUserLogged({
         <SidebarMenuButton
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          id="sidebar-user-menu-trigger"
         >
           {renderAvatar()}
           <ChevronsUpDown className="ml-auto size-4" />
@@ -63,7 +72,11 @@ export function NavUserLogged({
           Account
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={handleLogout}
+          id="sidebar-logout-menu-item"
+        >
           <LogOut />
           Log out
         </DropdownMenuItem>
@@ -71,4 +84,3 @@ export function NavUserLogged({
     </DropdownMenu>
   );
 }
-

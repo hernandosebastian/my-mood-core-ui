@@ -101,7 +101,12 @@ export function SignUpForm({
               )}
             />
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+              id="sign-up-button"
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}

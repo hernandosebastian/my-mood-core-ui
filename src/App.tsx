@@ -11,12 +11,12 @@ const queryClient = new QueryClient();
 
 export default function App(): ReactNode {
   return (
-    <Layout>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <Layout>
         <Routes>{RoutesList}</Routes>
         {env.app.mode === "development" && <ReactQueryDevtools />}
-      </QueryClientProvider>
-      <Toaster />
-    </Layout>
+        <Toaster />
+      </Layout>
+    </QueryClientProvider>
   );
 }
