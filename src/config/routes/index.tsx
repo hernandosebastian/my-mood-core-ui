@@ -6,6 +6,7 @@ import {
   ResendConfirmationCodePage,
   SignUpPage,
 } from "@/features/authentication/pages";
+import { NotFoundPage } from "@/features/not-found/pages";
 import { Route } from "react-router-dom";
 
 const authRoutes = (
@@ -25,6 +26,7 @@ const authRoutes = (
 export const RoutesList = (
   <>
     {authRoutes}
-    <Route path="*" element={<></>} />
+    <Route path="/" element={<></>} />
+    <Route path="*" element={<NotFoundPage />} />
   </>
 );
