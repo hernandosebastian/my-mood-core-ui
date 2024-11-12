@@ -27,7 +27,7 @@ test.describe("NotFound Tests", () => {
   });
 
   test("should test redirection button on not found page", async ({ page }) => {
-    await page.goto(`${BASE_URL}`);
+    await page.goto(`${BASE_URL}/not-found-404`);
 
     const notFoundReturnButton = page.locator("#not-found-return-button");
 
