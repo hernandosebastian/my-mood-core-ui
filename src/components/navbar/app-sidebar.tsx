@@ -20,7 +20,7 @@ export function AppSidebar({
   const getMeQuery = useGetMe();
   const isLoggedIn = getMeQuery.data?.user !== undefined;
   return (
-    <Sidebar {...props}>
+    <Sidebar {...props} id="sidebar">
       <SidebarHeader className="h-16 border-b border-sidebar-border">
         {isLoggedIn && getMeQuery.data ? (
           <NavUserLogged user={getMeQuery.data.user} />

@@ -9,6 +9,7 @@ import {
   errorSignUpFixture,
   axiosErrorSignUpFixture,
 } from "../../../fixtures/features/authentication/sign-up.fixture";
+import { closeSidebarIfNeeded, openSidebarIfNeeded } from "utils/sidebar";
 
 dotenv.config();
 
@@ -117,15 +118,23 @@ test.describe("SignUpForm Validation Tests", () => {
     await page.route("**/api/v1/auth/sign-up", (route) => {
       route.fulfill(successSignUpFixture);
     });
+    page.goto(`${BASE_URL}`);
+
+    await openSidebarIfNeeded(page);
+
+    const sidebarSignUpButton = page.locator("#sidebar-sign-up-button");
+    await sidebarSignUpButton.click();
+
+    await closeSidebarIfNeeded(page);
 
     const emailValue = "test@example.com";
     const emailInput = page.locator("#username");
     const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
+    const signUpButton = page.locator("#sign-up-button");
 
     await emailInput.fill(emailValue);
     await passwordInput.fill("ValidPass1!");
-    await submitButton.click();
+    await signUpButton.click();
 
     const toastLocator = page.locator("li[data-sonner-toast]");
     const descriptionLocator = toastLocator.locator("div[data-description]");
@@ -190,4 +199,3 @@ test.describe("SignUpForm Validation Tests", () => {
     await expect(page).toHaveURL(`${BASE_URL}log-in`);
   });
 });
-

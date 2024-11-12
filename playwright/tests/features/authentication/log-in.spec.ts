@@ -11,6 +11,7 @@ import {
   errorLoginFixture,
   axiosErrorLoginFixture,
 } from "../../../fixtures/features/authentication/log-in.fixture";
+import { closeSidebarIfNeeded, openSidebarIfNeeded } from "utils/sidebar";
 
 dotenv.config();
 
@@ -123,6 +124,15 @@ test.describe("LogInForm Validation Tests", () => {
     await page.route("**/api/v1/user/me", (route) => {
       route.fulfill(successGetMeFixture);
     });
+
+    page.goto(`${BASE_URL}`);
+
+    await openSidebarIfNeeded(page);
+
+    const sidebarLogInButton = page.locator("#sidebar-log-in-button");
+    await sidebarLogInButton.click();
+
+    await closeSidebarIfNeeded(page);
 
     const emailInput = page.locator("#username");
     const passwordInput = page.locator("#password");

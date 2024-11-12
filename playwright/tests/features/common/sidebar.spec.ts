@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { logIn } from "../../../utils/log-in";
 import { logOut } from "../../../utils/log-out";
+import { openSidebarIfNeeded } from "../../../utils/sidebar";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,10 +13,12 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Sidebar", () => {
-  test.only("should show sidebar logic according to user state", async ({
+  test("should show sidebar logic according to user state", async ({
     page,
   }) => {
-    const sidebarLoginButton = page.locator("#sidebar-login-button");
+    await openSidebarIfNeeded(page);
+
+    const sidebarLoginButton = page.locator("#sidebar-log-in-button");
     const sidebarSignUpButton = page.locator("#sidebar-sign-up-button");
     const sidebarLogoutMenuItem = page.locator("#sidebar-logout-menu-item");
     const sidebarDatePicker = page.locator("#sidebar-date-picker");
@@ -27,7 +30,9 @@ test.describe("Sidebar", () => {
     await expect(sidebarDatePicker).not.toBeVisible();
     await expect(sidebarMenuButtonTrigger).not.toBeVisible();
 
-    await logIn(page);
+    await logIn({ page });
+
+    await openSidebarIfNeeded(page);
 
     await expect(sidebarLoginButton).not.toBeVisible();
     await expect(sidebarSignUpButton).not.toBeVisible();

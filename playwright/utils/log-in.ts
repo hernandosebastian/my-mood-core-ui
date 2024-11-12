@@ -7,7 +7,11 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
-export async function logIn(page: Page) {
+interface ILogInProps {
+  page: Page;
+}
+
+export async function logIn({ page }: ILogInProps) {
   await page.route("**/api/v1/auth/sign-in", (route) => {
     route.fulfill(successLoginFixture);
   });
