@@ -25,7 +25,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
         <SidebarMenu>
           <SidebarMenuItem key="Log in">
             <SidebarMenuButton asChild size="default">
-              <button onClick={handleLoginClick}>
+              <button onClick={handleLoginClick} id="sidebar-login-button">
                 <LogIn />
                 <span>Log in</span>
               </button>
@@ -33,7 +33,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
           </SidebarMenuItem>
           <SidebarMenuItem key="Sign up">
             <SidebarMenuButton asChild size="default">
-              <button onClick={handleSignUpClick}>
+              <button onClick={handleSignUpClick} id="sidebar-sign-up-button">
                 <UserPlus />
                 <span>Sign up</span>
               </button>

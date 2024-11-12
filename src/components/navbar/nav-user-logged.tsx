@@ -48,6 +48,7 @@ export function NavUserLogged({
         <SidebarMenuButton
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          id="sidebar-user-menu-trigger"
         >
           {renderAvatar()}
           <ChevronsUpDown className="ml-auto size-4" />
@@ -71,7 +72,11 @@ export function NavUserLogged({
           Account
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={handleLogout}
+          id="sidebar-logout-menu-item"
+        >
           <LogOut />
           Log out
         </DropdownMenuItem>
