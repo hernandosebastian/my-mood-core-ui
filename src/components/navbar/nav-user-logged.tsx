@@ -11,6 +11,7 @@ import {
 import { SidebarMenuButton } from "../ui/sidebar";
 import { User } from "@/features/authentication/entity";
 import { useLogOut } from "@/features/authentication/hooks/use-log-out";
+import { useSidebar } from "@/hooks";
 
 interface NavUserLoggedProps {
   user: User;
@@ -20,6 +21,7 @@ export function NavUserLogged({
   user,
 }: Readonly<NavUserLoggedProps>): JSX.Element {
   const logout = useLogOut();
+  const { isMobile } = useSidebar();
 
   const handleLogout = (): void => {
     logout();
@@ -57,7 +59,7 @@ export function NavUserLogged({
 
       <DropdownMenuContent
         className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-        side="right"
+        side={isMobile ? "bottom" : "right"}
         align="start"
         sideOffset={4}
       >
