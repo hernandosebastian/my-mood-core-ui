@@ -1,3 +1,4 @@
+import { env } from "@/config/env";
 import { SidebarFooter, SidebarRail } from "../ui/sidebar";
 
 export function NavBarFooter(): JSX.Element {
@@ -7,7 +8,7 @@ export function NavBarFooter(): JSX.Element {
         <small>
           Made with{" "}
           <a
-            href="https://github.com/shadcn-ui/ui"
+            href={env.githubProfiles.shadcnGithubProfile}
             target="_blank"
             rel="noopener noreferrer"
           >
