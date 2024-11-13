@@ -12,6 +12,7 @@ import { SidebarMenuButton } from "../ui/sidebar";
 import { User } from "@/features/authentication/entity";
 import { useLogOut } from "@/features/authentication/hooks/use-log-out";
 import { useSidebar } from "@/hooks";
+import { useNavigate } from "react-router-dom";
 
 interface NavUserLoggedProps {
   user: User;
@@ -20,8 +21,13 @@ interface NavUserLoggedProps {
 export function NavUserLogged({
   user,
 }: Readonly<NavUserLoggedProps>): JSX.Element {
+  const navigate = useNavigate();
   const logout = useLogOut();
   const { isMobile } = useSidebar();
+
+  const handleAccount = (): void => {
+    navigate("/edit-profile");
+  };
 
   const handleLogout = (): void => {
     logout();
@@ -69,7 +75,11 @@ export function NavUserLogged({
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={handleAccount}
+          className="cursor-pointer"
+          id="sidebar-account-menu-item"
+        >
           <BadgeCheck />
           Account
         </DropdownMenuItem>
