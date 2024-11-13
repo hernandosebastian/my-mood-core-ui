@@ -3,8 +3,15 @@ import { CurrentAvatar, AvatarList, AttributionLink } from "../components";
 import { Loading } from "@/components/common/Loading";
 import { useState } from "react";
 import { useAvatars, useProfile } from "../hooks";
+import { useSEO } from "@/seo/hooks";
+import { EditProfileSeoConfig } from "@/seo/config/edit-profile.config";
 
 export function EditProfilePage(): JSX.Element {
+  useSEO({
+    title: EditProfileSeoConfig.title,
+    description: EditProfileSeoConfig.description,
+  });
+
   const { getMeQuery, currentAvatar, setCurrentAvatar } = useProfile();
   const { avatarList, isImageLoaded, setIsImageLoaded } = useAvatars();
   const [selectedAvatar, setSelectedAvatar] = useState<string | undefined>(
