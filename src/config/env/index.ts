@@ -15,6 +15,7 @@ interface AppConfig {
 }
 
 interface GithubProfilesConfig {
+  ownerGithubProfile: string;
   shadcnGithubProfile: string;
 }
 
@@ -40,6 +41,7 @@ export const env: EnvConfig = {
     endpoint: import.meta.env.VITE_AWS_COGNITO_ENDPOINT,
   },
   githubProfiles: {
+    ownerGithubProfile: import.meta.env.VITE_OWNER_GITHUB_PROFILE,
     shadcnGithubProfile: import.meta.env.VITE_SHADCN_GITHUB_PROFILE,
   },
 };
