@@ -16,6 +16,7 @@ interface AppConfig {
 
 interface GithubProfilesConfig {
   ownerGithubProfile: string;
+  ownerGithubName: string;
   shadcnGithubProfile: string;
 }
 
@@ -42,6 +43,7 @@ export const env: EnvConfig = {
   },
   githubProfiles: {
     ownerGithubProfile: import.meta.env.VITE_OWNER_GITHUB_PROFILE,
+    ownerGithubName: import.meta.env.VITE_OWNER_GITHUB_NAME,
     shadcnGithubProfile: import.meta.env.VITE_SHADCN_GITHUB_PROFILE,
   },
 };
