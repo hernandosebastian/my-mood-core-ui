@@ -5,7 +5,14 @@ export function NavBarFooter(): JSX.Element {
     <>
       <SidebarFooter className="text-center">
         <small>
-          Made with <a href="https://github.com/shadcn-ui/ui">shadcn-ui</a>
+          Made with{" "}
+          <a
+            href="https://github.com/shadcn-ui/ui"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            shadcn-ui
+          </a>
         </small>
       </SidebarFooter>
       <SidebarRail />
