@@ -14,10 +14,15 @@ interface AppConfig {
   baseUrl: string;
 }
 
+interface GithubProfilesConfig {
+  shadcnGithubProfile: string;
+}
+
 interface EnvConfig {
   app: AppConfig;
   coreApi: CoreApiConfig;
   cognito: CognitoConfig;
+  githubProfiles: GithubProfilesConfig;
 }
 
 export const env: EnvConfig = {
@@ -33,5 +38,8 @@ export const env: EnvConfig = {
     userPoolId: import.meta.env.VITE_AWS_COGNITO_USER_POOL_ID,
     clientId: import.meta.env.VITE_AWS_COGNITO_CLIENT_ID,
     endpoint: import.meta.env.VITE_AWS_COGNITO_ENDPOINT,
+  },
+  githubProfiles: {
+    shadcnGithubProfile: import.meta.env.VITE_SHADCN_GITHUB_PROFILE,
   },
 };
