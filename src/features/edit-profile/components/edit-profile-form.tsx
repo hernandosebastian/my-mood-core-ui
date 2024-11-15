@@ -11,12 +11,12 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/Icons";
 import { AvatarList } from "./avatar-list";
 import { CurrentAvatar } from "./current-avatar";
-import { useForm, UseFormReturn } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { IAvatar } from "../interfaces";
-import editProfileSchema from "../schemas/edit-profile.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import { editProfileSchema } from "../schemas";
 
 interface IEditProfileFormProps {
   isLoading: boolean;
@@ -102,7 +102,12 @@ export function EditProfileForm({
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isLoading} className="w-full">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="w-full"
+            id="edit-profile-submit-button"
+          >
             {isLoading ? (
               <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : null}{" "}
