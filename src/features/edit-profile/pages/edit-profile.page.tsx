@@ -9,7 +9,7 @@ import { useSEO } from "@/seo/hooks";
 import { EditProfileSeoConfig } from "@/seo/config/edit-profile.config";
 import { z } from "zod";
 import { editProfileSchema } from "../schemas/";
-import { EditProfileToastMessages } from "../messages/edit-profile.messages";
+import { editProfileToastMessages } from "../messages";
 import { AxiosError } from "axios";
 
 export function EditProfilePage(): JSX.Element {
@@ -45,8 +45,8 @@ export function EditProfilePage(): JSX.Element {
       await updateProfileMutation.mutateAsync(values, {
         onSuccess: () => {
           showSuccessToast(
-            EditProfileToastMessages.success.title,
-            EditProfileToastMessages.success.description
+            editProfileToastMessages.success.title,
+            editProfileToastMessages.success.description
           );
           navigate("/");
         },
@@ -54,8 +54,8 @@ export function EditProfilePage(): JSX.Element {
           const errorMessage = (error.response?.data as { message?: string })
             ?.message;
           showErrorToast(
-            EditProfileToastMessages.error.title,
-            errorMessage ?? EditProfileToastMessages.error.description
+            editProfileToastMessages.error.title,
+            errorMessage ?? editProfileToastMessages.error.description
           );
         },
       });

@@ -1,1 +1,5 @@
-export { editProfileErrorMessages } from "./edit-profile.messages";
+export {
+  editProfileErrorMessages,
+  editProfileToastMessages,
+} from "./edit-profile.messages";
+
