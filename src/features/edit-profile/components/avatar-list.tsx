@@ -16,7 +16,7 @@ export function AvatarList({
   return (
     <ScrollArea className="h-[300px] border rounded-lg p-4">
       <div className="grid grid-cols-4 gap-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
-        {avatarList.map((avatar) => (
+        {avatarList.map((avatar, index) => (
           <button
             type="button"
             key={avatar.name}
@@ -26,6 +26,7 @@ export function AvatarList({
                 : "hover:bg-gray-100"
             }`}
             onClick={() => setSelectedAvatar(avatar.src)}
+            id={`avatar-${index}`}
           >
             <Avatar className="w-16 h-16 bg-gray-300">
               <AvatarImage
