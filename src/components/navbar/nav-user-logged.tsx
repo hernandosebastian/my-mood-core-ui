@@ -36,16 +36,12 @@ export function NavUserLogged({
   const renderAvatar = (): JSX.Element => (
     <>
       <Avatar className="h-8 w-8 rounded-lg">
-        <AvatarImage
-          src={
-            "https://i.pinimg.com/736x/77/88/7e/77887e10a46a811c26ffcacec6fd4259.jpg"
-          }
-          alt={"Avatar from user"}
-        />
+        <AvatarImage src={user.avatarSrc} alt={"Avatar from user"} />
         <AvatarFallback className="rounded-lg">CN</AvatarFallback>
       </Avatar>
       <div className="grid flex-1 text-left text-sm leading-tight">
         <span className="truncate font-semibold">{user.username}</span>
+        <span className="truncate text-muted-foreground">{user.nickname}</span>
       </div>
     </>
   );
