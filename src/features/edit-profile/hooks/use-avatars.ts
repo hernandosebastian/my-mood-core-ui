@@ -5,12 +5,11 @@ import { IAvatar } from "../interfaces";
 export interface IUseAvatars {
   avatarList: IAvatar[];
   isImageLoaded: boolean;
-  setIsImageLoaded: (value: boolean) => void;
 }
 
 export function useAvatars(): IUseAvatars {
   const [avatarList, setAvatarList] = useState<IAvatar[]>([]);
-  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
+  const [isImageLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchAvatars = async (): Promise<void> => {
@@ -26,6 +25,6 @@ export function useAvatars(): IUseAvatars {
     fetchAvatars();
   }, []);
 
-  return { avatarList, isImageLoaded, setIsImageLoaded };
+  return { avatarList, isImageLoaded };
 }
 

@@ -16,7 +16,6 @@ interface IUseProfile {
     AxiosError<unknown, any>
   >;
   currentAvatar: string | undefined;
-  setCurrentAvatar: (value: string | undefined) => void;
 }
 
 export function useProfile(): IUseProfile {
@@ -43,6 +42,6 @@ export function useProfile(): IUseProfile {
     }
   }, [getMeQuery.error, navigate, showErrorToast]);
 
-  return { getMeQuery, currentAvatar, setCurrentAvatar };
+  return { getMeQuery, currentAvatar };
 }
 
