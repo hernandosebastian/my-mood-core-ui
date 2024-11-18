@@ -5,7 +5,7 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
-test.describe("NotFound Tests", () => {
+test.describe("features/not-found", () => {
   test("should display not found page if path is not found", async ({
     page,
   }) => {
@@ -36,4 +36,3 @@ test.describe("NotFound Tests", () => {
     await expect(page).toHaveURL(`${BASE_URL}`);
   });
 });
-

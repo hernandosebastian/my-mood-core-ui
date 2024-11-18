@@ -18,7 +18,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}forgot-password`);
 });
 
-test.describe("ForgotPasswordForm Validation Tests", () => {
+test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
     const emailInput = page.locator("#username");
     const submitButton = page.locator('button[type="submit"]');
@@ -111,4 +111,3 @@ test.describe("ForgotPasswordForm Validation Tests", () => {
     await expect(descriptionLocator).toContainText(errorMessage);
   });
 });
-

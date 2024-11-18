@@ -21,7 +21,7 @@ test.beforeEach(async ({ page, isMobile }) => {
   await logIn({ page, isMobile });
 });
 
-test.describe("feature/edit-profile", () => {
+test.describe("features/edit-profile", () => {
   test("should successfully submit the form with new avatar and nickname", async ({
     page,
     isMobile,

@@ -21,7 +21,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}log-in`);
 });
 
-test.describe("LogInForm Validation Tests", () => {
+test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
     const emailInput = page.locator("#username");
     const submitButton = page.locator('button[type="submit"]');
