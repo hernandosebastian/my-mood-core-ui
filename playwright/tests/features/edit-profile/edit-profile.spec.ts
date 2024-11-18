@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import dotenv from "dotenv";
 import { editProfileToastMessages } from "@/features/edit-profile/messages/edit-profile.messages";
 import { successGetMeFixture } from "../../../fixtures/features/authentication/get-me.fixture";
 import {
@@ -9,8 +8,9 @@ import {
   successEditProfileOnlyAvatarFixture,
   successEditProfileOnlyNicknameFixture,
 } from "../../../fixtures/features/edit-profile/edit-profile.fixture";
+import dotenv from "dotenv";
 
-import { logIn } from "utils/log-in";
+import { logIn, openSidebarIfMobile, closeSidebarIfMobile } from "utils";
 
 dotenv.config();
 
@@ -36,16 +36,12 @@ test.describe("feature/edit-profile", () => {
       }
     });
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger").click();
-    }
+    await openSidebarIfMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger-close-responsive").click();
-    }
+    await closeSidebarIfMobile({ page, isMobile });
 
     const currentAvatar = page.getByTestId("current-avatar");
     const nicknameInput = page.getByTestId("edit-profile-nickname");
@@ -91,16 +87,12 @@ test.describe("feature/edit-profile", () => {
       }
     });
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger").click();
-    }
+    await openSidebarIfMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger-close-responsive").click();
-    }
+    await closeSidebarIfMobile({ page, isMobile });
 
     const currentAvatar = page.getByTestId("current-avatar");
     const nicknameInput = page.getByTestId("edit-profile-nickname");
@@ -146,16 +138,12 @@ test.describe("feature/edit-profile", () => {
       }
     });
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger").click();
-    }
+    await openSidebarIfMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger-close-responsive").click();
-    }
+    await closeSidebarIfMobile({ page, isMobile });
 
     const currentAvatar = page.getByTestId("current-avatar");
     const nicknameInput = page.getByTestId("edit-profile-nickname");
@@ -196,16 +184,12 @@ test.describe("feature/edit-profile", () => {
       }
     });
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger").click();
-    }
+    await openSidebarIfMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger-close-responsive").click();
-    }
+    await closeSidebarIfMobile({ page, isMobile });
 
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
@@ -238,16 +222,12 @@ test.describe("feature/edit-profile", () => {
       }
     });
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger").click();
-    }
+    await openSidebarIfMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    if (isMobile) {
-      await page.getByTestId("toggle-sidebar-trigger-close-responsive").click();
-    }
+    await closeSidebarIfMobile({ page, isMobile });
 
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
