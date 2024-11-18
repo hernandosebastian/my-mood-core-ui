@@ -24,4 +24,3 @@ export async function closeSidebarIfNeeded(page: Page): Promise<void> {
     await closeSidebarButton.click();
   }
 }
-

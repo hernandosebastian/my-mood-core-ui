@@ -12,11 +12,10 @@ export function HomepageHero(): JSX.Element {
         into your mood journey.
       </p>
       <Button asChild size="lg" className="mt-4">
-        <Link to="/log-in" id="homepage-get-started-button">
+        <Link to="/log-in" data-testid="homepage-get-started-button">
           Get Started
         </Link>
       </Button>
     </div>
   );
 }
-

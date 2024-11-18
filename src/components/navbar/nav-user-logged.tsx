@@ -37,11 +37,15 @@ export function NavUserLogged({
     <>
       <Avatar className="h-8 w-8 rounded-lg">
         <AvatarImage src={user.avatarSrc} alt={"Avatar from user"} />
-        <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+        <AvatarFallback className="rounded-lg">MM</AvatarFallback>
       </Avatar>
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <span className="truncate font-semibold">{user.username}</span>
-        <span className="truncate text-muted-foreground">{user.nickname}</span>
+        <span className="truncate font-semibold" id="sidebar-username">
+          {user.username}
+        </span>
+        <span className="truncate text-muted-foreground" id="sidebar-nickname">
+          {user.nickname}
+        </span>
       </div>
     </>
   );
@@ -52,7 +56,7 @@ export function NavUserLogged({
         <SidebarMenuButton
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-          id="sidebar-user-menu-trigger"
+          data-testid="sidebar-open-menu-button"
         >
           {renderAvatar()}
           <ChevronsUpDown className="ml-auto size-4" />
@@ -74,7 +78,7 @@ export function NavUserLogged({
         <DropdownMenuItem
           onClick={handleAccount}
           className="cursor-pointer"
-          id="sidebar-account-menu-item"
+          data-testid="sidebar-edit-profile-menu-item"
         >
           <BadgeCheck />
           Account

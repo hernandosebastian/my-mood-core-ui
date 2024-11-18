@@ -93,6 +93,7 @@ export function EditProfileForm({
                 <FormControl>
                   <Input
                     id="nickname"
+                    data-testid="edit-profile-nickname"
                     placeholder="Enter your nickname"
                     {...field}
                     disabled={isLoading}
@@ -107,6 +108,7 @@ export function EditProfileForm({
             disabled={isLoading}
             className="w-full"
             id="edit-profile-submit-button"
+            data-testid="edit-profile-submit-button"
           >
             {isLoading ? (
               <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />

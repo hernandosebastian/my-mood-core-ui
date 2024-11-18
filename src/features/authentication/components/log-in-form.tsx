@@ -69,6 +69,7 @@ export function LogInForm({
                     <Input
                       id="username"
                       placeholder="Enter your email"
+                      data-testid="log-in-username-input"
                       {...field}
                       disabled={isLoading}
                     />
@@ -89,6 +90,7 @@ export function LogInForm({
                       id="password"
                       type="password"
                       placeholder="Enter your password"
+                      data-testid="log-in-password-input"
                       {...field}
                       disabled={isLoading}
                     />
@@ -108,7 +110,13 @@ export function LogInForm({
               </button>
             </div>
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+              id="log-in-button"
+              data-testid="log-in-button"
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}

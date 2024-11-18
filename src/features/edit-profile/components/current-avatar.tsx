@@ -15,6 +15,7 @@ export function CurrentAvatar({
       <h2 className="text-lg text-gray-800">Current Avatar</h2>
       <Avatar className="w-32 h-32 bg-gray-300">
         <AvatarImage
+          data-testid="current-avatar"
           src={selectedAvatar ?? currentAvatar}
           alt="Current profile picture"
         />

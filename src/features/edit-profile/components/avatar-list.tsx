@@ -32,6 +32,7 @@ export function AvatarList({
               <AvatarImage
                 src={avatar.src}
                 alt={`Avatar option ${avatar.name}`}
+                data-testid={`avatar-${avatar.name}`}
               />
               <AvatarFallback className="text-gray-500">
                 {avatar.name}
