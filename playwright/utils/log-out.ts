@@ -1,17 +1,14 @@
 import { Page } from "@playwright/test";
+import { openSidebarIfMobile } from "./open-sidebar-if-mobile";
 
 interface ILogOutProps {
   page: Page;
-  isModalOpen?: boolean;
+  isMobile: boolean;
 }
 
-export async function logOut({ page, isModalOpen = false }: ILogOutProps) {
-  if (!isModalOpen) {
-    const sidebarMenuButtonTrigger = page.locator("#sidebar-user-menu-trigger");
-    await sidebarMenuButtonTrigger.click();
-  }
+export async function logOut({ page, isMobile }: ILogOutProps) {
+  await openSidebarIfMobile({ page, isMobile });
 
-  const sidebarLogoutMenuItem = page.locator("#sidebar-logout-menu-item");
-  await sidebarLogoutMenuItem.click();
+  await page.getByTestId("sidebar-open-menu-button").click();
+  await page.getByTestId("sidebar-logout-menu-item").click();
 }
-
