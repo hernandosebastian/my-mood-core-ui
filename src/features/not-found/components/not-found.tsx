@@ -5,6 +5,7 @@ export function NotFound(): JSX.Element {
     <div
       className="flex items-center px-4 py-12 sm:px-6 md:px-8 lg:px-12 xl:px-16"
       id="not-found-component"
+      data-testid="not-found-container"
     >
       <div className="w-full space-y-6 text-center">
         <div className="space-y-3">
@@ -19,6 +20,7 @@ export function NotFound(): JSX.Element {
           to="/"
           className="inline-flex h-10 items-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
           id="not-found-return-button"
+          data-testid="not-found-return-button"
         >
           Return to website
         </Link>
@@ -26,4 +28,3 @@ export function NotFound(): JSX.Element {
     </div>
   );
 }
-

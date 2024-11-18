@@ -11,7 +11,7 @@ test.describe("features/not-found", () => {
   }) => {
     await page.goto(`${BASE_URL}not-found-404`);
 
-    const notFoundComponent = page.locator("#not-found-component");
+    const notFoundComponent = page.getByTestId("not-found-container");
 
     await expect(notFoundComponent).toBeVisible();
   });
@@ -21,7 +21,7 @@ test.describe("features/not-found", () => {
   }) => {
     await page.goto(`${BASE_URL}`);
 
-    const notFoundComponent = page.locator("#not-found-component");
+    const notFoundComponent = page.getByTestId("not-found-container");
 
     await expect(notFoundComponent).not.toBeVisible();
   });
@@ -29,7 +29,7 @@ test.describe("features/not-found", () => {
   test("should test redirection button on not found page", async ({ page }) => {
     await page.goto(`${BASE_URL}/not-found-404`);
 
-    const notFoundReturnButton = page.locator("#not-found-return-button");
+    const notFoundReturnButton = page.getByTestId("not-found-return-button");
 
     await notFoundReturnButton.click();
 
