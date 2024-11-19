@@ -30,6 +30,7 @@ export function NavUserLogged({
   };
 
   const handleLogout = (): void => {
+    navigate("/");
     logout();
   };
 
