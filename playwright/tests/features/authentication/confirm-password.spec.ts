@@ -20,81 +20,85 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${confirmPasswordErrorMessages.username.invalidEmail}`
+    const emailInput = page.getByTestId("confirm-password-username-input");
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+    const errorToastMessage = page.getByText(
+      confirmPasswordErrorMessages.username.invalidEmail
     );
 
     await emailInput.fill("invalid-email");
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error for email exceeding max length", async ({
     page,
   }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${confirmPasswordErrorMessages.username.maxLength}`
+    const emailInput = page.getByTestId("confirm-password-username-input");
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+    const errorToastMessage = page.getByText(
+      confirmPasswordErrorMessages.username.maxLength
     );
 
     await emailInput.fill(`${"a".repeat(51)}@example.com`);
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error for new password not meeting requirements", async ({
     page,
   }) => {
-    const passwordInput = page.locator('input[name="newPassword"]');
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${confirmPasswordErrorMessages.newPassword.uppercase}`
+    const passwordInput = page.getByTestId(
+      "confirm-password-new-password-input"
+    );
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+    const passwordErrorToastMessage = page.getByText(
+      confirmPasswordErrorMessages.newPassword.uppercase
     );
 
     await passwordInput.fill("password1!");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+    await expect(passwordErrorToastMessage).toBeVisible();
   });
 
   test("should display error for invalid password length", async ({ page }) => {
-    const passwordInput = page.locator('input[name="newPassword"]');
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${confirmPasswordErrorMessages.newPassword.minLength}`
+    const passwordInput = page.getByTestId(
+      "confirm-password-new-password-input"
+    );
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+    const passwordErrorToastMessage = page.getByText(
+      confirmPasswordErrorMessages.newPassword.minLength
     );
 
     await passwordInput.fill("short");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+    await expect(passwordErrorToastMessage).toBeVisible();
   });
 
   test("should display error for non-numeric confirmation code", async ({
     page,
   }) => {
-    const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
-    const codeErrorMessage = page.locator(
-      `text=${confirmPasswordErrorMessages.code.digitsOnly}`
+    const otpInput = page.getByTestId("confirm-password-code-input");
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+    const codeErrorToastMessage = page.getByText(
+      confirmPasswordErrorMessages.code.digitsOnly
     );
 
     await otpInput.fill("abcdef");
     await submitButton.click();
-    await expect(codeErrorMessage).toBeVisible();
+    await expect(codeErrorToastMessage).toBeVisible();
   });
 
   test("should display error for incorrect confirmation code length", async ({
     page,
   }) => {
-    const submitButton = page.locator('button[type="submit"]');
-    const codeErrorMessage = page.locator(
-      `text=${confirmPasswordErrorMessages.code.length}`
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+    const codeErrorToastMessage = page.getByText(
+      confirmPasswordErrorMessages.code.length
     );
 
     await submitButton.click();
-    await expect(codeErrorMessage).toBeVisible();
+    await expect(codeErrorToastMessage).toBeVisible();
   });
 
   test("should successfully submit the form and show success message", async ({
@@ -105,10 +109,12 @@ test.describe("features/authentication", () => {
     });
 
     const emailValue = "test@example.com";
-    const emailInput = page.locator("#username");
-    const passwordInput = page.locator('input[name="newPassword"]');
-    const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("confirm-password-username-input");
+    const passwordInput = page.getByTestId(
+      "confirm-password-new-password-input"
+    );
+    const otpInput = page.getByTestId("confirm-password-code-input");
+    const submitButton = page.getByTestId("confirm-password-submit-button");
 
     await emailInput.fill(emailValue);
     await passwordInput.fill("ValidPass1!");
@@ -118,13 +124,13 @@ test.describe("features/authentication", () => {
 
     await expect(page).toHaveURL(`${BASE_URL}log-in`);
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const successfulToastMessage = page.getByText(
       confirmPasswordToastMessages.success.description
     );
 
-    const logInEmailInput = page.locator("#username");
+    await expect(successfulToastMessage).toBeVisible();
+
+    const logInEmailInput = page.getByTestId("log-in-username-input");
     await expect(logInEmailInput).toHaveValue(emailValue);
   });
 
@@ -135,10 +141,12 @@ test.describe("features/authentication", () => {
       route.fulfill(errorConfirmPasswordFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const passwordInput = page.locator('input[name="newPassword"]');
-    const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("confirm-password-username-input");
+    const passwordInput = page.getByTestId(
+      "confirm-password-new-password-input"
+    );
+    const otpInput = page.getByTestId("confirm-password-code-input");
+    const submitButton = page.getByTestId("confirm-password-submit-button");
 
     await emailInput.fill("test@example.com");
     await passwordInput.fill("ValidPass1!");
@@ -146,11 +154,11 @@ test.describe("features/authentication", () => {
 
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const errorToastMessage = page.getByText(
       confirmPasswordToastMessages.error.description
     );
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error toast with axios message for failed confirmation", async ({
@@ -160,10 +168,12 @@ test.describe("features/authentication", () => {
       route.fulfill(axiosErrorConfirmPasswordFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const passwordInput = page.locator('input[name="newPassword"]');
-    const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("confirm-password-username-input");
+    const passwordInput = page.getByTestId(
+      "confirm-password-new-password-input"
+    );
+    const otpInput = page.getByTestId("confirm-password-code-input");
+    const submitButton = page.getByTestId("confirm-password-submit-button");
 
     await emailInput.fill("test@example.com");
     await passwordInput.fill("ValidPass1!");
@@ -171,18 +181,20 @@ test.describe("features/authentication", () => {
 
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
     const errorMessage = JSON.parse(
       axiosErrorConfirmPasswordFixture.body
     ).message;
-    await expect(descriptionLocator).toContainText(errorMessage);
+    const errorToastMessage = page.getByText(errorMessage);
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should be redirected when click forgot password button", async ({
     page,
   }) => {
-    const forgotPasswordButton = page.locator("#redirect-to-forgot-password");
+    const forgotPasswordButton = page.getByTestId(
+      "confirm-password-redirect-to-forgot-password-button"
+    );
 
     await expect(forgotPasswordButton).toBeVisible();
     await expect(forgotPasswordButton).toBeEnabled();

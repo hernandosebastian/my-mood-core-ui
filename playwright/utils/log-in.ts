@@ -33,5 +33,5 @@ export async function logIn({
 
   await page.getByTestId("log-in-username-input").fill("test@example.com");
   await page.getByTestId("log-in-password-input").fill("Password123!");
-  await page.getByTestId("log-in-button").click();
+  await page.getByTestId("log-in-submit-button").click();
 }

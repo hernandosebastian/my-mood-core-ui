@@ -9,7 +9,7 @@ import {
   errorSignUpFixture,
   axiosErrorSignUpFixture,
 } from "../../../fixtures/features/authentication/sign-up.fixture";
-import { closeSidebarIfNeeded, openSidebarIfNeeded } from "utils/sidebar";
+import { closeSidebarIfMobile, openSidebarIfMobile } from "utils";
 
 dotenv.config();
 
@@ -21,129 +21,132 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${signUpErrorMessages.username.invalidEmail}`
+    const emailInput = page.getByTestId("sign-up-username-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+    const emailErrorToastMessage = page.getByText(
+      signUpErrorMessages.username.invalidEmail
     );
 
     await emailInput.fill("invalid-email");
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(emailErrorToastMessage).toBeVisible();
   });
 
   test("should display error for email exceeding max length", async ({
     page,
   }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${signUpErrorMessages.username.maxLength}`
+    const emailInput = page.getByTestId("sign-up-username-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+    const emailErrorToastMessage = page.getByText(
+      signUpErrorMessages.username.maxLength
     );
 
     await emailInput.fill(`${"a".repeat(51)}@example.com`);
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(emailErrorToastMessage).toBeVisible();
   });
 
   test("should display error for short password", async ({ page }) => {
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${signUpErrorMessages.password.minLength}`
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+    const passwordErrorToastMessage = page.getByText(
+      signUpErrorMessages.password.minLength
     );
 
     await passwordInput.fill("Short1!");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+    await expect(passwordErrorToastMessage).toBeVisible();
   });
 
   test("should display error for password missing uppercase letter", async ({
     page,
   }) => {
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${signUpErrorMessages.password.uppercase}`
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+    const passwordErrorToastMessage = page.getByText(
+      signUpErrorMessages.password.uppercase
     );
 
     await passwordInput.fill("password1!");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+    await expect(passwordErrorToastMessage).toBeVisible();
   });
 
   test("should display error for password missing lowercase letter", async ({
     page,
   }) => {
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${signUpErrorMessages.password.lowercase}`
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+    const passwordErrorToastMessage = page.getByText(
+      signUpErrorMessages.password.lowercase
     );
 
     await passwordInput.fill("PASSWORD1!");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+    await expect(passwordErrorToastMessage).toBeVisible();
   });
 
   test("should display error for password missing number", async ({ page }) => {
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${signUpErrorMessages.password.number}`
-    );
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
 
     await passwordInput.fill("Password!");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+
+    const errorToastMessage = page.getByText(
+      signUpErrorMessages.password.number
+    );
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error for password missing special character", async ({
     page,
   }) => {
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
-    const passwordErrorMessage = page.locator(
-      `text=${signUpErrorMessages.password.specialChar}`
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+    const passwordErrorToastMessage = page.getByText(
+      signUpErrorMessages.password.specialChar
     );
 
     await passwordInput.fill("Password123");
     await submitButton.click();
-    await expect(passwordErrorMessage).toBeVisible();
+    await expect(passwordErrorToastMessage).toBeVisible();
   });
 
   test("should successfully submit the form and show success message", async ({
     page,
+    isMobile,
   }) => {
     await page.route("**/api/v1/auth/sign-up", (route) => {
       route.fulfill(successSignUpFixture);
     });
     page.goto(`${BASE_URL}`);
 
-    await openSidebarIfNeeded(page);
+    await openSidebarIfMobile({ page, isMobile });
 
-    const sidebarSignUpButton = page.locator("#sidebar-sign-up-button");
+    const sidebarSignUpButton = page.getByTestId("sidebar-sign-up-button");
     await sidebarSignUpButton.click();
 
-    await closeSidebarIfNeeded(page);
+    await closeSidebarIfMobile({ page, isMobile });
 
     const emailValue = "test@example.com";
-    const emailInput = page.locator("#username");
-    const passwordInput = page.locator("#password");
-    const signUpButton = page.locator("#sign-up-button");
+    const emailInput = page.getByTestId("sign-up-username-input");
+    const passwordInput = page.getByTestId("sign-up-password-input");
+
+    const signUpButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill(emailValue);
     await passwordInput.fill("ValidPass1!");
     await signUpButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const logInEmailInput = page.getByTestId("confirm-user-username-input");
+    const successfulToastMessage = page.getByText(
       signUpToastMessages.success.description
     );
 
-    const logInEmailInput = page.locator("#username");
     await expect(logInEmailInput).toHaveValue(emailValue);
+    await expect(successfulToastMessage).toBeVisible();
   });
 
   test("should display error toast for failed sign up", async ({ page }) => {
@@ -151,19 +154,19 @@ test.describe("features/authentication", () => {
       route.fulfill(errorSignUpFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("sign-up-username-input");
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill("test@example.com");
     await passwordInput.fill("Password123!");
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const errorToastMessage = page.getByText(
       signUpToastMessages.error.description
     );
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error toast with axios message for failed sign up", async ({
@@ -173,23 +176,22 @@ test.describe("features/authentication", () => {
       route.fulfill(axiosErrorSignUpFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const passwordInput = page.locator("#password");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("sign-up-username-input");
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill("test@example.com");
     await passwordInput.fill("Password123!");
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
     const errorMessage = JSON.parse(axiosErrorSignUpFixture.body).message;
+    const errorToastMessage = page.getByText(errorMessage);
 
-    await expect(descriptionLocator).toContainText(errorMessage);
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should be redirected when click log in button", async ({ page }) => {
-    const logInButton = page.locator("#redirect-to-log-in");
+    const logInButton = page.getByTestId("sign-up-redirect-to-log-in");
 
     await expect(logInButton).toBeVisible();
     await expect(logInButton).toBeEnabled();

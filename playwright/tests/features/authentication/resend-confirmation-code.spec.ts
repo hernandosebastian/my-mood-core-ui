@@ -20,10 +20,14 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${resendConfirmationCodeErrorMessages.username.invalidEmail}`
+    const emailInput = page.getByTestId(
+      "resend-confirmation-code-username-input"
+    );
+    const submitButton = page.getByTestId(
+      "resend-confirmation-code-submit-button"
+    );
+    const emailErrorMessage = page.getByText(
+      resendConfirmationCodeErrorMessages.username.invalidEmail
     );
 
     await emailInput.fill("invalid-email");
@@ -34,10 +38,14 @@ test.describe("features/authentication", () => {
   test("should display error for email exceeding max length", async ({
     page,
   }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${resendConfirmationCodeErrorMessages.username.maxLength}`
+    const emailInput = page.getByTestId(
+      "resend-confirmation-code-username-input"
+    );
+    const submitButton = page.getByTestId(
+      "resend-confirmation-code-submit-button"
+    );
+    const emailErrorMessage = page.getByText(
+      resendConfirmationCodeErrorMessages.username.maxLength
     );
 
     await emailInput.fill(`${"a".repeat(51)}@example.com`);
@@ -53,19 +61,25 @@ test.describe("features/authentication", () => {
     });
 
     const emailValue = "test@example.com";
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId(
+      "resend-confirmation-code-username-input"
+    );
+    const submitButton = page.getByTestId(
+      "resend-confirmation-code-submit-button"
+    );
 
     await emailInput.fill(emailValue);
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const errorToastMessage = page.getByText(
       resendConfirmationCodeToastMessages.success.description
     );
 
-    const confirmUserEmailInput = page.locator("#username");
+    await expect(errorToastMessage).toBeVisible();
+
+    const confirmUserEmailInput = page.getByTestId(
+      "confirm-user-username-input"
+    );
     await expect(confirmUserEmailInput).toHaveValue(emailValue);
   });
 
@@ -76,17 +90,20 @@ test.describe("features/authentication", () => {
       route.fulfill(errorResendConfirmationCodeFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId(
+      "resend-confirmation-code-username-input"
+    );
+    const submitButton = page.getByTestId(
+      "resend-confirmation-code-submit-button"
+    );
 
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const errorToastMessage = page.getByText(
       resendConfirmationCodeToastMessages.error.description
     );
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error toast with axios message for failed code resend", async ({
@@ -96,23 +113,28 @@ test.describe("features/authentication", () => {
       route.fulfill(axiosErrorResendConfirmationCodeFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId(
+      "resend-confirmation-code-username-input"
+    );
+    const submitButton = page.getByTestId(
+      "resend-confirmation-code-submit-button"
+    );
 
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
     const errorMessage = JSON.parse(
       axiosErrorResendConfirmationCodeFixture.body
     ).message;
+    const errorToastMessage = page.getByText(errorMessage);
 
-    await expect(descriptionLocator).toContainText(errorMessage);
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should be redirected when click log in button", async ({ page }) => {
-    const logInButton = page.locator("#redirect-to-log-in");
+    const logInButton = page.getByTestId(
+      "resend-confirmation-code-redirect-to-log-in"
+    );
 
     await expect(logInButton).toBeVisible();
     await expect(logInButton).toBeEnabled();
