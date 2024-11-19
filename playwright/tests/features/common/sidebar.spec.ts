@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { logIn } from "../../../utils/log-in";
 import { logOut } from "../../../utils/log-out";
-import { openSidebarIfNeeded } from "../../../utils/sidebar";
+import { openSidebarIfMobile } from "../../../utils";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -12,17 +12,20 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}`);
 });
 
-test.describe("Sidebar", () => {
-  test("should show sidebar logic according to user state", async ({
+test.describe("components/sidebar", () => {
+  test("should update sidebar based on user state", async ({
     page,
+    isMobile,
   }) => {
-    await openSidebarIfNeeded(page);
+    await openSidebarIfMobile({ page, isMobile });
 
-    const sidebarLoginButton = page.locator("#sidebar-log-in-button");
-    const sidebarSignUpButton = page.locator("#sidebar-sign-up-button");
-    const sidebarLogoutMenuItem = page.locator("#sidebar-logout-menu-item");
-    const sidebarDatePicker = page.locator("#sidebar-date-picker");
-    const sidebarMenuButtonTrigger = page.locator("#sidebar-user-menu-trigger");
+    const sidebarLoginButton = page.getByTestId("sidebar-log-in-button");
+    const sidebarSignUpButton = page.getByTestId("sidebar-sign-up-button");
+    const sidebarLogoutMenuItem = page.getByTestId("sidebar-logout-menu-item");
+    const sidebarDatePicker = page.getByTestId("sidebar-date-picker");
+    const sidebarMenuButtonTrigger = page.getByTestId(
+      "sidebar-open-menu-button"
+    );
 
     await expect(sidebarLoginButton).toBeVisible();
     await expect(sidebarSignUpButton).toBeVisible();
@@ -30,9 +33,9 @@ test.describe("Sidebar", () => {
     await expect(sidebarDatePicker).not.toBeVisible();
     await expect(sidebarMenuButtonTrigger).not.toBeVisible();
 
-    await logIn({ page });
+    await logIn({ page, isMobile, isSidebarOpen: true });
 
-    await openSidebarIfNeeded(page);
+    await openSidebarIfMobile({ page, isMobile });
 
     await expect(sidebarLoginButton).not.toBeVisible();
     await expect(sidebarSignUpButton).not.toBeVisible();
@@ -41,7 +44,7 @@ test.describe("Sidebar", () => {
     await expect(sidebarLogoutMenuItem).toBeVisible();
     await expect(sidebarDatePicker).toBeVisible();
 
-    await logOut({ page, isModalOpen: true });
+    await logOut({ page, isMobile, isSidebarMenuOpen: true });
 
     await expect(sidebarLoginButton).toBeVisible();
     await expect(sidebarSignUpButton).toBeVisible();
@@ -50,4 +53,3 @@ test.describe("Sidebar", () => {
     await expect(sidebarDatePicker).not.toBeVisible();
   });
 });
-
