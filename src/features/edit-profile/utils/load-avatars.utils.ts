@@ -3,7 +3,7 @@ import { IAvatar } from "../interfaces";
 export const loadAvatars = async (
   avatars: Record<string, () => Promise<{ default: string }>>
 ): Promise<IAvatar[]> => {
-  const avatarPaths = await Promise.all(
+  return await Promise.all(
     Object.entries(avatars).map(async ([path, resolver]) => {
       const avatarModule = await resolver();
       const avatarUrl = avatarModule.default;
@@ -12,6 +12,5 @@ export const loadAvatars = async (
       return { name: fileName, src: avatarUrl };
     })
   );
-  return avatarPaths;
 };
 
