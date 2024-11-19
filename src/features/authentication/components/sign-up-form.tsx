@@ -19,6 +19,8 @@ interface ISignUpFormProps {
   form: UseFormReturn<
     {
       username: string;
+      nickname: string;
+      avatarSrc: string;
       password: string;
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -73,6 +75,26 @@ export function SignUpForm({
                       id="username"
                       placeholder="Enter your email"
                       data-testid="sign-up-username-input"
+                      {...field}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="nickname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nickname</FormLabel>
+                  <FormControl>
+                    <Input
+                      id="nickname"
+                      placeholder="Enter your nickname"
+                      data-testid="sign-up-nickname-input"
                       {...field}
                       disabled={isLoading}
                     />

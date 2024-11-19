@@ -100,6 +100,36 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
+  test("should display error for nickname with special character", async ({
+    page,
+  }) => {
+    const nicknameInput = page.getByTestId("sign-up-nickname-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+
+    await nicknameInput.fill("John Doe$!'");
+    await submitButton.click();
+
+    const errorToastMessage = page.getByText(
+      signUpErrorMessages.nickname.invalid
+    );
+
+    await expect(errorToastMessage).toBeVisible();
+  });
+
+  test("should display error for nickname max length", async ({ page }) => {
+    const nicknameInput = page.getByTestId("sign-up-nickname-input");
+    const submitButton = page.getByTestId("sign-up-submit-button");
+
+    await nicknameInput.fill(`${"a".repeat(51)}`);
+    await submitButton.click();
+
+    const errorToastMessage = page.getByText(
+      signUpErrorMessages.nickname.maxLength
+    );
+
+    await expect(errorToastMessage).toBeVisible();
+  });
+
   test("should display error for password missing special character", async ({
     page,
   }) => {
@@ -132,11 +162,13 @@ test.describe("features/authentication", () => {
 
     const emailValue = "test@example.com";
     const emailInput = page.getByTestId("sign-up-username-input");
+    const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const passwordInput = page.getByTestId("sign-up-password-input");
 
     const signUpButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill(emailValue);
+    await nicknameInput.fill("JohnDoe");
     await passwordInput.fill("ValidPass1!");
     await signUpButton.click();
 
@@ -155,10 +187,12 @@ test.describe("features/authentication", () => {
     });
 
     const emailInput = page.getByTestId("sign-up-username-input");
+    const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const passwordInput = page.getByTestId("sign-up-password-input");
     const submitButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill("test@example.com");
+    await nicknameInput.fill("JohnDoe");
     await passwordInput.fill("Password123!");
     await submitButton.click();
 
@@ -177,10 +211,12 @@ test.describe("features/authentication", () => {
     });
 
     const emailInput = page.getByTestId("sign-up-username-input");
+    const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const passwordInput = page.getByTestId("sign-up-password-input");
     const submitButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill("test@example.com");
+    await nicknameInput.fill("JohnDoe");
     await passwordInput.fill("Password123!");
     await submitButton.click();
 

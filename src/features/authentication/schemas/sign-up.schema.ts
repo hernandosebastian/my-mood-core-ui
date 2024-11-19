@@ -7,6 +7,15 @@ const signUpSchema = z.object({
     .email({ message: signUpErrorMessages.username.invalidEmail })
     .max(50, { message: signUpErrorMessages.username.maxLength }),
 
+  nickname: z
+    .string()
+    .max(35, { message: signUpErrorMessages.nickname.maxLength })
+    .regex(/^[a-zA-Z0-9-_]+$/, {
+      message: signUpErrorMessages.nickname.invalid,
+    }),
+
+  avatarSrc: z.string(),
+
   password: z
     .string()
     .min(8, { message: signUpErrorMessages.password.minLength })
