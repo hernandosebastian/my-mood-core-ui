@@ -72,6 +72,7 @@ export function SignUpForm({
                     <Input
                       id="username"
                       placeholder="Enter your email"
+                      data-testid="sign-up-username-input"
                       {...field}
                       disabled={isLoading}
                     />
@@ -92,6 +93,7 @@ export function SignUpForm({
                       id="password"
                       type="password"
                       placeholder="Enter your password"
+                      data-testid="sign-up-password-input"
                       {...field}
                       disabled={isLoading}
                     />
@@ -106,6 +108,7 @@ export function SignUpForm({
               disabled={isLoading}
               className="w-full"
               id="sign-up-button"
+              data-testid="sign-up-submit-button"
             >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
@@ -121,6 +124,7 @@ export function SignUpForm({
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToLogIn}
+            data-testid="sign-up-redirect-to-log-in"
           >
             Already have an account?{" "}
             <span className="underline underline-offset-4">Log In</span>

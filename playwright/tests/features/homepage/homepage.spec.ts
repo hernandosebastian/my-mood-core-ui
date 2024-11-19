@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}`);
 });
 
-test.describe("Homepage", () => {
+test.describe("features/homepage", () => {
   test("should show homepage and test get started button", async ({ page }) => {
     const homepageSection = page.getByTestId("homepage-section");
     const getStartedButton = page.getByTestId("homepage-get-started-button");

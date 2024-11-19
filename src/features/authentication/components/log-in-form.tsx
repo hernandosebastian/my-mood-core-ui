@@ -115,7 +115,7 @@ export function LogInForm({
               disabled={isLoading}
               className="w-full"
               id="log-in-button"
-              data-testid="log-in-button"
+              data-testid="log-in-submit-button"
             >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
@@ -131,6 +131,7 @@ export function LogInForm({
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToSignUp}
+            data-testid="log-in-redirect-to-sign-up-button"
           >
             Don&apos;t have an account?{" "}
             <span className="underline underline-offset-4">Sign Up</span>

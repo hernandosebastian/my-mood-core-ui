@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import dotenv from "dotenv";
 import { editProfileToastMessages } from "@/features/edit-profile/messages/edit-profile.messages";
 import { successGetMeFixture } from "../../../fixtures/features/authentication/get-me.fixture";
 import {
@@ -8,8 +9,6 @@ import {
   successEditProfileOnlyAvatarFixture,
   successEditProfileOnlyNicknameFixture,
 } from "../../../fixtures/features/edit-profile/edit-profile.fixture";
-import dotenv from "dotenv";
-
 import { logIn, openSidebarIfMobile, closeSidebarIfMobile } from "utils";
 
 dotenv.config();
@@ -18,10 +17,10 @@ const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
   await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile });
+  await logIn({ page, isMobile, isSidebarOpen: false });
 });
 
-test.describe("feature/edit-profile", () => {
+test.describe("features/edit-profile", () => {
   test("should successfully submit the form with new avatar and nickname", async ({
     page,
     isMobile,
