@@ -3,6 +3,10 @@ export const signUpErrorMessages = {
     maxLength: "Email cannot be longer than 50 characters.",
     invalidEmail: "Email must be a valid email address.",
   },
+  nickname: {
+    maxLength: "Nickname cannot be longer than 35 characters.",
+    invalid: "Nickname cannot contain spaces and special characters",
+  },
   password: {
     minLength: "Password must be at least 8 characters long.",
     maxLength: "Password cannot be longer than 50 characters.",

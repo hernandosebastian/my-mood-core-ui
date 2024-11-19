@@ -28,6 +28,8 @@ export function SignUpPage(): JSX.Element {
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: "",
+      nickname: "",
+      avatarSrc: "/src/assets/avatars/Multiavatar-0e194b370c5a6c8ece.png",
       password: "",
     },
   });
