@@ -71,6 +71,7 @@ export function ResendConfirmationCodeForm({
                   <FormControl>
                     <Input
                       id="username"
+                      data-testid="resend-confirmation-code-username-input"
                       placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
@@ -86,7 +87,12 @@ export function ResendConfirmationCodeForm({
               )}
             />
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+              data-testid="resend-confirmation-code-submit-button"
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
@@ -101,6 +107,7 @@ export function ResendConfirmationCodeForm({
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToLogIn}
+            data-testid="resend-confirmation-code-redirect-to-log-in"
           >
             Already have an account?{" "}
             <span className="underline underline-offset-4">Sign In</span>

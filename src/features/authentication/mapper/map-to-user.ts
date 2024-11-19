@@ -5,6 +5,8 @@ export const mapToUser = (getMeResponse: IGetMeResponse): User => {
   return new User(
     getMeResponse.id,
     getMeResponse.username,
+    getMeResponse.nickname,
+    getMeResponse.avatarSrc,
     getMeResponse.externalId,
     getMeResponse.roles,
     getMeResponse.createdAt,

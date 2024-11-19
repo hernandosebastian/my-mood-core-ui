@@ -9,10 +9,10 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}`);
 });
 
-test.describe("Homepage", () => {
+test.describe("features/homepage", () => {
   test("should show homepage and test get started button", async ({ page }) => {
-    const homepageSection = page.locator("#homepage-section");
-    const getStartedButton = page.locator("#homepage-get-started-button");
+    const homepageSection = page.getByTestId("homepage-section");
+    const getStartedButton = page.getByTestId("homepage-get-started-button");
 
     await expect(homepageSection).toBeVisible();
     await expect(getStartedButton).toBeVisible();
@@ -22,4 +22,3 @@ test.describe("Homepage", () => {
     await expect(page).toHaveURL(`${BASE_URL}log-in`);
   });
 });
-

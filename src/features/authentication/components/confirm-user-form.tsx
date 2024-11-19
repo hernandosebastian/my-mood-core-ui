@@ -78,6 +78,7 @@ export function ConfirmUserForm({
                     <Input
                       id="username"
                       placeholder="Enter your email"
+                      data-testid="confirm-user-username-input"
                       {...field}
                       disabled={isLoading}
                     />
@@ -96,7 +97,7 @@ export function ConfirmUserForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Code</FormLabel>
-                  <FormControl>
+                  <FormControl data-testid="confirm-user-code-input">
                     <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
@@ -116,7 +117,12 @@ export function ConfirmUserForm({
               )}
             />
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+              data-testid="confirm-user-submit-button"
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
@@ -131,6 +137,7 @@ export function ConfirmUserForm({
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToResendCode}
+            data-testid="confirm-user-redirect-to-resend-code"
           >
             Didn&apos;t receive the code?{" "}
             <span className="underline underline-offset-4">Resend it</span>

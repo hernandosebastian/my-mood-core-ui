@@ -17,6 +17,8 @@ export const useGetMe = (): UseQueryResult<{ user: User }, AxiosError> => {
     select: ({
       id,
       username,
+      nickname,
+      avatarSrc,
       externalId,
       roles,
       createdAt,
@@ -26,6 +28,8 @@ export const useGetMe = (): UseQueryResult<{ user: User }, AxiosError> => {
       user: mapToUser({
         id,
         username,
+        nickname,
+        avatarSrc,
         externalId,
         roles,
         createdAt,

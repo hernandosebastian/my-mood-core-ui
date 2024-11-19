@@ -6,6 +6,7 @@ import {
   ResendConfirmationCodePage,
   SignUpPage,
 } from "@/features/authentication/pages";
+import { EditProfilePage } from "@/features/edit-profile/pages";
 import { Homepage } from "@/features/homepage/pages";
 import { NotFoundPage } from "@/features/not-found/pages";
 import { Route } from "react-router-dom";
@@ -28,6 +29,7 @@ export const RoutesList = (
   <>
     {authRoutes}
     <Route path="/" element={<Homepage />} />
+    <Route path="/edit-profile" element={<EditProfilePage />} />
     <Route path="*" element={<NotFoundPage />} />
   </>
 );

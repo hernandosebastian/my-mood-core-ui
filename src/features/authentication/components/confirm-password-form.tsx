@@ -78,6 +78,7 @@ export function ConfirmPasswordForm({
                       placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
+                      data-testid="confirm-password-username-input"
                     />
                   </FormControl>
                   <FormDescription>
@@ -101,6 +102,7 @@ export function ConfirmPasswordForm({
                       placeholder="Enter new password"
                       {...field}
                       disabled={isLoading}
+                      data-testid="confirm-password-new-password-input"
                     />
                   </FormControl>
                   <FormDescription>
@@ -117,7 +119,7 @@ export function ConfirmPasswordForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Code</FormLabel>
-                  <FormControl>
+                  <FormControl data-testid="confirm-password-code-input">
                     <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
@@ -137,7 +139,12 @@ export function ConfirmPasswordForm({
               )}
             />
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+              data-testid="confirm-password-submit-button"
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
@@ -152,6 +159,7 @@ export function ConfirmPasswordForm({
             type="button"
             className="text-muted-foreground hover:text-primary"
             onClick={handleRedirectToForgotPassword}
+            data-testid="confirm-password-redirect-to-forgot-password-button"
           >
             Didn&apos;t receive a code?{" "}
             <span className="underline underline-offset-4">

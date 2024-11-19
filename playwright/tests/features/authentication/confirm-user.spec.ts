@@ -18,57 +18,57 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}confirm-user`);
 });
 
-test.describe("ConfirmUserForm Validation Tests", () => {
+test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${confirmUserErrorMessages.username.invalidEmail}`
+    const emailInput = page.getByTestId("confirm-user-username-input");
+    const submitButton = page.getByTestId("confirm-user-submit-button");
+    const emailErrorToastMessage = page.getByText(
+      confirmUserErrorMessages.username.invalidEmail
     );
 
     await emailInput.fill("invalid-email");
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(emailErrorToastMessage).toBeVisible();
   });
 
   test("should display error for email exceeding max length", async ({
     page,
   }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${confirmUserErrorMessages.username.maxLength}`
+    const emailInput = page.getByTestId("confirm-user-username-input");
+    const submitButton = page.getByTestId("confirm-user-submit-button");
+    const emailErrorToastMessage = page.getByText(
+      confirmUserErrorMessages.username.maxLength
     );
 
     await emailInput.fill(`${"a".repeat(51)}@example.com`);
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(emailErrorToastMessage).toBeVisible();
   });
 
   test("should display error for non-numeric confirmation code", async ({
     page,
   }) => {
     const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
-    const codeErrorMessage = page.locator(
-      `text=${confirmUserErrorMessages.code.digitsOnly}`
+    const submitButton = page.getByTestId("confirm-user-submit-button");
+    const codeErrorToastMessage = page.getByText(
+      confirmUserErrorMessages.code.digitsOnly
     );
 
     await otpInput.fill("abcdef");
     await submitButton.click();
-    await expect(codeErrorMessage).toBeVisible();
+    await expect(codeErrorToastMessage).toBeVisible();
   });
 
   test("should display error for incorrect confirmation code length", async ({
     page,
   }) => {
-    const submitButton = page.locator('button[type="submit"]');
-    const codeErrorMessage = page.locator(
-      `text=${confirmUserErrorMessages.code.length}`
+    const submitButton = page.getByTestId("confirm-user-submit-button");
+    const codeErrorToastMessage = page.getByText(
+      confirmUserErrorMessages.code.length
     );
 
     await submitButton.click();
-    await expect(codeErrorMessage).toBeVisible();
+    await expect(codeErrorToastMessage).toBeVisible();
   });
 
   test("should successfully submit the form and show success message", async ({
@@ -79,9 +79,9 @@ test.describe("ConfirmUserForm Validation Tests", () => {
     });
 
     const emailValue = "test@example.com";
-    const emailInput = page.locator("#username");
-    const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("confirm-user-username-input");
+    const otpInput = page.getByTestId("confirm-user-code-input");
+    const submitButton = page.getByTestId("confirm-user-submit-button");
 
     await emailInput.fill(emailValue);
     await otpInput.fill("123456");
@@ -90,13 +90,13 @@ test.describe("ConfirmUserForm Validation Tests", () => {
 
     await expect(page).toHaveURL(`${BASE_URL}log-in`);
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const successfulToastMessage = page.getByText(
       confirmUserToastMessages.success.description
     );
 
-    const logInEmailInput = page.locator("#username");
+    await expect(successfulToastMessage).toBeVisible();
+
+    const logInEmailInput = page.getByTestId("log-in-username-input");
     await expect(logInEmailInput).toHaveValue(emailValue);
   });
 
@@ -107,20 +107,20 @@ test.describe("ConfirmUserForm Validation Tests", () => {
       route.fulfill(errorConfirmUserFixture);
     });
 
-    const emailInput = page.locator("#username");
+    const emailInput = page.getByTestId("confirm-user-username-input");
     const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
+    const submitButton = page.getByTestId("confirm-user-submit-button");
 
     await emailInput.fill("test@example.com");
     await otpInput.fill("123456");
 
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const errorToastMessage = page.getByText(
       confirmUserToastMessages.error.description
     );
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error toast with axios message for failed confirmation", async ({
@@ -130,19 +130,19 @@ test.describe("ConfirmUserForm Validation Tests", () => {
       route.fulfill(axiosErrorConfirmUserFixture);
     });
 
-    const emailInput = page.locator("#username");
+    const emailInput = page.getByTestId("confirm-user-username-input");
     const otpInput = page.locator('input[data-input-otp="true"]');
-    const submitButton = page.locator('button[type="submit"]');
+    const submitButton = page.getByTestId("confirm-user-submit-button");
 
     await emailInput.fill("test@example.com");
     await otpInput.fill("123456");
 
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
     const errorMessage = JSON.parse(axiosErrorConfirmUserFixture.body).message;
-    await expect(descriptionLocator).toContainText(errorMessage);
+    const errorToastMessage = page.getByText(errorMessage);
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should be redirected when click resend code button", async ({

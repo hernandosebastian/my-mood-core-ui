@@ -66,6 +66,7 @@ export function ForgotPasswordForm({
                   <FormControl>
                     <Input
                       id="username"
+                      data-testid="forgot-password-username-input"
                       placeholder="Enter your email"
                       {...field}
                       disabled={isLoading}
@@ -81,7 +82,12 @@ export function ForgotPasswordForm({
               )}
             />
 
-            <Button type="submit" disabled={isLoading} className="w-full">
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-full"
+              data-testid="forgot-password-submit-button"
+            >
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}

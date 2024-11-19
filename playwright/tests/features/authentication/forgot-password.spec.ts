@@ -18,31 +18,31 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}forgot-password`);
 });
 
-test.describe("ForgotPasswordForm Validation Tests", () => {
+test.describe("features/authentication", () => {
   test("should display error for invalid email format", async ({ page }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${forgotPasswordErrorMessages.username.invalidEmail}`
+    const emailInput = page.getByTestId("forgot-password-username-input");
+    const submitButton = page.getByTestId("forgot-password-submit-button");
+    const emailErrorToastMessage = page.getByText(
+      forgotPasswordErrorMessages.username.invalidEmail
     );
 
     await emailInput.fill("invalid-email");
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(emailErrorToastMessage).toBeVisible();
   });
 
   test("should display error for email exceeding max length", async ({
     page,
   }) => {
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
-    const emailErrorMessage = page.locator(
-      `text=${forgotPasswordErrorMessages.username.maxLength}`
+    const emailInput = page.getByTestId("forgot-password-username-input");
+    const submitButton = page.getByTestId("forgot-password-submit-button");
+    const errorValidationMessage = page.getByText(
+      "Email cannot be longer than 50 characters."
     );
 
     await emailInput.fill(`${"a".repeat(51)}@example.com`);
     await submitButton.click();
-    await expect(emailErrorMessage).toBeVisible();
+    await expect(errorValidationMessage).toBeVisible();
   });
 
   test("should successfully submit the form and show success message", async ({
@@ -53,19 +53,21 @@ test.describe("ForgotPasswordForm Validation Tests", () => {
     });
 
     const emailInputValue = "test@example.com";
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("forgot-password-username-input");
+    const submitButton = page.getByTestId("forgot-password-submit-button");
 
     await emailInput.fill(emailInputValue);
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const successfulToastMessage = page.getByText(
       forgotPasswordToastMessages.success.description
     );
 
-    const confirmPasswordEmailInput = page.locator("#username");
+    await expect(successfulToastMessage).toBeVisible();
+
+    const confirmPasswordEmailInput = page.getByTestId(
+      "confirm-password-username-input"
+    );
     await expect(confirmPasswordEmailInput).toHaveValue(emailInputValue);
   });
 
@@ -76,17 +78,17 @@ test.describe("ForgotPasswordForm Validation Tests", () => {
       route.fulfill(errorForgotPasswordFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("forgot-password-username-input");
+    const submitButton = page.getByTestId("forgot-password-submit-button");
 
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
-    await expect(descriptionLocator).toContainText(
+    const errorToastMessage = page.getByText(
       forgotPasswordToastMessages.error.description
     );
+
+    await expect(errorToastMessage).toBeVisible();
   });
 
   test("should display error toast with axios message for failed password reset request", async ({
@@ -96,19 +98,17 @@ test.describe("ForgotPasswordForm Validation Tests", () => {
       route.fulfill(axiosErrorForgotPasswordFixture);
     });
 
-    const emailInput = page.locator("#username");
-    const submitButton = page.locator('button[type="submit"]');
+    const emailInput = page.getByTestId("forgot-password-username-input");
+    const submitButton = page.getByTestId("forgot-password-submit-button");
 
     await emailInput.fill("test@example.com");
     await submitButton.click();
 
-    const toastLocator = page.locator("li[data-sonner-toast]");
-    const descriptionLocator = toastLocator.locator("div[data-description]");
     const errorMessage = JSON.parse(
       axiosErrorForgotPasswordFixture.body
     ).message;
+    const errorToastMessage = page.getByText(errorMessage);
 
-    await expect(descriptionLocator).toContainText(errorMessage);
+    await expect(errorToastMessage).toBeVisible();
   });
 });
-
