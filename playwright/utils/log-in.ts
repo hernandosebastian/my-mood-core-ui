@@ -6,10 +6,15 @@ import { closeSidebarIfMobile } from "./close-sidebar-if-mobile";
 
 interface ILogInProps {
   page: Page;
-  isMobile?: boolean;
+  isMobile: boolean;
+  isSidebarOpen: boolean;
 }
 
-export async function logIn({ page, isMobile }: ILogInProps): Promise<void> {
+export async function logIn({
+  page,
+  isMobile,
+  isSidebarOpen,
+}: ILogInProps): Promise<void> {
   await page.route("**/api/v1/auth/sign-in", (route) => {
     route.fulfill(successLoginFixture);
   });
@@ -18,7 +23,9 @@ export async function logIn({ page, isMobile }: ILogInProps): Promise<void> {
     route.fulfill(successGetMeFixture);
   });
 
-  await openSidebarIfMobile({ page, isMobile });
+  if (!isSidebarOpen) {
+    await openSidebarIfMobile({ page, isMobile });
+  }
 
   await page.getByTestId("sidebar-log-in-button").click();
 

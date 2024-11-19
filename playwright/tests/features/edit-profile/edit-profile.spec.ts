@@ -18,7 +18,7 @@ const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
   await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile });
+  await logIn({ page, isMobile, isSidebarOpen: false });
 });
 
 test.describe("features/edit-profile", () => {
