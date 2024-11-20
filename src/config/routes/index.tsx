@@ -1,3 +1,4 @@
+import { AuthenticationGuard } from "@/features/authentication/guard";
 import {
   ConfirmPasswordPage,
   ConfirmUserPage,
@@ -29,7 +30,10 @@ export const RoutesList = (
   <>
     {authRoutes}
     <Route path="/" element={<Homepage />} />
-    <Route path="/edit-profile" element={<EditProfilePage />} />
+    <Route
+      path="/edit-profile"
+      element={<AuthenticationGuard Component={EditProfilePage} />}
+    />
     <Route path="*" element={<NotFoundPage />} />
   </>
 );
