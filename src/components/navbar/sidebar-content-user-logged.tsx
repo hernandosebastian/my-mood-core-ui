@@ -1,5 +1,5 @@
 import { SidebarSeparator } from "../ui/sidebar";
-import { DatePicker } from "./date-picker";
+import { DatePicker } from "../../features/calendar/components/date-picker";
 
 export function SidebarContentUserLogged(): JSX.Element {
   return (
