@@ -10,6 +10,7 @@ import {
 import { EditProfilePage } from "@/features/edit-profile/pages";
 import { Homepage } from "@/features/homepage/pages";
 import { NotFoundPage } from "@/features/not-found/pages";
+import { TrackPage } from "@/features/track/pages";
 import { Route } from "react-router-dom";
 
 const authRoutes = (
@@ -30,6 +31,10 @@ export const RoutesList = (
   <>
     {authRoutes}
     <Route path="/" element={<Homepage />} />
+    <Route
+      path="/track"
+      element={<AuthenticationGuard Component={TrackPage} />}
+    />
     <Route
       path="/edit-profile"
       element={<AuthenticationGuard Component={EditProfilePage} />}
