@@ -23,12 +23,15 @@ function SingleCalendar({
   selected,
   showOutsideDays = true,
   onDayClick,
+  disabled = false,
   ...props
 }: CalendarProps): JSX.Element {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3", className, {
+        "pointer-events-none opacity-50": disabled,
+      })}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
