@@ -1,0 +1,32 @@
+export const successCreateTrackFixture = {
+  status: 200,
+  body: JSON.stringify({
+    id: 1,
+    title: "Sad",
+    description: "Lorem ipsum dolor sit amet",
+    date: new Date("2024-10-10T10:00:00").toISOString(),
+    ownerId: 123,
+    owner: {},
+    createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
+    updatedAt: new Date("2024-01-01T00:00:00Z").toISOString(),
+    deletedAt: null,
+  }),
+  contentType: "application/json",
+};
+
+export const errorCreateTrackFixtureWithMessage = {
+  status: 400,
+  body: JSON.stringify({
+    message: "Error creating track",
+  }),
+  contentType: "application/json",
+};
+
+export const errorCreateTrackFixtureWithoutMessage = {
+  status: 400,
+  body: JSON.stringify({
+    success: false,
+  }),
+  contentType: "application/json",
+};
+

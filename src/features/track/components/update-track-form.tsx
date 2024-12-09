@@ -54,7 +54,10 @@ export function UpdateTrackForm({
     <div className="lg:p-8 text-black">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1
+            className="text-2xl font-semibold tracking-tight"
+            data-testid="update-track-title"
+          >
             Update Your Track | {format(date, "dd-MM-yyyy")}
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -129,7 +132,7 @@ export function UpdateTrackForm({
               className="w-full"
               variant={"secondary"}
               id="delete-track-button"
-              data-testid="update-track-cancel-button"
+              data-testid="delete-track-button"
               onClick={onDelete}
             >
               {isLoading ? (
