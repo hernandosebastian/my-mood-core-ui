@@ -9,6 +9,7 @@ import { getTrackByDateFromTracks, isTrackedDay } from "../utils";
 import { useGetTrackByDateRange } from "../hooks";
 import { UpdateTrackPage } from "./update-track.page";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function TrackPage(): JSX.Element {
   useSEO({
@@ -16,6 +17,7 @@ export function TrackPage(): JSX.Element {
     description: trackSeoConfig.createTrackDescription,
   });
 
+  const navigate = useNavigate();
   const { showErrorToast } = useToast();
   const date = useSelectedDate();
   const { month, year, startDate, endDate } = useMonthDateRange();
@@ -45,6 +47,8 @@ export function TrackPage(): JSX.Element {
       calendarToastMessages.error.title,
       errorMessage ?? calendarToastMessages.error.description
     );
+
+    navigate("/");
   }
 
   if (isLoading) return <Loading />;
