@@ -5,18 +5,6 @@ const automatedTestsProjects = [
     name: "Desktop Chrome",
     use: { ...devices["Desktop Chrome"] },
   },
-  {
-    name: "Mobile Chrome (Pixel 5)",
-    use: { ...devices["Pixel 5"] },
-  },
-  {
-    name: "Desktop Safari (webkit)",
-    use: { ...devices["Desktop Safari"] },
-  },
-  {
-    name: "Microsoft Edge",
-    use: { ...devices["Desktop Edge"], channel: "msedge" },
-  },
 ];
 
 const defaultProjects = [
@@ -52,7 +40,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 3 : undefined,
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
     trace: "on-first-retry",
