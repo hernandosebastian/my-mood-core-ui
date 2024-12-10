@@ -4,9 +4,13 @@ import { updateTrackErrorMessages } from "../messages";
 
 export const updateTrackSchema = z.object({
   title: z
-    .nativeEnum(Mood)
-    .refine((val) => Object.values(Mood).includes(val), {
-      message: updateTrackErrorMessages.title.moodType,
+    .nativeEnum(Mood, {
+      errorMap: (issue, ctx) => {
+        if (issue.code === "invalid_enum_value") {
+          return { message: updateTrackErrorMessages.title.moodType };
+        }
+        return { message: ctx.defaultError };
+      },
     })
     .optional(),
 

@@ -55,6 +55,7 @@ export function useToast(): IUseToast {
     undoAction?: () => void
   ): void => {
     toast.error(message, {
+      id: "errorToast",
       description,
       action: undoAction
         ? {
@@ -67,4 +68,3 @@ export function useToast(): IUseToast {
 
   return { showToast, showSuccessToast, showErrorToast };
 }
-
