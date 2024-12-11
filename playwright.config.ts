@@ -45,6 +45,7 @@ export default defineConfig({
   use: {
     trace: "on-first-retry",
     actionTimeout: 60_000,
+    navigationTimeout: 30_000,
   },
   projects:
     process.env.VITE_APP_MODE === "automated_tests"
@@ -54,5 +55,7 @@ export default defineConfig({
     command: "npm run dev",
     url: "http://localhost:3000/",
     reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
   },
+  globalTimeout: 60_000,
 });
