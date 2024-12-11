@@ -46,6 +46,7 @@ export default defineConfig({
     trace: "on-first-retry",
     actionTimeout: 60_000,
     navigationTimeout: 30_000,
+    video: "retain-on-failure",
   },
   projects:
     process.env.VITE_APP_MODE === "automated_tests"
