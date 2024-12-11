@@ -39,8 +39,8 @@ export default defineConfig({
   outputDir: "playwright/test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: 1,
+  retries: 0,
+  workers: 3,
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
     trace: "on-first-retry",
