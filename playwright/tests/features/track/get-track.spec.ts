@@ -16,16 +16,15 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
-test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T10:00:00");
-  await page.context().newPage();
-  await page.clock.setFixedTime(fixedDate);
-
-  await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
-});
-
 test.describe("features/track - get", () => {
+  test.beforeEach(async ({ page, isMobile }) => {
+    const fixedDate = new Date("2024-10-29T10:00:00");
+    await page.context().newPage();
+    await page.clock.setFixedTime(fixedDate);
+
+    await page.goto(`${BASE_URL}`);
+    await logIn({ page, isMobile, isSidebarOpen: false });
+  });
   test("should display error message from body if there is one", async ({
     page,
     isMobile,
