@@ -40,5 +40,5 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-videos
-          path: playwright/test-results/videos/
+          path: playwright/test-results/
           retention-days: 30
