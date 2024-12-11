@@ -47,6 +47,8 @@ export function TrackPage(): JSX.Element {
       calendarToastMessages.error.title,
       errorMessage ?? calendarToastMessages.error.description
     );
+
+    navigate("/");
   }
 
   if (isLoading) return <Loading />;
