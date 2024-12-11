@@ -191,15 +191,15 @@ test.describe("features/track - create", () => {
     await createTrackDescriptionInput.fill("Lorem ipsum dolor sit amet");
     await createTrackDoneButton.click();
 
+    const updateTrackTitle = page.getByTestId("update-track-title");
+    expect(updateTrackTitle).toHaveText("Update Your Track | 10-10-2024");
+
     await expect(
       page.getByText(createTrackToastMessages.success.title)
     ).toBeVisible();
     await expect(
       page.getByText(createTrackToastMessages.success.description)
     ).toBeVisible();
-
-    const updateTrackTitle = page.getByTestId("update-track-title");
-    expect(updateTrackTitle).toHaveText("Update Your Track | 10-10-2024");
   });
 
   test("should display error message from body if there is one", async ({
