@@ -13,19 +13,40 @@ import {
   openSidebarIfMobile,
   selectDayFromCalendar,
 } from "utils";
+import fs from "fs"; // Para guardar los logs en un archivo
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.describe("features/track - delete", () => {
+  let requestLogs: any[] = []; // Aquí vamos a almacenar todas las solicitudes
+
   test.beforeEach(async ({ page, isMobile }) => {
     const fixedDate = new Date("2024-10-29T10:00:00");
     await page.context().newPage();
     await page.clock.setFixedTime(fixedDate);
 
+    // Registra todas las solicitudes
+    page.on("request", (request) => {
+      requestLogs.push({
+        method: request.method(),
+        url: request.url(),
+        postData: request.postData(),
+      });
+    });
+
     await page.goto(`${BASE_URL}`);
     await logIn({ page, isMobile, isSidebarOpen: false });
+  });
+
+  test.afterEach(async () => {
+    // Guarda las solicitudes realizadas en un archivo después de cada test
+    fs.writeFileSync(
+      "logs/requests.json",
+      JSON.stringify(requestLogs, null, 2)
+    );
+    requestLogs = []; // Limpia los logs para el siguiente test
   });
 
   test("should delete a track successfully", async ({ page, isMobile }) => {

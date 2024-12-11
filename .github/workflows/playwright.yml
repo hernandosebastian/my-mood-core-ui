@@ -42,3 +42,8 @@ jobs:
           name: playwright-videos
           path: playwright/test-results/
           retention-days: 30
+      - name: Upload test logs as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: request-logs
+          path: playwright/test-results/logs/requests.json

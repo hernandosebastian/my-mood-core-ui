@@ -47,6 +47,10 @@ export default defineConfig({
     actionTimeout: 60_000,
     navigationTimeout: 30_000,
     video: "retain-on-failure",
+    launchOptions: {
+      headless: true,
+      slowMo: 50,
+    },
   },
   projects:
     process.env.VITE_APP_MODE === "automated_tests"
