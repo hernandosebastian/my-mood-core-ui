@@ -17,7 +17,7 @@ dotenv.config();
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T00:00:00.000Z");
+  const fixedDate = new Date("2024-10-29T10:00:00");
   await page.context().newPage();
   await page.clock.setFixedTime(fixedDate);
 
@@ -30,6 +30,17 @@ test.describe("features/track - get", () => {
     page,
     isMobile,
   }) => {
+    await page.route(
+      "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+      (route) => {
+        route.fulfill(errorGetTrackFixtureWithMessage);
+      }
+    );
+
+    await openSidebarIfMobile({ page, isMobile });
+    await selectDayFromCalendar({ page, dayNumber: 10 });
+    await closeSidebarIfMobile({ page, isMobile });
+
     const errorResponseBody = JSON.parse(errorGetTrackFixtureWithMessage.body);
 
     const errorToastMessageTitle = page.getByText(

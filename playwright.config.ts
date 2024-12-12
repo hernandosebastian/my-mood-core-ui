@@ -51,7 +51,7 @@ export default defineConfig({
       headless: true,
       slowMo: 50,
     },
-    timezoneId: "America/Argentina/Buenos_Aires",
+    timezoneId: "UTC",
   },
   projects:
     process.env.VITE_APP_MODE === "automated_tests"
