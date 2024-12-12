@@ -21,7 +21,7 @@ dotenv.config();
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T00:00:00.000Z");
+  const fixedDate = new Date("2024-10-29T10:00:00");
   await page.context().newPage();
   await page.clock.setFixedTime(fixedDate);
 
