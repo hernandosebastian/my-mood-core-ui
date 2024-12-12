@@ -5,6 +5,10 @@ const automatedTestsProjects = [
     name: "Desktop Chrome",
     use: { ...devices["Desktop Chrome"] },
   },
+  {
+    name: "Mobile Chrome (Pixel 5)",
+    use: { ...devices["Pixel 5"] },
+  },
 ];
 
 const defaultProjects = [
