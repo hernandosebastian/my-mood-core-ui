@@ -44,9 +44,14 @@ export function CreateTrackForm({
 
     const result = await form.trigger();
 
-    if (result) {
-      onSubmit(form.getValues());
+    if (!result) {
+      return;
     }
+
+    const formData = form.getValues();
+    formData.date = date;
+
+    onSubmit(formData);
   };
 
   return (
@@ -130,4 +135,3 @@ export function CreateTrackForm({
     </div>
   );
 }
-
