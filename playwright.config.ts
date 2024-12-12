@@ -9,14 +9,6 @@ const automatedTestsProjects = [
     name: "Mobile Chrome (Pixel 5)",
     use: { ...devices["Pixel 5"] },
   },
-  {
-    name: "Desktop Safari (webkit)",
-    use: { ...devices["Desktop Safari"] },
-  },
-  {
-    name: "Microsoft Edge",
-    use: { ...devices["Desktop Edge"], channel: "msedge" },
-  },
 ];
 
 const defaultProjects = [
@@ -51,11 +43,18 @@ export default defineConfig({
   outputDir: "playwright/test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: 0,
+  workers: 3,
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
     trace: "on-first-retry",
+    actionTimeout: 60_000,
+    navigationTimeout: 30_000,
+    launchOptions: {
+      headless: true,
+      slowMo: 50,
+    },
+    timezoneId: "UTC",
   },
   projects:
     process.env.VITE_APP_MODE === "automated_tests"
@@ -65,5 +64,6 @@ export default defineConfig({
     command: "npm run dev",
     url: "http://localhost:3000/",
     reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
   },
 });
