@@ -16,6 +16,7 @@ import { updateTrackSchema } from "../schemas";
 import { Mood } from "../enum";
 import { useSelectedDate } from "@/features/calendar/hooks";
 import { format } from "date-fns";
+import { DeleteTrackDialog } from "./delete-track-dialog";
 
 interface IUpdateTrackFormProps {
   form: UseFormReturn<
@@ -126,24 +127,10 @@ export function UpdateTrackForm({
               Done
             </Button>
 
-            <Button
-              type="button"
-              disabled={isLoading}
-              className="w-full"
-              variant={"secondary"}
-              id="delete-track-button"
-              data-testid="delete-track-button"
-              onClick={onDelete}
-            >
-              {isLoading ? (
-                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
-              Delete
-            </Button>
+            <DeleteTrackDialog handleOnClick={onDelete} isLoading={isLoading} />
           </form>
         </Form>
       </div>
     </div>
   );
 }
-
