@@ -50,7 +50,6 @@ export default defineConfig({
     trace: "on-first-retry",
     actionTimeout: 60_000,
     navigationTimeout: 30_000,
-    video: "retain-on-failure",
     launchOptions: {
       headless: true,
       slowMo: 50,
