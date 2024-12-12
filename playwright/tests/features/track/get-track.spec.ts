@@ -16,30 +16,20 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
-test.describe("features/track - get", () => {
-  test.beforeEach(async ({ page, isMobile }) => {
-    const fixedDate = new Date("2024-10-29T10:00:00");
-    await page.context().newPage();
-    await page.clock.setFixedTime(fixedDate);
+test.beforeEach(async ({ page, isMobile }) => {
+  const fixedDate = new Date("2024-10-29T00:00:00.000Z");
+  await page.context().newPage();
+  await page.clock.setFixedTime(fixedDate);
 
-    await page.goto(`${BASE_URL}`);
-    await logIn({ page, isMobile, isSidebarOpen: false });
-  });
+  await page.goto(`${BASE_URL}`);
+  await logIn({ page, isMobile, isSidebarOpen: false });
+});
+
+test.describe("features/track - get", () => {
   test("should display error message from body if there is one", async ({
     page,
     isMobile,
   }) => {
-    await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T03:00:00.000Z&endDate=2024-11-01T02:59:59.999Z",
-      (route) => {
-        route.fulfill(errorGetTrackFixtureWithMessage);
-      }
-    );
-
-    await openSidebarIfMobile({ page, isMobile });
-    await selectDayFromCalendar({ page, dayNumber: 10 });
-    await closeSidebarIfMobile({ page, isMobile });
-
     const errorResponseBody = JSON.parse(errorGetTrackFixtureWithMessage.body);
 
     const errorToastMessageTitle = page.getByText(
@@ -58,7 +48,7 @@ test.describe("features/track - get", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T03:00:00.000Z&endDate=2024-11-01T02:59:59.999Z",
+      "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
       (route) => {
         route.fulfill(errorGetTrackFixtureWithoutMessage);
       }

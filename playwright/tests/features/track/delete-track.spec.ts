@@ -18,44 +18,33 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
+test.beforeEach(async ({ page, isMobile }) => {
+  const fixedDate = new Date("2024-10-29T00:00:00.000Z");
+  await page.context().newPage();
+  await page.clock.setFixedTime(fixedDate);
+
+  await page.goto(`${BASE_URL}`);
+  await logIn({ page, isMobile, isSidebarOpen: false });
+
+  await page.route(
+    "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    (route) => {
+      route.fulfill(successGetTrackFixture);
+    }
+  );
+
+  await openSidebarIfMobile({ page, isMobile });
+  await selectDayFromCalendar({ page, dayNumber: 10 });
+  await closeSidebarIfMobile({ page, isMobile });
+});
+
 test.describe("features/track - delete", () => {
-  test.beforeEach(async ({ page, isMobile }) => {
-    const fixedDate = new Date("2024-10-29T10:00:00");
-    await page.context().newPage();
-    await page.clock.setFixedTime(fixedDate);
-
-    page.on("request", (request) => {
-      console.log(
-        "request.method() ",
-        request.method(),
-        "request.url() ",
-        request.url(),
-        "request.headers() ",
-        request.headers()
-      );
-    });
-
-    await page.goto(`${BASE_URL}`);
-    await logIn({ page, isMobile, isSidebarOpen: false });
-  });
-
-  test("should delete a track successfully", async ({ page, isMobile }) => {
+  test("should delete a track successfully", async ({ page }) => {
     await page.route("**/api/v1/track/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(successDeleteTrackFixture);
       }
     });
-
-    await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T03:00:00.000Z&endDate=2024-11-01T02:59:59.999Z",
-      (route) => {
-        route.fulfill(successGetTrackFixture);
-      }
-    );
-
-    await openSidebarIfMobile({ page, isMobile });
-    await selectDayFromCalendar({ page, dayNumber: 10 });
-    await closeSidebarIfMobile({ page, isMobile });
 
     const deleteButton = page.getByTestId("delete-track-button");
     const updateTrackTitle = page.getByTestId("update-track-title");
@@ -77,24 +66,12 @@ test.describe("features/track - delete", () => {
 
   test("should display error message if there is an error", async ({
     page,
-    isMobile,
   }) => {
     await page.route("**/api/v1/track/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(errorDeleteTrackFixture);
       }
     });
-
-    await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T03:00:00.000Z&endDate=2024-11-01T02:59:59.999Z",
-      (route) => {
-        route.fulfill(successGetTrackFixture);
-      }
-    );
-
-    await openSidebarIfMobile({ page, isMobile });
-    await selectDayFromCalendar({ page, dayNumber: 10 });
-    await closeSidebarIfMobile({ page, isMobile });
 
     const deleteButton = page.getByTestId("delete-track-button");
     const updateTrackTitle = page.getByTestId("update-track-title");
@@ -116,24 +93,12 @@ test.describe("features/track - delete", () => {
 
   test("should display default error message if there is no error message in the body", async ({
     page,
-    isMobile,
   }) => {
     await page.route("**/api/v1/track/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(errorDeleteTrackFixtureWithoutMessage);
       }
     });
-
-    await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T03:00:00.000Z&endDate=2024-11-01T02:59:59.999Z",
-      (route) => {
-        route.fulfill(successGetTrackFixture);
-      }
-    );
-
-    await openSidebarIfMobile({ page, isMobile });
-    await selectDayFromCalendar({ page, dayNumber: 10 });
-    await closeSidebarIfMobile({ page, isMobile });
 
     const deleteButton = page.getByTestId("delete-track-button");
     const updateTrackTitle = page.getByTestId("update-track-title");
@@ -153,4 +118,3 @@ test.describe("features/track - delete", () => {
     ).toBeVisible();
   });
 });
-
