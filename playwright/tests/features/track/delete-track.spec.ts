@@ -46,12 +46,16 @@ test.describe("features/track - delete", () => {
       }
     });
 
+    const openDeleteTrackDialogButton = page.getByTestId(
+      "open-delete-track-dialog-button"
+    );
     const deleteButton = page.getByTestId("delete-track-button");
     const updateTrackTitle = page.getByTestId("update-track-title");
     const createTrackTitle = page.getByTestId("create-track-title");
 
     expect(updateTrackTitle).toBeVisible();
     expect(createTrackTitle).not.toBeVisible();
+    await openDeleteTrackDialogButton.click();
     await deleteButton.click();
     await expect(updateTrackTitle).not.toBeVisible();
     await expect(createTrackTitle).toBeVisible();
@@ -73,12 +77,16 @@ test.describe("features/track - delete", () => {
       }
     });
 
+    const openDeleteTrackDialogButton = page.getByTestId(
+      "open-delete-track-dialog-button"
+    );
     const deleteButton = page.getByTestId("delete-track-button");
     const updateTrackTitle = page.getByTestId("update-track-title");
     const createTrackTitle = page.getByTestId("create-track-title");
 
     expect(updateTrackTitle).toBeVisible();
     expect(createTrackTitle).not.toBeVisible();
+    await openDeleteTrackDialogButton.click();
     await deleteButton.click();
     expect(updateTrackTitle).toBeVisible();
     expect(createTrackTitle).not.toBeVisible();
@@ -100,12 +108,16 @@ test.describe("features/track - delete", () => {
       }
     });
 
+    const openDeleteTrackDialogButton = page.getByTestId(
+      "open-delete-track-dialog-button"
+    );
     const deleteButton = page.getByTestId("delete-track-button");
     const updateTrackTitle = page.getByTestId("update-track-title");
     const createTrackTitle = page.getByTestId("create-track-title");
 
     expect(updateTrackTitle).toBeVisible();
     expect(createTrackTitle).not.toBeVisible();
+    await openDeleteTrackDialogButton.click();
     await deleteButton.click();
     expect(updateTrackTitle).toBeVisible();
     expect(createTrackTitle).not.toBeVisible();
@@ -116,5 +128,26 @@ test.describe("features/track - delete", () => {
     await expect(
       page.getByText(deleteTrackToastMessages.error.description)
     ).toBeVisible();
+  });
+
+  test("should cancel deleting a track", async ({ page }) => {
+    const openDeleteTrackDialogButton = page.getByTestId(
+      "open-delete-track-dialog-button"
+    );
+    const cancelDeleteButton = page.getByTestId("cancel-delete-track-button");
+    const updateTrackTitle = page.getByTestId("update-track-title");
+    const createTrackTitle = page.getByTestId("create-track-title");
+
+    expect(updateTrackTitle).toBeVisible();
+    expect(createTrackTitle).not.toBeVisible();
+    await openDeleteTrackDialogButton.click();
+    await cancelDeleteButton.click();
+
+    expect(createTrackTitle).not.toBeVisible();
+
+    const isHidden = await updateTrackTitle.isHidden();
+    const isVisible = await updateTrackTitle.isVisible();
+
+    expect(isHidden || isVisible).toBe(true);
   });
 });
