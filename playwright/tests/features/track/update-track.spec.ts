@@ -42,36 +42,10 @@ test.beforeEach(async ({ page, isMobile }) => {
 });
 
 test.describe("features/track - update", () => {
-  test("should validate that title is a mood value", async ({ page }) => {
-    const updateTrackTitleInput = page.getByTestId("update-track-title-input");
-    const updateTrackDoneButton = page.getByTestId(
-      "update-track-submit-button"
-    );
-    const titleErrorMessage = page.getByText(
-      updateTrackErrorMessages.title.moodType
-    );
-
-    const titleNotValid = "moodNotValid";
-
-    await page.evaluate((randomTitle) => {
-      const selectElement = document.querySelector(
-        '[data-testid="update-track-title-input"]'
-      );
-      const newOption = document.createElement("option");
-      newOption.value = randomTitle;
-      newOption.textContent = randomTitle;
-      selectElement.appendChild(newOption);
-    }, titleNotValid);
-
-    await updateTrackTitleInput.selectOption({ value: titleNotValid });
-
-    await updateTrackDoneButton.click();
-
-    await expect(titleErrorMessage).toBeVisible();
-  });
-
   test("should validate description max length", async ({ page }) => {
-    const updateTrackTitleInput = page.getByTestId("update-track-title-input");
+    const createTrackTitleHappyInput = page.getByTestId(
+      "update-track-Happy-button"
+    );
     const updateTrackDescriptionInput = page.getByTestId(
       "update-track-description-input"
     );
@@ -82,7 +56,7 @@ test.describe("features/track - update", () => {
       updateTrackErrorMessages.description.maxLength
     );
 
-    await updateTrackTitleInput.selectOption({ value: "Sad" });
+    await createTrackTitleHappyInput.click();
     await updateTrackDescriptionInput.click();
     await updateTrackDescriptionInput.fill("x".repeat(201));
     await updateTrackDoneButton.click();
@@ -97,7 +71,9 @@ test.describe("features/track - update", () => {
       }
     });
 
-    const updateTrackTitleInput = page.getByTestId("update-track-title-input");
+    const createTrackTitleHappyInput = page.getByTestId(
+      "update-track-Happy-button"
+    );
     const updateTrackDescriptionInput = page.getByTestId(
       "update-track-description-input"
     );
@@ -105,17 +81,11 @@ test.describe("features/track - update", () => {
       "update-track-submit-button"
     );
 
-    const selectedValue = await updateTrackTitleInput.inputValue();
-    expect(selectedValue).toBe("Sad");
-
     const initialDescriptionValue =
       await updateTrackDescriptionInput.inputValue();
     expect(initialDescriptionValue).toBe("Lorem ipsum dolor sit amet");
 
-    await updateTrackTitleInput.selectOption({ value: "Happy" });
-
-    const updatedSelectedValue = await updateTrackTitleInput.inputValue();
-    expect(updatedSelectedValue).toBe("Happy");
+    await createTrackTitleHappyInput.click();
 
     await updateTrackDescriptionInput.click();
     await updateTrackDescriptionInput.fill("Lorem ipsum dolor sit amet!");
@@ -143,13 +113,14 @@ test.describe("features/track - update", () => {
       }
     });
 
-    const updateTrackTitleInput = page.getByTestId("update-track-title-input");
-
+    const createTrackTitleHappyInput = page.getByTestId(
+      "update-track-Happy-button"
+    );
     const updateTrackDoneButton = page.getByTestId(
       "update-track-submit-button"
     );
 
-    await updateTrackTitleInput.selectOption({ value: "Happy" });
+    await createTrackTitleHappyInput.click();
     await updateTrackDoneButton.click();
 
     const errorResponseBody = JSON.parse(
@@ -171,13 +142,14 @@ test.describe("features/track - update", () => {
       }
     });
 
-    const updateTrackTitleInput = page.getByTestId("update-track-title-input");
-
+    const createTrackTitleHappyInput = page.getByTestId(
+      "update-track-Happy-button"
+    );
     const updateTrackDoneButton = page.getByTestId(
       "update-track-submit-button"
     );
 
-    await updateTrackTitleInput.selectOption({ value: "Happy" });
+    await createTrackTitleHappyInput.click();
     await updateTrackDoneButton.click();
 
     await expect(
