@@ -85,7 +85,7 @@ export function CreateTrackForm({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Mood</FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel className="w-full max-w-xs flex flex-col gap-4">
                       <CarouselContent>
