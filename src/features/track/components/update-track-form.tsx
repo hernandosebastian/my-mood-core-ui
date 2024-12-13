@@ -17,6 +17,15 @@ import { Mood } from "../enum";
 import { useSelectedDate } from "@/features/calendar/hooks";
 import { format } from "date-fns";
 import { DeleteTrackDialog } from "./delete-track-dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface IUpdateTrackFormProps {
   form: UseFormReturn<
@@ -73,21 +82,49 @@ export function UpdateTrackForm({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <select
-                      id="title"
-                      {...field}
-                      disabled={isLoading}
-                      data-testid="update-track-title-input"
-                      className="input"
-                    >
-                      {Object.values(Mood).map((mood) => (
-                        <option key={mood} value={mood}>
-                          {mood}
-                        </option>
-                      ))}
-                    </select>
+                  <FormLabel>Mood</FormLabel>
+                  <FormControl className="ml-auto mr-auto">
+                    <Carousel className="w-full max-w-xs flex flex-col gap-4">
+                      <CarouselContent>
+                        {Object.values(Mood).map((mood) => (
+                          <CarouselItem key={mood.toString()}>
+                            <div>
+                              <Card
+                                className={cn(
+                                  field.value === mood && "border-stone-500"
+                                )}
+                              >
+                                <CardContent className="flex aspect-square items-center justify-center p-6">
+                                  <button
+                                    type="button"
+                                    onClick={() => field.onChange(mood)}
+                                    className="w-full h-full"
+                                    data-testid={`update-track-${mood}-button`}
+                                    disabled={isLoading}
+                                  >
+                                    <span className="text-lg font-semibold">
+                                      {mood}
+                                    </span>
+                                  </button>
+                                </CardContent>
+                              </Card>
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <div className="flex w-[35%] justify-between ml-auto mr-auto">
+                        <CarouselPrevious
+                          type="button"
+                          data-testid="previous-button"
+                          disabled={isLoading}
+                        />
+                        <CarouselNext
+                          type="button"
+                          data-testid="next-button"
+                          disabled={isLoading}
+                        />
+                      </div>
+                    </Carousel>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
