@@ -43,36 +43,10 @@ test.beforeEach(async ({ page, isMobile }) => {
 });
 
 test.describe("features/track - create", () => {
-  test("should validate that title is a mood value", async ({ page }) => {
-    const createTrackTitleInput = page.getByTestId("create-track-title-input");
-    const createTrackDoneButton = page.getByTestId(
-      "create-track-submit-button"
-    );
-    const titleErrorMessage = page.getByText(
-      createTrackErrorMessages.title.moodType
-    );
-
-    const titleNotValid = "moodNotValid";
-
-    await page.evaluate((randomTitle) => {
-      const selectElement = document.querySelector(
-        '[data-testid="create-track-title-input"]'
-      );
-      const newOption = document.createElement("option");
-      newOption.value = randomTitle;
-      newOption.textContent = randomTitle;
-      selectElement.appendChild(newOption);
-    }, titleNotValid);
-
-    await createTrackTitleInput.selectOption({ value: titleNotValid });
-
-    await createTrackDoneButton.click();
-
-    await expect(titleErrorMessage).toBeVisible();
-  });
-
   test("should validate description max length", async ({ page }) => {
-    const createTrackTitleInput = page.getByTestId("create-track-title-input");
+    const createTrackTitleSadInput = page.getByTestId(
+      "create-track-Sad-button"
+    );
     const createTrackDescriptionInput = page.getByTestId(
       "create-track-description-input"
     );
@@ -83,7 +57,7 @@ test.describe("features/track - create", () => {
       createTrackErrorMessages.description.maxLength
     );
 
-    await createTrackTitleInput.selectOption({ value: "Sad" });
+    await createTrackTitleSadInput.click();
     await createTrackDescriptionInput.click();
     await createTrackDescriptionInput.fill("x".repeat(201));
     await createTrackDoneButton.click();
@@ -97,7 +71,9 @@ test.describe("features/track - create", () => {
     });
 
     const createTrackTitle = page.getByTestId("create-track-title");
-    const createTrackTitleInput = page.getByTestId("create-track-title-input");
+    const createTrackTitleSadInput = page.getByTestId(
+      "create-track-Sad-button"
+    );
     const createTrackDescriptionInput = page.getByTestId(
       "create-track-description-input"
     );
@@ -107,7 +83,7 @@ test.describe("features/track - create", () => {
 
     expect(createTrackTitle).toHaveText("Track Your Mood | 10-10-2024");
 
-    await createTrackTitleInput.selectOption({ value: "Sad" });
+    await createTrackTitleSadInput.click();
     await createTrackDescriptionInput.click();
     await createTrackDescriptionInput.fill("Lorem ipsum dolor sit amet");
     await createTrackDoneButton.click();
@@ -131,14 +107,16 @@ test.describe("features/track - create", () => {
     });
 
     const createTrackTitle = page.getByTestId("create-track-title");
-    const createTrackTitleInput = page.getByTestId("create-track-title-input");
+    const createTrackTitleSadInput = page.getByTestId(
+      "create-track-Sad-button"
+    );
     const createTrackDoneButton = page.getByTestId(
       "create-track-submit-button"
     );
 
     expect(createTrackTitle).toHaveText("Track Your Mood | 10-10-2024");
 
-    await createTrackTitleInput.selectOption({ value: "Sad" });
+    await createTrackTitleSadInput.click();
     await createTrackDoneButton.click();
 
     const errorResponseBody = JSON.parse(
@@ -159,14 +137,16 @@ test.describe("features/track - create", () => {
     });
 
     const createTrackTitle = page.getByTestId("create-track-title");
-    const createTrackTitleInput = page.getByTestId("create-track-title-input");
+    const createTrackTitleSadInput = page.getByTestId(
+      "create-track-Sad-button"
+    );
     const createTrackDoneButton = page.getByTestId(
       "create-track-submit-button"
     );
 
     expect(createTrackTitle).toHaveText("Track Your Mood | 10-10-2024");
 
-    await createTrackTitleInput.selectOption({ value: "Sad" });
+    await createTrackTitleSadInput.click();
     await createTrackDoneButton.click();
 
     await expect(
