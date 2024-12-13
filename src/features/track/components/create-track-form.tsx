@@ -16,6 +16,15 @@ import { createTrackSchema } from "../schemas";
 import { Mood } from "../enum";
 import { format } from "date-fns";
 import { useSelectedDate } from "@/features/calendar/hooks";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ICreateTrackFormProps {
   form: UseFormReturn<
@@ -77,20 +86,48 @@ export function CreateTrackForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <select
-                      id="title"
-                      {...field}
-                      disabled={isLoading}
-                      data-testid="create-track-title-input"
-                      className="input"
-                    >
-                      {Object.values(Mood).map((mood) => (
-                        <option key={mood} value={mood}>
-                          {mood}
-                        </option>
-                      ))}
-                    </select>
+                  <FormControl className="ml-auto mr-auto">
+                    <Carousel className="w-full max-w-xs flex flex-col gap-4">
+                      <CarouselContent>
+                        {Object.values(Mood).map((mood) => (
+                          <CarouselItem key={mood.toString()}>
+                            <div>
+                              <Card
+                                className={cn(
+                                  field.value === mood && "border-stone-500"
+                                )}
+                              >
+                                <CardContent className="flex aspect-square items-center justify-center p-6">
+                                  <button
+                                    type="button"
+                                    onClick={() => field.onChange(mood)}
+                                    className="w-full h-full"
+                                    data-testid={`create-track-${mood}-button`}
+                                    disabled={isLoading}
+                                  >
+                                    <span className="text-lg font-semibold">
+                                      {mood}
+                                    </span>
+                                  </button>
+                                </CardContent>
+                              </Card>
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <div className="flex w-[35%] justify-between ml-auto mr-auto">
+                        <CarouselPrevious
+                          type="button"
+                          data-testid="previous-button"
+                          disabled={isLoading}
+                        />
+                        <CarouselNext
+                          type="button"
+                          data-testid="next-button"
+                          disabled={isLoading}
+                        />
+                      </div>
+                    </Carousel>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
