@@ -1,8 +1,7 @@
 import axios from "axios";
 import { env } from "@/config/env";
-import { ITrack } from "../interfaces";
+import { ITrack, IUpdateTrackDto } from "../interfaces";
 import { getItem, StorageKeys } from "@/services/local-storage";
-import { IUpdateTrackDto } from "../interfaces/update-track.dto.interface";
 
 export const updateTrack = async (
   id: number,
@@ -21,4 +20,3 @@ export const updateTrack = async (
 
   return response.data;
 };
-

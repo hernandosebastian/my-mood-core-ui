@@ -1,6 +1,5 @@
 import { useMutation, UseMutationResult, useQueryClient } from "react-query";
-import { ITrack } from "../interfaces";
-import { IUpdateTrackDto } from "../interfaces/update-track.dto.interface";
+import { ITrack, IUpdateTrackDto } from "../interfaces";
 import { updateTrack } from "../services";
 import { Track } from "../entity";
 import { tracksKeys } from "./tracks-keys";
@@ -47,4 +46,3 @@ export const useUpdateTrack = (
     },
   });
 };
-
