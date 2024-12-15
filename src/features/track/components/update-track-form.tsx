@@ -113,6 +113,19 @@ export function UpdateTrackForm({
                                   </button>
                                 </CardContent>
                               </Card>
+                              <div className="text-center mt-2">
+                                <span
+                                  className="text-base font-medium"
+                                  style={{
+                                    color:
+                                      field.value === mood
+                                        ? getMoodColor(mood)
+                                        : "inherit",
+                                  }}
+                                >
+                                  {mood}
+                                </span>
+                              </div>
                             </div>
                           </CarouselItem>
                         ))}
