@@ -25,7 +25,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { getMoodColor } from "../utils";
 
 interface IUpdateTrackFormProps {
   form: UseFormReturn<
@@ -90,9 +90,12 @@ export function UpdateTrackForm({
                           <CarouselItem key={mood.toString()}>
                             <div>
                               <Card
-                                className={cn(
-                                  field.value === mood && "border-stone-500"
-                                )}
+                                style={{
+                                  borderColor:
+                                    field.value === mood
+                                      ? getMoodColor(mood)
+                                      : "transparent",
+                                }}
                               >
                                 <CardContent className="flex aspect-square items-center justify-center p-6">
                                   <button
@@ -102,9 +105,11 @@ export function UpdateTrackForm({
                                     data-testid={`update-track-${mood}-button`}
                                     disabled={isLoading}
                                   >
-                                    <span className="text-lg font-semibold">
-                                      {mood}
-                                    </span>
+                                    <img
+                                      src={`src/assets/mood/${mood}.png`}
+                                      alt={mood}
+                                      className="w-full h-full object-contain"
+                                    />
                                   </button>
                                 </CardContent>
                               </Card>
