@@ -16,6 +16,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
+  startIndex?: number;
 };
 
 type CarouselContextProps = {
@@ -53,6 +54,7 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
+      startIndex = 0,
       ...props
     },
     ref
@@ -97,6 +99,12 @@ const Carousel = React.forwardRef<
       },
       [scrollPrev, scrollNext]
     );
+
+    React.useEffect(() => {
+      if (api && startIndex !== undefined) {
+        api.scrollTo(startIndex);
+      }
+    }, [api, startIndex]);
 
     React.useEffect(() => {
       if (!api || !setApi) {
@@ -279,4 +287,3 @@ export {
   CarouselPrevious,
   CarouselNext,
 };
-
