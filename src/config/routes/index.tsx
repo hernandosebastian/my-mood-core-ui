@@ -10,6 +10,7 @@ import {
 import { EditProfilePage } from "@/features/edit-profile/pages";
 import { Homepage } from "@/features/homepage/pages";
 import { NotFoundPage } from "@/features/not-found/pages";
+import { StatsPage } from "@/features/stats/pages";
 import { TrackPage } from "@/features/track/pages";
 import { Route } from "react-router-dom";
 
@@ -34,6 +35,10 @@ export const RoutesList = (
     <Route
       path="/track"
       element={<AuthenticationGuard Component={TrackPage} />}
+    />
+    <Route
+      path="/stats"
+      element={<AuthenticationGuard Component={StatsPage} />}
     />
     <Route
       path="/edit-profile"
