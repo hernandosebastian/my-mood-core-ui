@@ -26,8 +26,10 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
+import { Track } from "../entity";
 
 interface IUpdateTrackFormProps {
+  track: Track;
   form: UseFormReturn<
     {
       title?: Mood;
@@ -43,6 +45,7 @@ interface IUpdateTrackFormProps {
 }
 
 export function UpdateTrackForm({
+  track,
   form,
   onSubmit,
   onDelete,
@@ -59,6 +62,8 @@ export function UpdateTrackForm({
       onSubmit(form.getValues());
     }
   };
+
+  const startIndex = Object.values(Mood).indexOf(track.title);
 
   return (
     <div className="lg:p-8 text-black">
@@ -84,7 +89,10 @@ export function UpdateTrackForm({
                 <FormItem>
                   <FormLabel>Mood</FormLabel>
                   <FormControl className="ml-auto mr-auto">
-                    <Carousel className="w-full max-w-xs flex flex-col gap-4">
+                    <Carousel
+                      startIndex={startIndex}
+                      className="w-full max-w-xs flex flex-col gap-4"
+                    >
                       <CarouselContent>
                         {Object.values(Mood).map((mood) => (
                           <CarouselItem key={mood.toString()}>
