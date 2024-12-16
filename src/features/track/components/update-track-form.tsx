@@ -25,9 +25,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { getMoodColor } from "../utils";
+import { Track } from "../entity";
 
 interface IUpdateTrackFormProps {
+  track: Track;
   form: UseFormReturn<
     {
       title?: Mood;
@@ -43,6 +45,7 @@ interface IUpdateTrackFormProps {
 }
 
 export function UpdateTrackForm({
+  track,
   form,
   onSubmit,
   onDelete,
@@ -59,6 +62,8 @@ export function UpdateTrackForm({
       onSubmit(form.getValues());
     }
   };
+
+  const startIndex = Object.values(Mood).indexOf(track.title);
 
   return (
     <div className="lg:p-8 text-black">
@@ -84,15 +89,21 @@ export function UpdateTrackForm({
                 <FormItem>
                   <FormLabel>Mood</FormLabel>
                   <FormControl className="ml-auto mr-auto">
-                    <Carousel className="w-full max-w-xs flex flex-col gap-4">
+                    <Carousel
+                      startIndex={startIndex}
+                      className="w-full max-w-xs flex flex-col gap-4"
+                    >
                       <CarouselContent>
                         {Object.values(Mood).map((mood) => (
                           <CarouselItem key={mood.toString()}>
                             <div>
                               <Card
-                                className={cn(
-                                  field.value === mood && "border-stone-500"
-                                )}
+                                style={{
+                                  borderColor:
+                                    field.value === mood
+                                      ? getMoodColor(mood)
+                                      : "transparent",
+                                }}
                               >
                                 <CardContent className="flex aspect-square items-center justify-center p-6">
                                   <button
@@ -102,12 +113,27 @@ export function UpdateTrackForm({
                                     data-testid={`update-track-${mood}-button`}
                                     disabled={isLoading}
                                   >
-                                    <span className="text-lg font-semibold">
-                                      {mood}
-                                    </span>
+                                    <img
+                                      src={`src/assets/mood/${mood}.png`}
+                                      alt={mood}
+                                      className="w-full h-full object-contain"
+                                    />
                                   </button>
                                 </CardContent>
                               </Card>
+                              <div className="text-center mt-2">
+                                <span
+                                  className="text-base font-medium"
+                                  style={{
+                                    color:
+                                      field.value === mood
+                                        ? getMoodColor(mood)
+                                        : "inherit",
+                                  }}
+                                >
+                                  {mood}
+                                </span>
+                              </div>
                             </div>
                           </CarouselItem>
                         ))}
@@ -115,12 +141,12 @@ export function UpdateTrackForm({
                       <div className="flex w-[35%] justify-between ml-auto mr-auto">
                         <CarouselPrevious
                           type="button"
-                          data-testid="previous-button"
+                          data-testid="update-track-previous-mood-button"
                           disabled={isLoading}
                         />
                         <CarouselNext
                           type="button"
-                          data-testid="next-button"
+                          data-testid="update-track-next-mood-button"
                           disabled={isLoading}
                         />
                       </div>

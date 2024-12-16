@@ -106,6 +106,7 @@ export function UpdateTrackPage({
 
   return (
     <UpdateTrackForm
+      track={track}
       form={form}
       onSubmit={onSubmit}
       onDelete={onDelete}
@@ -113,4 +114,3 @@ export function UpdateTrackPage({
     />
   );
 }
-

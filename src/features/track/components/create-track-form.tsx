@@ -23,8 +23,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
+import { getMoodColor } from "../utils";
 
 interface ICreateTrackFormProps {
   form: UseFormReturn<
@@ -93,9 +93,12 @@ export function CreateTrackForm({
                           <CarouselItem key={mood.toString()}>
                             <div>
                               <Card
-                                className={cn(
-                                  field.value === mood && "border-stone-500"
-                                )}
+                                style={{
+                                  borderColor:
+                                    field.value === mood
+                                      ? getMoodColor(mood)
+                                      : "transparent",
+                                }}
                               >
                                 <CardContent className="flex aspect-square items-center justify-center p-6">
                                   <button
@@ -105,16 +108,32 @@ export function CreateTrackForm({
                                     data-testid={`create-track-${mood}-button`}
                                     disabled={isLoading}
                                   >
-                                    <span className="text-lg font-semibold">
-                                      {mood}
-                                    </span>
+                                    <img
+                                      src={`src/assets/mood/${mood}.png`}
+                                      alt={mood}
+                                      className="w-full h-full object-contain"
+                                    />
                                   </button>
                                 </CardContent>
                               </Card>
+                              <div className="text-center mt-2">
+                                <span
+                                  className="text-base font-medium"
+                                  style={{
+                                    color:
+                                      field.value === mood
+                                        ? getMoodColor(mood)
+                                        : "inherit",
+                                  }}
+                                >
+                                  {mood}
+                                </span>
+                              </div>
                             </div>
                           </CarouselItem>
                         ))}
                       </CarouselContent>
+
                       <div className="flex w-[35%] justify-between ml-auto mr-auto">
                         <CarouselPrevious
                           type="button"

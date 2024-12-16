@@ -56,8 +56,6 @@ export function TrackPage(): JSX.Element {
   return dayIsTracked && trackedDay ? (
     <UpdateTrackPage track={trackedDay} />
   ) : (
-    <div>
-      <CreateTrackPage />
-    </div>
+    <CreateTrackPage />
   );
 }
