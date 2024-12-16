@@ -126,17 +126,15 @@ const ChartTooltipContent = React.forwardRef<
       nameKey?: string;
       labelKey?: string;
       active?: boolean;
-      payload: Payload<ValueType, NameType>[];
+      payload?: Payload<ValueType, NameType>[];
       className?: string;
       label?: string;
-      labelFormatter:
-        | ((
-            label: unknown,
-            payload: Payload<ValueType, NameType>[]
-          ) => React.ReactNode)
-        | undefined;
+      labelFormatter?: (
+        label: unknown,
+        payload: Payload<ValueType, NameType>[]
+      ) => React.ReactNode;
+      formatter?: Formatter<ValueType, NameType>;
       labelClassName?: string;
-      formatter: Formatter<ValueType, NameType> | undefined;
       color?: string;
     }
 >(
@@ -387,4 +385,3 @@ export {
   ChartLegendContent,
   ChartStyle,
 };
-
