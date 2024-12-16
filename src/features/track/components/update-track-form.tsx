@@ -141,12 +141,12 @@ export function UpdateTrackForm({
                       <div className="flex w-[35%] justify-between ml-auto mr-auto">
                         <CarouselPrevious
                           type="button"
-                          data-testid="previous-button"
+                          data-testid="update-track-previous-mood-button"
                           disabled={isLoading}
                         />
                         <CarouselNext
                           type="button"
-                          data-testid="next-button"
+                          data-testid="update-track-next-mood-button"
                           disabled={isLoading}
                         />
                       </div>

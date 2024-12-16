@@ -46,6 +46,9 @@ test.describe("features/track - update", () => {
     const createTrackTitleHappyInput = page.getByTestId(
       "update-track-Happy-button"
     );
+    const updateTrackPreviousTitleInput = page.getByTestId(
+      "update-track-previous-mood-button"
+    );
     const updateTrackDescriptionInput = page.getByTestId(
       "update-track-description-input"
     );
@@ -56,6 +59,7 @@ test.describe("features/track - update", () => {
       updateTrackErrorMessages.description.maxLength
     );
 
+    await updateTrackPreviousTitleInput.click();
     await createTrackTitleHappyInput.click();
     await updateTrackDescriptionInput.click();
     await updateTrackDescriptionInput.fill("x".repeat(201));
@@ -74,6 +78,9 @@ test.describe("features/track - update", () => {
     const createTrackTitleHappyInput = page.getByTestId(
       "update-track-Happy-button"
     );
+    const updateTrackPreviousTitleInput = page.getByTestId(
+      "update-track-previous-mood-button"
+    );
     const updateTrackDescriptionInput = page.getByTestId(
       "update-track-description-input"
     );
@@ -85,6 +92,7 @@ test.describe("features/track - update", () => {
       await updateTrackDescriptionInput.inputValue();
     expect(initialDescriptionValue).toBe("Lorem ipsum dolor sit amet");
 
+    await updateTrackPreviousTitleInput.click();
     await createTrackTitleHappyInput.click();
 
     await updateTrackDescriptionInput.click();
@@ -116,10 +124,14 @@ test.describe("features/track - update", () => {
     const createTrackTitleHappyInput = page.getByTestId(
       "update-track-Happy-button"
     );
+    const updateTrackPreviousTitleInput = page.getByTestId(
+      "update-track-previous-mood-button"
+    );
     const updateTrackDoneButton = page.getByTestId(
       "update-track-submit-button"
     );
 
+    await updateTrackPreviousTitleInput.click();
     await createTrackTitleHappyInput.click();
     await updateTrackDoneButton.click();
 
@@ -145,10 +157,14 @@ test.describe("features/track - update", () => {
     const createTrackTitleHappyInput = page.getByTestId(
       "update-track-Happy-button"
     );
+    const updateTrackPreviousTitleInput = page.getByTestId(
+      "update-track-previous-mood-button"
+    );
     const updateTrackDoneButton = page.getByTestId(
       "update-track-submit-button"
     );
 
+    await updateTrackPreviousTitleInput.click();
     await createTrackTitleHappyInput.click();
     await updateTrackDoneButton.click();
 
