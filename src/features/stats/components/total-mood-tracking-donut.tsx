@@ -15,67 +15,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Mood } from "@/features/track/enum";
 import { getMoodColor } from "@/features/track/utils";
 import { ViewBox } from "recharts/types/util/types";
+import { MonthlyMoodTracking } from "../entity";
 
-const chartData = [
-  { mood: Mood.HAPPY, totalDaysTracked: 31, fill: getMoodColor(Mood.HAPPY) },
-  { mood: Mood.SAD, totalDaysTracked: 24, fill: getMoodColor(Mood.SAD) },
-  { mood: Mood.ANGRY, totalDaysTracked: 18, fill: getMoodColor(Mood.ANGRY) },
-  { mood: Mood.BORED, totalDaysTracked: 15, fill: getMoodColor(Mood.BORED) },
-  {
-    mood: Mood.EXCITED,
-    totalDaysTracked: 30,
-    fill: getMoodColor(Mood.EXCITED),
-  },
-  {
-    mood: Mood.ANXIOUS,
-    totalDaysTracked: 22,
-    fill: getMoodColor(Mood.ANXIOUS),
-  },
-  { mood: Mood.CALM, totalDaysTracked: 26, fill: getMoodColor(Mood.CALM) },
-  {
-    mood: Mood.CONFUSED,
-    totalDaysTracked: 13,
-    fill: getMoodColor(Mood.CONFUSED),
-  },
-];
-
-const chartConfig = {
-  [Mood.HAPPY]: {
-    label: "Happy",
-    color: getMoodColor(Mood.HAPPY),
-  },
-  [Mood.SAD]: {
-    label: "Sad",
-    color: getMoodColor(Mood.SAD),
-  },
-  [Mood.ANGRY]: {
-    label: "Angry",
-    color: getMoodColor(Mood.ANGRY),
-  },
-  [Mood.BORED]: {
-    label: "Bored",
-    color: getMoodColor(Mood.BORED),
-  },
-  [Mood.EXCITED]: {
-    label: "Excited",
-    color: getMoodColor(Mood.EXCITED),
-  },
-  [Mood.ANXIOUS]: {
-    label: "Anxious",
-    color: getMoodColor(Mood.ANXIOUS),
-  },
-  [Mood.CALM]: {
-    label: "Calm",
-    color: getMoodColor(Mood.CALM),
-  },
-  [Mood.CONFUSED]: {
-    label: "Confused",
-    color: getMoodColor(Mood.CONFUSED),
-  },
-} satisfies ChartConfig;
+interface TotalMoodTrackingDonutProps {
+  historyTrackMap: Map<string, MonthlyMoodTracking>;
+}
 
 interface IRenderLabelContentProps {
   viewBox: ViewBox | undefined;
@@ -107,10 +53,31 @@ const renderLabelContent = ({
   return null;
 };
 
-export function TotalMoodTrackingDonut(): JSX.Element {
+export function TotalMoodTrackingDonut({
+  historyTrackMap,
+}: Readonly<TotalMoodTrackingDonutProps>): JSX.Element {
+  const chartData = Array.from(historyTrackMap.values()).flatMap(
+    (monthlyMoodTracking) =>
+      monthlyMoodTracking.moodTrackings.map((moodTracking) => ({
+        mood: moodTracking.mood,
+        totalDaysTracked: moodTracking.totalDaysTracked,
+        fill: moodTracking.fill,
+      }))
+  );
+
+  const chartConfig: ChartConfig = {};
+  chartData.forEach((data) => {
+    if (!chartConfig[data.mood]) {
+      chartConfig[data.mood] = {
+        label: data.mood,
+        color: getMoodColor(data.mood),
+      };
+    }
+  });
+
   const totalDaysTracked = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.totalDaysTracked, 0);
-  }, []);
+  }, [chartData]);
 
   return (
     <Card className="flex flex-col w-full max-w-80">

@@ -1,4 +1,4 @@
-import { Pie, PieChart } from "recharts";
+import { Pie, PieChart, Label } from "recharts";
 import {
   Card,
   CardContent,
@@ -15,26 +15,46 @@ import {
 } from "@/components/ui/chart";
 import { Mood } from "@/features/track/enum";
 import { getMoodColor } from "@/features/track/utils";
+import { MoodTracking } from "../entity";
+import { ViewBox } from "recharts/types/util/types";
 
-const chartData = [
-  { mood: Mood.HAPPY, totalDaysTracked: 6, fill: getMoodColor(Mood.HAPPY) },
-  { mood: Mood.SAD, totalDaysTracked: 4, fill: getMoodColor(Mood.SAD) },
-  { mood: Mood.ANGRY, totalDaysTracked: 3, fill: getMoodColor(Mood.ANGRY) },
-  { mood: Mood.BORED, totalDaysTracked: 2, fill: getMoodColor(Mood.BORED) },
-  { mood: Mood.EXCITED, totalDaysTracked: 5, fill: getMoodColor(Mood.EXCITED) },
-  { mood: Mood.ANXIOUS, totalDaysTracked: 3, fill: getMoodColor(Mood.ANXIOUS) },
-  { mood: Mood.CALM, totalDaysTracked: 4, fill: getMoodColor(Mood.CALM) },
-  {
-    mood: Mood.CONFUSED,
-    totalDaysTracked: 3,
-    fill: getMoodColor(Mood.CONFUSED),
-  },
-];
+function renderLabelContent({
+  viewBox,
+  chartData,
+}: {
+  viewBox: ViewBox | undefined;
+  chartData: { totalDaysTracked: number }[];
+}): JSX.Element | null {
+  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+    const totalDaysTracked = chartData.reduce(
+      (acc, curr) => acc + curr.totalDaysTracked,
+      0
+    );
+
+    return (
+      <text
+        x={viewBox.cx}
+        y={viewBox.cy}
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        <tspan
+          x={viewBox.cx}
+          y={viewBox.cy}
+          className="fill-foreground text-3xl font-bold"
+        >
+          {totalDaysTracked.toLocaleString()}
+        </tspan>
+      </text>
+    );
+  }
+  return null;
+}
 
 const chartConfig = {
   [Mood.HAPPY]: {
     label: "Happy",
-    color: "black",
+    color: getMoodColor(Mood.HAPPY),
   },
   [Mood.SAD]: {
     label: "Sad",
@@ -66,7 +86,19 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function CurrentMonthMoodTrackingDonut(): JSX.Element {
+interface ICurrentMonthMoodTrackingDonutProps {
+  currentMonth: MoodTracking[];
+}
+
+export function CurrentMonthMoodTrackingDonut({
+  currentMonth,
+}: Readonly<ICurrentMonthMoodTrackingDonutProps>): JSX.Element {
+  const chartData = currentMonth.map((tracking) => ({
+    mood: tracking.mood,
+    totalDaysTracked: tracking.totalDaysTracked,
+    fill: tracking.fill,
+  }));
+
   return (
     <Card className="flex flex-col w-full max-w-80">
       <CardHeader className="items-center pb-0">
@@ -87,7 +119,16 @@ export function CurrentMonthMoodTrackingDonut(): JSX.Element {
               dataKey="totalDaysTracked"
               nameKey="mood"
               label
-            />
+            >
+              <Label
+                content={({ viewBox }) =>
+                  renderLabelContent({
+                    viewBox,
+                    chartData,
+                  })
+                }
+              />
+            </Pie>
           </PieChart>
         </ChartContainer>
       </CardContent>
