@@ -19,19 +19,13 @@ import { getMoodColor } from "@/features/track/utils";
 import { ViewBox } from "recharts/types/util/types";
 import { MonthlyMoodTracking } from "../entity";
 
-interface TotalMoodTrackingDonutProps {
-  historyTrackMap: Map<string, MonthlyMoodTracking>;
-}
-
-interface IRenderLabelContentProps {
-  viewBox: ViewBox | undefined;
-  totalDaysTracked: number;
-}
-
 const renderLabelContent = ({
   viewBox,
   totalDaysTracked,
-}: IRenderLabelContentProps): JSX.Element | null => {
+}: {
+  viewBox: ViewBox | undefined;
+  totalDaysTracked: number;
+}): JSX.Element | null => {
   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
     return (
       <text
@@ -52,6 +46,10 @@ const renderLabelContent = ({
   }
   return null;
 };
+
+interface TotalMoodTrackingDonutProps {
+  historyTrackMap: Map<string, MonthlyMoodTracking>;
+}
 
 export function TotalMoodTrackingDonut({
   historyTrackMap,

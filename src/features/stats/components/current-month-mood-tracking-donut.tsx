@@ -8,15 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Mood } from "@/features/track/enum";
-import { getMoodColor } from "@/features/track/utils";
 import { MoodTracking } from "../entity";
 import { ViewBox } from "recharts/types/util/types";
+import { chartConfiguration } from "../utils";
 
 function renderLabelContent({
   viewBox,
@@ -51,41 +49,6 @@ function renderLabelContent({
   return null;
 }
 
-const chartConfig = {
-  [Mood.HAPPY]: {
-    label: "Happy",
-    color: getMoodColor(Mood.HAPPY),
-  },
-  [Mood.SAD]: {
-    label: "Sad",
-    color: getMoodColor(Mood.SAD),
-  },
-  [Mood.ANGRY]: {
-    label: "Angry",
-    color: getMoodColor(Mood.ANGRY),
-  },
-  [Mood.BORED]: {
-    label: "Bored",
-    color: getMoodColor(Mood.BORED),
-  },
-  [Mood.EXCITED]: {
-    label: "Excited",
-    color: getMoodColor(Mood.EXCITED),
-  },
-  [Mood.ANXIOUS]: {
-    label: "Anxious",
-    color: getMoodColor(Mood.ANXIOUS),
-  },
-  [Mood.CALM]: {
-    label: "Calm",
-    color: getMoodColor(Mood.CALM),
-  },
-  [Mood.CONFUSED]: {
-    label: "Confused",
-    color: getMoodColor(Mood.CONFUSED),
-  },
-} satisfies ChartConfig;
-
 interface ICurrentMonthMoodTrackingDonutProps {
   currentMonth: MoodTracking[];
 }
@@ -109,7 +72,7 @@ export function CurrentMonthMoodTrackingDonut({
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
-          config={chartConfig}
+          config={chartConfiguration}
           className="mx-auto aspect-square max-h-[250px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
         >
           <PieChart>

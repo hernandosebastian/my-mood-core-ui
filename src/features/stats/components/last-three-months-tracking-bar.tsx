@@ -19,43 +19,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Mood } from "@/features/track/enum";
-import { getMoodColor } from "@/features/track/utils";
 import { MonthlyMoodTracking } from "../entity";
-
-const chartConfig: Record<Mood, { label: string; color: string }> = {
-  [Mood.HAPPY]: {
-    label: "Happy",
-    color: getMoodColor(Mood.HAPPY),
-  },
-  [Mood.SAD]: {
-    label: "Sad",
-    color: getMoodColor(Mood.SAD),
-  },
-  [Mood.ANGRY]: {
-    label: "Angry",
-    color: getMoodColor(Mood.ANGRY),
-  },
-  [Mood.BORED]: {
-    label: "Bored",
-    color: getMoodColor(Mood.BORED),
-  },
-  [Mood.EXCITED]: {
-    label: "Excited",
-    color: getMoodColor(Mood.EXCITED),
-  },
-  [Mood.ANXIOUS]: {
-    label: "Anxious",
-    color: getMoodColor(Mood.ANXIOUS),
-  },
-  [Mood.CALM]: {
-    label: "Calm",
-    color: getMoodColor(Mood.CALM),
-  },
-  [Mood.CONFUSED]: {
-    label: "Confused",
-    color: getMoodColor(Mood.CONFUSED),
-  },
-};
+import { chartConfiguration } from "../utils";
 
 interface ILastThreeMonthsMoodTrackingBarProps {
   lastThreeMonths: MonthlyMoodTracking[];
@@ -85,7 +50,7 @@ export function LastThreeMonthsMoodTrackingBar({
         <CardDescription>January - March 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfiguration}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>
               <CartesianGrid vertical={false} />
@@ -100,13 +65,13 @@ export function LastThreeMonthsMoodTrackingBar({
                 cursor={false}
                 content={<ChartTooltipContent indicator="dashed" />}
               />
-              {Object.keys(chartConfig).map((moodKey) => {
-                const mood = moodKey as keyof typeof chartConfig;
+              {Object.keys(chartConfiguration).map((moodKey) => {
+                const mood = moodKey as keyof typeof chartConfiguration;
                 return (
                   <Bar
                     key={mood}
                     dataKey={mood}
-                    fill={chartConfig[mood].color}
+                    fill={chartConfiguration[mood].color}
                     radius={5}
                   />
                 );
