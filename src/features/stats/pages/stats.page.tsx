@@ -3,8 +3,15 @@ import {
   LastThreeMonthsMoodTrackingBar,
   CurrentMonthMoodTrackingDonut,
 } from "@/features/stats/components";
+import { trackStatsSeoConfig } from "@/seo/config/track-stats-config";
+import { useSEO } from "@/seo/hooks";
 
 export const StatsPage = (): JSX.Element => {
+  useSEO({
+    title: trackStatsSeoConfig.title,
+    description: trackStatsSeoConfig.description,
+  });
+
   return (
     <div className="min-h-screen flex flex-col" data-testid="homepage-section">
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-4 bg-gradient-to-b from-background to-secondary/20 gap-12">
