@@ -5,12 +5,38 @@ import {
 } from "@/features/stats/components";
 import { trackStatsSeoConfig } from "@/seo/config";
 import { useSEO } from "@/seo/hooks";
+import { useGetTrackStats } from "../hooks";
+import { Loading } from "@/components/common/Loading";
+import { useToast } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import { trackStatsToastMessages } from "../messages";
 
 export const StatsPage = (): JSX.Element => {
   useSEO({
     title: trackStatsSeoConfig.title,
     description: trackStatsSeoConfig.description,
   });
+
+  const navigate = useNavigate();
+  const { showErrorToast } = useToast();
+
+  const { data: trackStats, isLoading, error } = useGetTrackStats();
+
+  if (error) {
+    const errorMessage = (error.response?.data as { message?: string })
+      ?.message;
+
+    showErrorToast(
+      trackStatsToastMessages.error.title,
+      errorMessage ?? trackStatsToastMessages.error.description
+    );
+
+    navigate("/");
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen flex flex-col" data-testid="homepage-section">
