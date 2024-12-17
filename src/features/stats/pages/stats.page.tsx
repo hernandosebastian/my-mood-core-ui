@@ -3,7 +3,7 @@ import {
   LastThreeMonthsMoodTrackingBar,
   CurrentMonthMoodTrackingDonut,
 } from "@/features/stats/components";
-import { trackStatsSeoConfig } from "@/seo/config/track-stats-config";
+import { trackStatsSeoConfig } from "@/seo/config";
 import { useSEO } from "@/seo/hooks";
 
 export const StatsPage = (): JSX.Element => {

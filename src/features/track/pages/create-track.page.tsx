@@ -1,6 +1,6 @@
 import { useMonthDateRange, useSelectedDate } from "@/features/calendar/hooks";
 import { useToast } from "@/hooks";
-import { trackSeoConfig } from "@/seo/config/track-config";
+import { trackSeoConfig } from "@/seo/config";
 import { useSEO } from "@/seo/hooks";
 import { useState } from "react";
 import { useCreateTrack } from "../hooks";
@@ -68,4 +68,3 @@ export function CreateTrackPage(): JSX.Element {
     <CreateTrackForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
   );
 }
-

@@ -5,14 +5,14 @@ import {
 } from "../interfaces";
 import { AxiosError } from "axios";
 import { getItem, StorageKeys } from "@/services/local-storage";
-import { getTrackStats } from "../services/get-track-stats.service";
+import { getTrackStats } from "../services";
 import { mapTrackStatsToMoodTracking } from "../mapper";
 
 export const trackStatsKeys = {
   stats: (): string => "stats",
 };
 
-export const useGetTrackByDateRange = (): UseQueryResult<
+export const useGetTrackStats = (): UseQueryResult<
   IMapTrackStatsToMoodTrackingResponse[] | undefined,
   AxiosError
 > => {

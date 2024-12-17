@@ -6,7 +6,7 @@ import { useAvatars, useProfile } from "../hooks";
 import { useToast } from "@/hooks";
 import { useUpdateProfile } from "../hooks/use-update-profile";
 import { useSEO } from "@/seo/hooks";
-import { EditProfileSeoConfig } from "@/seo/config/edit-profile.config";
+import { editProfileSeoConfig } from "@/seo/config";
 import { z } from "zod";
 import { editProfileSchema } from "../schemas/";
 import { editProfileToastMessages } from "../messages";
@@ -14,8 +14,8 @@ import { AxiosError } from "axios";
 
 export function EditProfilePage(): JSX.Element {
   useSEO({
-    title: EditProfileSeoConfig.title,
-    description: EditProfileSeoConfig.description,
+    title: editProfileSeoConfig.title,
+    description: editProfileSeoConfig.description,
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -89,4 +89,3 @@ export function EditProfilePage(): JSX.Element {
     </div>
   );
 }
-
