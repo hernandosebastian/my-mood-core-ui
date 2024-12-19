@@ -15,7 +15,11 @@ import {
 } from "@/components/ui/chart";
 import { getMoodColor } from "@/features/track/utils";
 import { Mood } from "@/features/track/enum";
-import { chartConfiguration, getMoodsInData } from "../utils";
+import {
+  chartConfiguration,
+  getFormattedDateRange,
+  getMoodsInData,
+} from "../utils";
 import { IMonthData } from "../interfaces";
 
 export function LastThreeMonthsMoodTrackingBar({
@@ -24,12 +28,15 @@ export function LastThreeMonthsMoodTrackingBar({
   lastThreeMonthsData: IMonthData[];
 }>): JSX.Element {
   const moodsToDisplay = getMoodsInData(lastThreeMonthsData);
+  const dateRange = getFormattedDateRange(lastThreeMonthsData);
 
   return (
     <Card className="w-full max-w-[1000px]">
       <CardHeader>
         <CardTitle>Mood Tracking - Last 3 Months</CardTitle>
-        <CardDescription>January - March 2024</CardDescription>
+        <CardDescription data-testid="last-three-months-date-range">
+          {dateRange}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfiguration}>
