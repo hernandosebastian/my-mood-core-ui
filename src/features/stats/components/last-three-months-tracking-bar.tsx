@@ -27,6 +27,10 @@ export function LastThreeMonthsMoodTrackingBar({
 }: Readonly<{
   lastThreeMonthsData: IMonthData[];
 }>): JSX.Element {
+  const hasActivity = lastThreeMonthsData.some((month) =>
+    Object.values(month).some((value) => typeof value === "number" && value > 0)
+  );
+
   const moodsToDisplay = getMoodsInData(lastThreeMonthsData);
   const dateRange = getFormattedDateRange(lastThreeMonthsData);
 
@@ -34,40 +38,57 @@ export function LastThreeMonthsMoodTrackingBar({
     <Card className="w-full max-w-[1000px]">
       <CardHeader>
         <CardTitle>Mood Tracking - Last 3 Months</CardTitle>
-        <CardDescription data-testid="last-three-months-date-range">
-          {dateRange}
-        </CardDescription>
+        {hasActivity && (
+          <CardDescription data-testid="last-three-months-date-range">
+            {dateRange}
+          </CardDescription>
+        )}
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfiguration}>
-          <BarChart accessibilityLayer data={lastThreeMonthsData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
-            {moodsToDisplay.map((mood) => (
-              <Bar
-                key={mood}
-                dataKey={mood}
-                fill={getMoodColor(mood as Mood)}
-                radius={5}
+      {hasActivity && (
+        <CardContent data-testid="last-three-months-mood-tracking-bar">
+          <ChartContainer config={chartConfiguration}>
+            <BarChart accessibilityLayer data={lastThreeMonthsData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
               />
-            ))}
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="dashed" />}
+              />
+              {moodsToDisplay.map((mood) => (
+                <Bar
+                  key={mood}
+                  dataKey={mood}
+                  fill={getMoodColor(mood as Mood)}
+                  radius={5}
+                />
+              ))}
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+      )}
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
-          Mood distribution over the last 3 months
-        </div>
+        {hasActivity ? (
+          <div
+            className="leading-none text-muted-foreground"
+            data-testid="last-three-months-mood-distribution"
+          >
+            <p>Mood distribution over the last 3 months</p>
+          </div>
+        ) : (
+          <div
+            className="leading-none text-muted-foreground"
+            data-testid="last-three-months-mood-no-activity"
+          >
+            <p>No activity over the last 3 months</p>
+            <p>Start tracking your moods</p>
+          </div>
+        )}
       </CardFooter>
     </Card>
   );
