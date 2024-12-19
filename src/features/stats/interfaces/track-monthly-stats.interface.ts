@@ -1,9 +1,8 @@
-import { Mood } from "@/features/track/enum";
+import { ITrackStats } from "./track-stats.interface";
 
 export interface ITrackMonthlyStats {
   month: number;
   year: number;
-  mood: Mood;
-  totalTracks: number;
+  moods: ITrackStats[];
 }
 
