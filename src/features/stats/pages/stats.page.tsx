@@ -39,7 +39,7 @@ export const StatsPage = (): JSX.Element => {
   }
 
   return trackStats ? (
-    <div className="min-h-screen flex flex-col" data-testid="homepage-section">
+    <div className="min-h-screen flex flex-col" data-testid="stats-section">
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-4 bg-gradient-to-b from-background to-secondary/20 gap-12">
         <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 text-center">
           Monthly Mood Distribution
@@ -61,7 +61,10 @@ export const StatsPage = (): JSX.Element => {
       </main>
     </div>
   ) : (
-    <div className="min-h-screen flex flex-col" data-testid="homepage-section">
+    <div
+      className="min-h-screen flex flex-col"
+      data-testid="stats-section-without-data"
+    >
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-4 bg-gradient-to-b from-background to-secondary/20 gap-12">
         <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 text-center">
           Currently there is no data
