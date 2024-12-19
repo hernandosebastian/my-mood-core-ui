@@ -45,17 +45,17 @@ export const StatsPage = (): JSX.Element => {
           Monthly Mood Distribution
         </h1>
         <LastThreeMonthsMoodTrackingBar
-          lastThreeMonths={trackStats.lastThreeMonths}
+          lastThreeMonthsData={trackStats.lastThreeMonths}
         />
         <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 text-center">
           Mood Tracking Overview
         </h1>
         <div className="flex flex-col sm:flex-row w-full max-w-[1000px] gap-12 justify-center items-center">
           <TotalMoodTrackingDonut
-            historyTrackMap={trackStats.historyTrackMap}
+            moodTrackingData={trackStats.historyTrackMap}
           />
           <CurrentMonthMoodTrackingDonut
-            currentMonth={trackStats.currentMonth}
+            currentMonthData={trackStats.currentMonth}
           />
         </div>
       </main>

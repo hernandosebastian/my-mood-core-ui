@@ -12,60 +12,14 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Mood } from "@/features/track/enum";
-import { getMoodColor } from "@/features/track/utils";
+import { IMappedMoodTracking } from "../interfaces";
+import { chartConfiguration } from "../utils";
 
-const chartData = [
-  { mood: Mood.HAPPY, totalDaysTracked: 6, fill: getMoodColor(Mood.HAPPY) },
-  { mood: Mood.SAD, totalDaysTracked: 4, fill: getMoodColor(Mood.SAD) },
-  { mood: Mood.ANGRY, totalDaysTracked: 3, fill: getMoodColor(Mood.ANGRY) },
-  { mood: Mood.BORED, totalDaysTracked: 2, fill: getMoodColor(Mood.BORED) },
-  { mood: Mood.EXCITED, totalDaysTracked: 5, fill: getMoodColor(Mood.EXCITED) },
-  { mood: Mood.ANXIOUS, totalDaysTracked: 3, fill: getMoodColor(Mood.ANXIOUS) },
-  { mood: Mood.CALM, totalDaysTracked: 4, fill: getMoodColor(Mood.CALM) },
-  {
-    mood: Mood.CONFUSED,
-    totalDaysTracked: 3,
-    fill: getMoodColor(Mood.CONFUSED),
-  },
-];
-
-const chartConfig = {
-  [Mood.HAPPY]: {
-    label: "Happy",
-    color: "black",
-  },
-  [Mood.SAD]: {
-    label: "Sad",
-    color: getMoodColor(Mood.SAD),
-  },
-  [Mood.ANGRY]: {
-    label: "Angry",
-    color: getMoodColor(Mood.ANGRY),
-  },
-  [Mood.BORED]: {
-    label: "Bored",
-    color: getMoodColor(Mood.BORED),
-  },
-  [Mood.EXCITED]: {
-    label: "Excited",
-    color: getMoodColor(Mood.EXCITED),
-  },
-  [Mood.ANXIOUS]: {
-    label: "Anxious",
-    color: getMoodColor(Mood.ANXIOUS),
-  },
-  [Mood.CALM]: {
-    label: "Calm",
-    color: getMoodColor(Mood.CALM),
-  },
-  [Mood.CONFUSED]: {
-    label: "Confused",
-    color: getMoodColor(Mood.CONFUSED),
-  },
-} satisfies ChartConfig;
-
-export function CurrentMonthMoodTrackingDonut(): JSX.Element {
+export function CurrentMonthMoodTrackingDonut({
+  currentMonthData,
+}: Readonly<{
+  currentMonthData: IMappedMoodTracking[];
+}>): JSX.Element {
   return (
     <Card className="flex flex-col w-full max-w-80">
       <CardHeader className="items-center pb-0">
@@ -82,7 +36,7 @@ export function CurrentMonthMoodTrackingDonut(): JSX.Element {
           <PieChart>
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <Pie
-              data={chartData}
+              data={currentMonthData}
               dataKey="totalDaysTracked"
               nameKey="mood"
               label
