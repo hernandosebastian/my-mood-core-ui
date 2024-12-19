@@ -21,7 +21,10 @@ export function CurrentMonthMoodTrackingDonut({
   currentMonthData: IMappedMoodTracking[];
 }>): JSX.Element {
   return (
-    <Card className="flex flex-col w-full max-w-80">
+    <Card
+      className="flex flex-col w-full max-w-80"
+      data-testid="current-month-mood-tracking-donut"
+    >
       <CardHeader className="items-center pb-0">
         <CardTitle>Mood Tracking - This Month</CardTitle>
         <CardDescription>

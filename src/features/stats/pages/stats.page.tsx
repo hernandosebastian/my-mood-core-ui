@@ -34,9 +34,9 @@ export const StatsPage = (): JSX.Element => {
     navigate("/");
   }
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
+
+  const hasCurrentMonthData = !!trackStats?.currentMonth?.length;
 
   return trackStats ? (
     <div className="min-h-screen flex flex-col" data-testid="stats-section">
@@ -54,9 +54,11 @@ export const StatsPage = (): JSX.Element => {
           <TotalMoodTrackingDonut
             moodTrackingData={trackStats.historyTrackMap}
           />
-          <CurrentMonthMoodTrackingDonut
-            currentMonthData={trackStats.currentMonth}
-          />
+          {hasCurrentMonthData && (
+            <CurrentMonthMoodTrackingDonut
+              currentMonthData={trackStats.currentMonth}
+            />
+          )}
         </div>
       </main>
     </div>
