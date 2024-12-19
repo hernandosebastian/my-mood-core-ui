@@ -1,8 +1,9 @@
-import { MonthlyMoodTracking, MoodTracking } from "../entity";
+import { IMappedMoodTracking } from "./mapped-mood-tracking.interface";
+import { IMonthData } from "./month-data.interface";
 
 export interface IMapTrackStatsToMoodTrackingResponse {
-  currentMonth: MoodTracking[];
-  lastThreeMonths: MonthlyMoodTracking[];
-  historyTrackMap: Map<string, MonthlyMoodTracking>;
+  lastThreeMonths: IMonthData[];
+  historyTrackMap: IMappedMoodTracking[];
+  currentMonth: IMappedMoodTracking[];
 }
 

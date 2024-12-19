@@ -6,14 +6,18 @@ import {
 import { AxiosError } from "axios";
 import { getItem, StorageKeys } from "@/services/local-storage";
 import { getTrackStats } from "../services";
-import { mapTrackStatsToMoodTracking } from "../mapper";
+import {
+  mapCurrentMonthMoodTrackingData,
+  mapLastThreeMonthsBarData,
+  mapTotalMoodTrackingData,
+} from "../mapper";
 
 export const trackStatsKeys = {
   stats: (): string => "stats",
 };
 
 export const useGetTrackStats = (): UseQueryResult<
-  IMapTrackStatsToMoodTrackingResponse[] | undefined,
+  IMapTrackStatsToMoodTrackingResponse | undefined,
   AxiosError
 > => {
   const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
@@ -21,7 +25,7 @@ export const useGetTrackStats = (): UseQueryResult<
   return useQuery<
     IGetTrackStatsResponse,
     AxiosError,
-    IMapTrackStatsToMoodTrackingResponse[] | undefined
+    IMapTrackStatsToMoodTrackingResponse | undefined
   >({
     queryKey: "stats",
     queryFn: async () => getTrackStats(),
@@ -31,10 +35,17 @@ export const useGetTrackStats = (): UseQueryResult<
         response.totalTrackStats.length > 0 ||
         response.tracksLast3MonthsStats.length > 0
       ) {
-        return [mapTrackStatsToMoodTracking(response)];
+        return {
+          lastThreeMonths: mapLastThreeMonthsBarData(
+            response.tracksLast3MonthsStats
+          ),
+          historyTrackMap: mapTotalMoodTrackingData(response.totalTrackStats),
+          currentMonth: mapCurrentMonthMoodTrackingData(
+            response.tracksLast3MonthsStats
+          ),
+        };
       }
       return undefined;
     },
   });
 };
-
