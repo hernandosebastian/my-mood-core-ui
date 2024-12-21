@@ -1,5 +1,5 @@
 import { useMonthDateRange, useSelectedDate } from "@/features/calendar/hooks";
-import { trackSeoConfig } from "@/seo/config/track-config";
+import { trackSeoConfig } from "@/seo/config";
 import { useSEO } from "@/seo/hooks";
 import { Loading } from "@/components/common/Loading";
 import { CreateTrackPage } from "./create-track.page";

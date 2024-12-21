@@ -3,7 +3,12 @@ import * as React from "react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { NavSecondary } from "./nav-secondary";
@@ -15,11 +20,13 @@ import { NavUserLogged } from "./nav-user-logged";
 import { SidebarContentUserAnonymous } from "./sidebar-content-user-anonymous";
 import { SidebarContentUserLogged } from "./sidebar-content-user-logged";
 import { useSidebar } from "@/hooks";
-import { Loader2 } from "lucide-react";
+import { Loader2, ChartNoAxesColumn } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>): JSX.Element {
+  const navigate = useNavigate();
   const { isMobile } = useSidebar();
   const getMeQuery = useGetMe();
   const isLoggedIn = getMeQuery.data?.user !== undefined;
@@ -70,7 +77,26 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         {isLoggedIn ? (
-          <SidebarContentUserLogged />
+          <>
+            <SidebarContentUserLogged />
+            <SidebarGroup>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem key="Stats">
+                    <SidebarMenuButton asChild size="default">
+                      <button
+                        onClick={() => navigate("/stats")}
+                        data-testid="sidebar-stats-button"
+                      >
+                        <ChartNoAxesColumn />
+                        <span>Stats</span>
+                      </button>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </>
         ) : (
           <SidebarContentUserAnonymous />
         )}

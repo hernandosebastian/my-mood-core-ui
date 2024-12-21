@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks";
-import { trackSeoConfig } from "@/seo/config/track-config";
+import { trackSeoConfig } from "@/seo/config";
 import { useSEO } from "@/seo/hooks";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
