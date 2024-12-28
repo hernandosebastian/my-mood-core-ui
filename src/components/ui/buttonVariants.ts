@@ -6,13 +6,13 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-slate-900 text-slate-50 shadow hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90",
+          "bg-accent-primary text-background-primary shadow hover:bg-accent-primary/90 hover:text-background-primary/90 dark:bg-accent-primary dark:text-background-primary dark:hover:bg-accent-primary/90 dark:hover:text-background-primary/90",
         destructive:
           "bg-red-500 text-slate-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-slate-50 dark:hover:bg-red-900/90",
         outline:
           "border border-slate-200 bg-white shadow-sm hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         secondary:
-          "bg-slate-100 text-slate-900 shadow-sm hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
+          "bg-accent-secondary text-background-primary shadow-sm hover:bg-accent-secondary/80 hover:text-background-primary/80 dark:bg-accent-secondary dark:text-background-primary dark:hover:bg-accent-secondary/80 dark:hover:text-background-primary/80",
         ghost:
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
@@ -30,4 +30,3 @@ export const buttonVariants = cva(
     },
   }
 );
-
