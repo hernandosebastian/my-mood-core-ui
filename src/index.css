@@ -34,6 +34,11 @@
 
   scrollbar-color: #1c1e21 #15171a;
   scrollbar-width: thin;
+
+  button,
+  button * {
+    user-select: none;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -92,5 +97,12 @@
   .color-highlight-selection::moz-selection {
     background-color: rgba(154, 144, 192, 0.3);
     color: #9a90c0;
+  }
+
+  .block-selection {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
