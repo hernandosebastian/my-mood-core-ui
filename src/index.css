@@ -15,6 +15,25 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  :-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #1c1e21;
+    border-radius: 6px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #15171a;
+    border-radius: 6px;
+  }
+
+  scrollbar-color: #1c1e21 #15171a;
+  scrollbar-width: thin;
 }
 
 @media (prefers-color-scheme: light) {
