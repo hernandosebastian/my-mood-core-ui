@@ -20,14 +20,15 @@ export function SidebarContentUserAnonymous(): JSX.Element {
   };
 
   return (
-    <SidebarGroup>
+    <SidebarGroup className="border-b border-border-primary">
       <SidebarGroupContent>
-        <SidebarMenu>
+        <SidebarMenu className="gap-4">
           <SidebarMenuItem key="Log in">
             <SidebarMenuButton asChild size="default">
               <button
                 onClick={handleLoginClick}
                 data-testid="sidebar-log-in-button"
+                className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
               >
                 <LogIn />
                 <span>Log in</span>
@@ -39,6 +40,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
               <button
                 onClick={handleSignUpClick}
                 data-testid="sidebar-sign-up-button"
+                className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
               >
                 <UserPlus />
                 <span>Sign up</span>

@@ -14,7 +14,7 @@ export default function Layout({
       <AppSidebar />
       <div className="flex flex-1 flex-col">
         <AppHeader />
-        <SidebarInset className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 justify-center">
+        <SidebarInset className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 justify-center bg-background-primary">
           {children}
         </SidebarInset>
         <Footer />

@@ -11,7 +11,6 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { NavSecondary } from "./nav-secondary";
 import { NavUserAnonymous } from "./nav-user-anonymous";
 
 import { useGetMe } from "@/features/authentication/hooks";
@@ -33,11 +32,11 @@ export function AppSidebar({
 
   if (getMeQuery.isLoading) {
     return (
-      <Sidebar {...props} id="sidebar">
+      <Sidebar {...props} id="sidebar" className="border-sidebar-border">
         {isMobile && (
           <div className="p-2 flex items-center border-b border-sidebar-border">
             <SidebarTrigger
-              className="p-2 rounded-full hover:bg-sidebar-accent transition-all"
+              className="p-2 rounded-full transition-all"
               closeIcon={true}
               data-testid="toggle-sidebar-trigger-close-responsive"
             />
@@ -49,26 +48,23 @@ export function AppSidebar({
         <SidebarContent className="justify-center items-center">
           <Loader2 className="h-6 w-6 animate-spin text-inherit" />
         </SidebarContent>
-        <SidebarContent>
-          <NavSecondary />
-        </SidebarContent>
         <NavBarFooter />
       </Sidebar>
     );
   }
 
   return (
-    <Sidebar {...props} id="sidebar">
+    <Sidebar {...props} id="sidebar" className="border-border-primary">
       {isMobile && (
-        <div className="p-2 flex items-center border-b border-sidebar-border">
+        <div className="p-2 flex items-center border-b border-border-primary">
           <SidebarTrigger
-            className="p-2 rounded-full hover:bg-sidebar-accent transition-all"
+            className="p-2 rounded-full transition-all"
             closeIcon={true}
             data-testid="toggle-sidebar-trigger-close-responsive"
           />
         </div>
       )}
-      <SidebarHeader className="h-16 border-b border-sidebar-border">
+      <SidebarHeader className="h-16 border-b border-border-primary">
         {isLoggedIn && getMeQuery.data ? (
           <NavUserLogged user={getMeQuery.data.user} />
         ) : (
@@ -82,7 +78,9 @@ export function AppSidebar({
             <SidebarGroup>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem key="Stats">
+                  <SidebarMenuItem key="Stats" 
+                  className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
+                  >
                     <SidebarMenuButton asChild size="default">
                       <button
                         onClick={() => navigate("/stats")}
@@ -100,9 +98,6 @@ export function AppSidebar({
         ) : (
           <SidebarContentUserAnonymous />
         )}
-      </SidebarContent>
-      <SidebarContent>
-        <NavSecondary />
       </SidebarContent>
       <NavBarFooter />
     </Sidebar>

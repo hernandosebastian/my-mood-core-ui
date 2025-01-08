@@ -10,6 +10,21 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        background: {
+          primary: "#121317",
+          secondary: "#15171A",
+        },
+        border: {
+          primary: "#1C1E21",
+        },
+        text: {
+          primary: "#d7d9dd",
+          secondary: "#878c99",
+        },
+        accent: {
+          primary: "#9a90c0",
+          secondary: "#74b998",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -17,7 +32,7 @@ export default {
           "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
           accent: "hsl(var(--sidebar-accent))",
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
+          border: "#1C1E21",
           ring: "hsl(var(--sidebar-ring))",
         },
       },
