@@ -8,6 +8,7 @@ export const HomepageOpenSourceButton = (): JSX.Element => {
       href={env.githubProfiles.projectRepositoryGithub}
       target="_blank"
       rel="noreferrer"
+      draggable={false}
     >
       Free and Open Source
     </a>
