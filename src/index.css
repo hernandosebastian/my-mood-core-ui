@@ -34,6 +34,11 @@
 
   scrollbar-color: #1c1e21 #15171a;
   scrollbar-width: thin;
+
+  button,
+  button * {
+    user-select: none;
+  }
 }
 
 @media (prefers-color-scheme: light) {
@@ -80,5 +85,24 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+  }
+}
+
+@layer utilities {
+  .color-highlight-selection::selection {
+    background-color: rgba(154, 144, 192, 0.3);
+    color: #9a90c0;
+  }
+
+  .color-highlight-selection::moz-selection {
+    background-color: rgba(154, 144, 192, 0.3);
+    color: #9a90c0;
+  }
+
+  .block-selection {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
