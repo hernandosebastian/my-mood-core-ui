@@ -1,23 +1,19 @@
 import { env } from "@/config/env";
-import { SidebarFooter, SidebarRail } from "../ui/sidebar";
+import { SidebarFooter } from "../ui/sidebar";
+import { ShadcnUiSVG } from "./shadcn-ui-svg";
 
 export function NavBarFooter(): JSX.Element {
   return (
-    <>
-      <SidebarFooter className="text-center">
-        <small>
-          Made with{" "}
-          <a
-            href={env.githubProfiles.shadcnGithubProfile}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            shadcn-ui
-          </a>
-        </small>
-      </SidebarFooter>
-      <SidebarRail />
-    </>
+    <SidebarFooter className="text-center border-t border-border-primary">
+      <a
+        href={env.githubProfiles.shadcnGithubProfile}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm color-highlight-selection text-text-secondary hover:text-text-primary inline-flex items-center space-x-1 fill-text-secondary hover:fill-accent-primary transition-colors justify-center"
+      >
+        <ShadcnUiSVG className="w-4 h-4 mr-2" />
+        made with <span className="color-highlight-selection">shadcn/ui</span>
+      </a>
+    </SidebarFooter>
   );
 }
-

@@ -13,8 +13,7 @@ export const buttonVariants = cva(
           "border border-slate-200 bg-white shadow-sm hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         secondary:
           "bg-accent-secondary text-background-primary shadow-sm hover:bg-accent-secondary/80 hover:text-background-primary/80 dark:bg-accent-secondary dark:text-background-primary dark:hover:bg-accent-secondary/80 dark:hover:text-background-primary/80",
-        ghost:
-          "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
+        ghost: "",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
       },
       size: {

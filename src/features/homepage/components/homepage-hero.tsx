@@ -18,7 +18,11 @@ export function HomepageHero(): JSX.Element {
       </p>
       <div className="flex gap-4 justify-center mt-2">
         <Button asChild size="lg" className="w-32">
-          <Link to="/log-in" data-testid="homepage-get-started-button">
+          <Link
+            to="/log-in"
+            data-testid="homepage-get-started-button"
+            draggable={false}
+          >
             Get Started
           </Link>
         </Button>
@@ -31,6 +35,7 @@ export function HomepageHero(): JSX.Element {
           href={env.githubProfiles.projectRepositoryGithub}
           target="_blank"
           rel="noreferrer"
+          draggable={false}
         >
           Github
         </a>
