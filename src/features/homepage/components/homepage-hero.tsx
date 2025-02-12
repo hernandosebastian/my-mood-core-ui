@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { HomepageOpenSourceButton } from "./homepage-open-source-button";
 import { buttonVariants } from "@/components/ui/buttonVariants";
 import { env } from "@/config/env";
+import { useGetMe } from "@/features/authentication/hooks";
 
 export function HomepageHero(): JSX.Element {
+  const getMeQuery = useGetMe();
+  const isLoggedIn = getMeQuery.data?.user !== undefined;
+
   return (
     <div className="space-y-6 text-center">
       <HomepageOpenSourceButton />
@@ -17,15 +21,17 @@ export function HomepageHero(): JSX.Element {
         into your mood journey.
       </p>
       <div className="flex gap-4 justify-center mt-2">
-        <Button asChild size="lg" className="w-32">
-          <Link
-            to="/log-in"
-            data-testid="homepage-get-started-button"
-            draggable={false}
-          >
-            Get Started
-          </Link>
-        </Button>
+        {!isLoggedIn && (
+          <Button asChild size="lg" className="w-32">
+            <Link
+              to="/log-in"
+              data-testid="homepage-get-started-button"
+              draggable={false}
+            >
+              Get Started
+            </Link>
+          </Button>
+        )}
         <a
           data-testid="homepage-github-button"
           className={`w-32 ${buttonVariants({
