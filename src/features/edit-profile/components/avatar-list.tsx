@@ -14,7 +14,7 @@ export function AvatarList({
   setSelectedAvatar,
 }: Readonly<IAvatarListProps>): JSX.Element {
   return (
-    <ScrollArea className="h-[300px] border rounded-lg p-4">
+    <ScrollArea className="h-[300px] border rounded-lg p-4 border-border-primary">
       <div className="grid grid-cols-4 gap-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
         {avatarList.map((avatar, index) => (
           <button
@@ -22,8 +22,8 @@ export function AvatarList({
             key={avatar.name}
             className={`p-1 rounded-lg transition-all flex justify-center ${
               selectedAvatar === avatar.src
-                ? "bg-gray-200"
-                : "hover:bg-gray-100"
+                ? "bg-background-secondary border-border-primary border-2"
+                : "hover:bg-border-primary hover:border-border-primary border-background-primary border-2"
             }`}
             onClick={() => setSelectedAvatar(avatar.src)}
             id={`avatar-${index}`}
@@ -33,8 +33,9 @@ export function AvatarList({
                 src={avatar.src}
                 alt={`Avatar option ${avatar.name}`}
                 data-testid={`avatar-${avatar.name}`}
+                className="bg-background-secondary"
               />
-              <AvatarFallback className="text-gray-500">
+              <AvatarFallback className="rounded-lg bg-text-primary text-text-secondary">
                 {avatar.name}
               </AvatarFallback>
             </Avatar>
@@ -44,4 +45,3 @@ export function AvatarList({
     </ScrollArea>
   );
 }
-
