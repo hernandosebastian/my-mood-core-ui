@@ -58,10 +58,10 @@ export function ConfirmUserForm({
     <div className="lg:p-8 text-black">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
             Confirm User
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground text-text-secondary">
             Enter the email and confirmation code to confirm your account.
           </p>
         </div>
@@ -73,9 +73,10 @@ export function ConfirmUserForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="username"
                       placeholder="Enter your email"
                       data-testid="confirm-user-username-input"
@@ -83,7 +84,7 @@ export function ConfirmUserForm({
                       disabled={isLoading}
                     />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-text-secondary">
                     Enter the email to confirm your account.
                   </FormDescription>
                   <FormMessage />
@@ -96,7 +97,7 @@ export function ConfirmUserForm({
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Code</FormLabel>
+                  <FormLabel className="text-text-primary">Code</FormLabel>
                   <FormControl data-testid="confirm-user-code-input">
                     <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
@@ -109,7 +110,7 @@ export function ConfirmUserForm({
                       </InputOTPGroup>
                     </InputOTP>
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-text-secondary">
                     Enter the 6-digit code sent to your email.
                   </FormDescription>
                   <FormMessage />
@@ -135,12 +136,14 @@ export function ConfirmUserForm({
           <button
             id="redirect-to-resend-code"
             type="button"
-            className="text-muted-foreground hover:text-primary"
+            className="text-text-secondary group hover:text-text-primary transition-colors"
             onClick={handleRedirectToResendCode}
             data-testid="confirm-user-redirect-to-resend-code"
           >
             Didn&apos;t receive the code?{" "}
-            <span className="underline underline-offset-4">Resend it</span>
+            <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
+              Resend it
+            </span>
           </button>
         </div>
       </div>

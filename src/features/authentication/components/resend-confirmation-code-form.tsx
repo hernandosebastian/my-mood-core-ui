@@ -52,10 +52,10 @@ export function ResendConfirmationCodeForm({
     <div className="lg:p-8 text-black">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
             Resend Confirmation Code
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground text-text-secondary">
             Enter your email to resend the confirmation code.
           </p>
         </div>
@@ -67,9 +67,10 @@ export function ResendConfirmationCodeForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="resend-confirmation-code-username-input"
                       placeholder="Enter your email"
@@ -77,11 +78,10 @@ export function ResendConfirmationCodeForm({
                       disabled={isLoading}
                     />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-text-secondary">
                     Enter the email to which you want to resend the confirmation
                     code.
                   </FormDescription>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -105,12 +105,14 @@ export function ResendConfirmationCodeForm({
           <button
             id="redirect-to-log-in"
             type="button"
-            className="text-muted-foreground hover:text-primary"
+            className="text-text-secondary group hover:text-text-primary transition-colors"
             onClick={handleRedirectToLogIn}
             data-testid="resend-confirmation-code-redirect-to-log-in"
           >
             Already have an account?{" "}
-            <span className="underline underline-offset-4">Sign In</span>
+            <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
+              Sign In
+            </span>
           </button>
         </div>
       </div>

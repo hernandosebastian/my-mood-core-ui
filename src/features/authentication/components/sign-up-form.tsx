@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -56,8 +57,10 @@ export function SignUpForm({
     <div className="lg:p-8 text-black">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Sign Up</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
+            Sign Up
+          </h1>
+          <p className="text-sm text-muted-foreground text-text-secondary">
             Create your account by entering a email and password.
           </p>
         </div>
@@ -69,9 +72,10 @@ export function SignUpForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="username"
                       placeholder="Enter your email"
                       data-testid="sign-up-username-input"
@@ -79,6 +83,9 @@ export function SignUpForm({
                       disabled={isLoading}
                     />
                   </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Enter the email to create your account.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -89,9 +96,10 @@ export function SignUpForm({
               name="nickname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nickname</FormLabel>
+                  <FormLabel className="text-text-primary">Nickname</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="nickname"
                       placeholder="Enter your nickname"
                       data-testid="sign-up-nickname-input"
@@ -99,6 +107,9 @@ export function SignUpForm({
                       disabled={isLoading}
                     />
                   </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Enter the nickname to identify yourself.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -109,9 +120,10 @@ export function SignUpForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-text-primary">Password</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="password"
                       type="password"
                       placeholder="Enter your password"
@@ -120,6 +132,9 @@ export function SignUpForm({
                       disabled={isLoading}
                     />
                   </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Enter the password to access your account.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -144,12 +159,14 @@ export function SignUpForm({
           <button
             id="redirect-to-log-in"
             type="button"
-            className="text-muted-foreground hover:text-primary"
+            className="text-text-secondary group hover:text-text-primary transition-colors"
             onClick={handleRedirectToLogIn}
             data-testid="sign-up-redirect-to-log-in"
           >
             Already have an account?{" "}
-            <span className="underline underline-offset-4">Log In</span>
+            <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
+              Log In
+            </span>
           </button>
         </div>
       </div>
