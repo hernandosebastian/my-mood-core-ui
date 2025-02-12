@@ -47,10 +47,10 @@ export function ForgotPasswordForm({
     <div className="lg:p-8 text-black">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
             Forgot Password
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground text-text-secondary">
             Enter your email to reset your password.
           </p>
         </div>
@@ -62,9 +62,10 @@ export function ForgotPasswordForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="forgot-password-username-input"
                       placeholder="Enter your email"
@@ -72,11 +73,10 @@ export function ForgotPasswordForm({
                       disabled={isLoading}
                     />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-text-secondary">
                     Enter the email associated with your account to reset your
                     password.
                   </FormDescription>
-
                   <FormMessage />
                 </FormItem>
               )}

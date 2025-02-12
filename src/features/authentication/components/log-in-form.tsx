@@ -10,6 +10,7 @@ import {
   FormControl,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Icons } from "@/components/ui/Icons";
@@ -51,8 +52,10 @@ export function LogInForm({
     <div className="lg:p-8 text-black">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">Log In</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
+            Log In
+          </h1>
+          <p className="text-sm text-muted-foreground text-text-secondary">
             Enter your email and password to access your account
           </p>
         </div>
@@ -64,9 +67,10 @@ export function LogInForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="username"
                       placeholder="Enter your email"
                       data-testid="log-in-username-input"
@@ -74,6 +78,9 @@ export function LogInForm({
                       disabled={isLoading}
                     />
                   </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Enter the email to access your account.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -84,9 +91,10 @@ export function LogInForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-text-primary">Password</FormLabel>
                   <FormControl>
                     <Input
+                      className="text-text-secondary border-text-secondary"
                       id="password"
                       type="password"
                       placeholder="Enter your password"
@@ -95,6 +103,9 @@ export function LogInForm({
                       disabled={isLoading}
                     />
                   </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Enter the password to access your account.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -104,7 +115,7 @@ export function LogInForm({
               <button
                 type="button"
                 onClick={handleRedirectToForgotPassword}
-                className="text-sm text-muted-foreground hover:text-primary"
+                className="text-sm text-text-secondary hover:text-accent-primary transition-colors"
               >
                 Forgot Password?
               </button>
@@ -118,7 +129,7 @@ export function LogInForm({
               data-testid="log-in-submit-button"
             >
               {isLoading ? (
-                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin text-text-primary" />
               ) : null}
               Log In
             </Button>
@@ -129,12 +140,14 @@ export function LogInForm({
           <button
             id="sign-up-button"
             type="button"
-            className="text-muted-foreground hover:text-primary"
+            className="text-text-secondary group hover:text-text-primary transition-colors"
             onClick={handleRedirectToSignUp}
             data-testid="log-in-redirect-to-sign-up-button"
           >
             Don&apos;t have an account?{" "}
-            <span className="underline underline-offset-4">Sign Up</span>
+            <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
+              Sign Up
+            </span>
           </button>
         </div>
       </div>
