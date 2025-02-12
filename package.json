@@ -10,7 +10,7 @@
   "author": "Mipmipp",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
+    "start:dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
