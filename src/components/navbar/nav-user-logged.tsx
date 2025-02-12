@@ -36,15 +36,23 @@ export function NavUserLogged({
 
   const renderAvatar = (): JSX.Element => (
     <>
-      <Avatar className="h-8 w-8 rounded-lg">
+      <Avatar className="h-8 w-8 rounded-lg ">
         <AvatarImage src={user.avatarSrc} alt={"Avatar from user"} />
-        <AvatarFallback className="rounded-lg">MM</AvatarFallback>
+        <AvatarFallback className="rounded-lg bg-text-primary text-text-secondary">
+          MM
+        </AvatarFallback>
       </Avatar>
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <span className="truncate font-semibold" id="sidebar-username">
+        <span
+          className="truncate font-semibold text-text-primary"
+          id="sidebar-username"
+        >
           {user.username}
         </span>
-        <span className="truncate text-muted-foreground" id="sidebar-nickname">
+        <span
+          className="truncate text-muted-foreground text-text-primary"
+          id="sidebar-nickname"
+        >
           {user.nickname}
         </span>
       </div>
@@ -56,7 +64,7 @@ export function NavUserLogged({
       <DropdownMenuTrigger asChild>
         <SidebarMenuButton
           size="lg"
-          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          className="data-[state=open]:bg-background-secondary data-[state=open]:text-text-primary text-text-secondary"
           data-testid="sidebar-open-menu-button"
         >
           {renderAvatar()}
@@ -65,7 +73,7 @@ export function NavUserLogged({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
-        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background-secondary border-border-primary"
         side={isMobile ? "bottom" : "right"}
         align="start"
         sideOffset={4}
@@ -75,18 +83,18 @@ export function NavUserLogged({
             {renderAvatar()}
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-border-primary" />
         <DropdownMenuItem
           onClick={handleAccount}
-          className="cursor-pointer"
+          className="cursor-pointer text-text-secondary hover:text-text-primary transition-colors"
           data-testid="sidebar-edit-profile-menu-item"
         >
           <BadgeCheck />
           Account
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-border-primary" />
         <DropdownMenuItem
-          className="cursor-pointer"
+          className="cursor-pointer text-text-secondary hover:text-text-primary transition-colors"
           onClick={handleLogout}
           id="sidebar-logout-menu-item"
           data-testid="sidebar-logout-menu-item"

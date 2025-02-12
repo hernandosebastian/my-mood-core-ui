@@ -78,8 +78,9 @@ export function AppSidebar({
             <SidebarGroup>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarMenuItem key="Stats" 
-                  className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
+                  <SidebarMenuItem
+                    key="Stats"
+                    className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
                   >
                     <SidebarMenuButton asChild size="default">
                       <button
