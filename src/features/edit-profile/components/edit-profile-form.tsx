@@ -64,7 +64,7 @@ export function EditProfileForm({
   };
 
   return (
-    <div className="lg:p-8 text-black">
+    <div className="lg:p-8">
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-8">
           <CurrentAvatar
@@ -73,7 +73,7 @@ export function EditProfileForm({
             isImageLoaded={isImageLoaded}
           />
           <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            <h2 className="text-xl font-semibold text-text-secondary mb-4">
               Choose a new avatar:
             </h2>
             <AvatarList
@@ -87,7 +87,7 @@ export function EditProfileForm({
             name="nickname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xl font-semibold text-gray-800 mb-4">
+                <FormLabel className="text-xl font-semibold text-text-secondary mb-4">
                   Nickname
                 </FormLabel>
                 <FormControl>
@@ -97,6 +97,7 @@ export function EditProfileForm({
                     placeholder="Enter your nickname"
                     {...field}
                     disabled={isLoading}
+                    className="text-text-secondary border-border-primary"
                   />
                 </FormControl>
                 <FormMessage />
@@ -120,4 +121,3 @@ export function EditProfileForm({
     </div>
   );
 }
-

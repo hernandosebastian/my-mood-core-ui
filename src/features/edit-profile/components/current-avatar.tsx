@@ -12,8 +12,8 @@ export function CurrentAvatar({
 }: Readonly<ICurrentAvatarProps>): JSX.Element {
   return (
     <div className="flex flex-col items-center space-y-4">
-      <h2 className="text-lg text-gray-800">Current Avatar</h2>
-      <Avatar className="w-32 h-32 bg-gray-300">
+      <h2 className="text-lg text-text-primary">Current Avatar</h2>
+      <Avatar className="w-32 h-32 bg-background-primary">
         <AvatarImage
           data-testid="current-avatar"
           src={selectedAvatar ?? currentAvatar}
@@ -23,4 +23,3 @@ export function CurrentAvatar({
     </div>
   );
 }
-

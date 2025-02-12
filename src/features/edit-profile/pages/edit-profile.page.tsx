@@ -66,9 +66,9 @@ export function EditProfilePage(): JSX.Element {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
+      <header className="border-b border-border-primary">
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-gray-800">Edit Profile</h1>
+          <h1 className="text-2xl font-bold text-text-primary">Edit Profile</h1>
         </div>
       </header>
       <main className="flex-grow container mx-auto px-4 py-8">
