@@ -33,6 +33,7 @@ const renderLabelContent = ({
         y={viewBox.cy}
         textAnchor="middle"
         dominantBaseline="middle"
+        className="fill-text-secondary"
       >
         <tspan
           x={viewBox.cx}
@@ -55,22 +56,29 @@ export function TotalMoodTrackingDonut({
   const totalDaysTracked = getTotalDaysTrackedInData(moodTrackingData);
 
   return (
-    <Card className="flex flex-col w-full max-w-80">
+    <Card className="flex flex-col w-full max-w-80 bg-background-secondary border-border-primary">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Mood Tracking History</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-text-primary">
+          Mood Tracking History
+        </CardTitle>
+        <CardDescription className="text-text-secondary">
           All moods tracked across your account&apos;s history
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfiguration}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square max-h-[250px] "
         >
           <PieChart>
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={
+                <ChartTooltipContent
+                  hideLabel
+                  className="bg-background-primary border-border-primary text-text-primary"
+                />
+              }
             />
             <Pie
               data={moodTrackingData}
@@ -89,7 +97,7 @@ export function TotalMoodTrackingDonut({
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-text-secondary">
           Total days tracked across all moods in your account&apos;s history
         </div>
       </CardFooter>

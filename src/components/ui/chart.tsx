@@ -258,12 +258,12 @@ const ChartTooltipContent = React.forwardRef<
                     >
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
-                        <span className="text-slate-500 dark:text-slate-400">
+                        <span className="text-text-secondary dark:text-text-secondary">
                           {itemConfig?.label || item.name}
                         </span>
                       </div>
                       {item.value && (
-                        <span className="font-mono font-medium tabular-nums text-slate-950 dark:text-slate-50">
+                        <span className="font-mono font-medium tabular-nums text-text-secondary dark:text-slate-50">
                           {item.value.toLocaleString()}
                         </span>
                       )}

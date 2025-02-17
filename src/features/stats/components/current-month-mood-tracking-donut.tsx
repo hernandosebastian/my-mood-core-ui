@@ -22,12 +22,14 @@ export function CurrentMonthMoodTrackingDonut({
 }>): JSX.Element {
   return (
     <Card
-      className="flex flex-col w-full max-w-80"
+      className="flex flex-col w-full max-w-80 bg-background-secondary border-border-primary"
       data-testid="current-month-mood-tracking-donut"
     >
       <CardHeader className="items-center pb-0">
-        <CardTitle>Mood Tracking - This Month</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-text-primary">
+          Mood Tracking - This Month
+        </CardTitle>
+        <CardDescription className="text-text-secondary">
           Moods tracked throughout the current month
         </CardDescription>
       </CardHeader>
@@ -37,7 +39,14 @@ export function CurrentMonthMoodTrackingDonut({
           className="mx-auto aspect-square max-h-[250px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
         >
           <PieChart>
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  hideLabel
+                  className="bg-background-primary border-border-primary text-text-primary"
+                />
+              }
+            />
             <Pie
               data={currentMonthData}
               dataKey="totalDaysTracked"
@@ -48,7 +57,7 @@ export function CurrentMonthMoodTrackingDonut({
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-text-secondary">
           Total moods tracked during the current month
         </div>
       </CardFooter>
