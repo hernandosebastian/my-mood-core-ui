@@ -19,6 +19,9 @@ export const useCreateTrack = (
       const previous = queryClient.getQueryData<Track[]>(
         tracksKeys.list(month, year)
       );
+      const previousYear = queryClient.getQueryData<Track[]>(
+        tracksKeys.yearList(year)
+      );
 
       if (previous) {
         queryClient.setQueryData(tracksKeys.list(month, year), [
@@ -27,10 +30,19 @@ export const useCreateTrack = (
         ]);
       }
 
+      if (previousYear) {
+        queryClient.setQueryData(tracksKeys.yearList(year), [
+          ...previousYear,
+          mapToTrack(newTrack),
+        ]);
+      }
+
       queryClient.invalidateQueries(tracksKeys.list(month, year), {
         refetchActive: !previous,
+      });
+      queryClient.invalidateQueries(tracksKeys.yearList(year), {
+        refetchActive: !previousYear,
       });
     },
   });
 };
-

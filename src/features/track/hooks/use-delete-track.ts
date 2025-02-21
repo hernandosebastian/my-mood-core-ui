@@ -28,10 +28,24 @@ export const useDeleteTrack = (
         );
       }
 
+      const previousYear = queryClient.getQueryData<Track[] | undefined>(
+        tracksKeys.yearList(year)
+      );
+
+      if (previousYear) {
+        const updatedYearTracks = previousYear.filter(
+          (track) => track.id !== idTrackDeleted
+        );
+
+        queryClient.setQueryData<Track[] | undefined>(
+          tracksKeys.yearList(year),
+          updatedYearTracks
+        );
+      }
+
       queryClient.invalidateQueries(tracksKeys.all, {
-        refetchActive: !previous,
+        refetchActive: !previous && !previousYear,
       });
     },
   });
 };
-
