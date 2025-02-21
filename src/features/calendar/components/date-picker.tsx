@@ -8,8 +8,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { calendarToastMessages } from "../messages/calendar.messages";
 import { useToast } from "@/hooks";
-import { useGetTrackByDateRange } from "@/features/track/hooks";
 import { getMoodColor } from "@/features/track/utils/get-mood-color";
+import { useGetAllTracksOnYear } from "@/features/track/hooks/use-get-all-tracks-on-year";
 
 export function DatePicker(): JSX.Element {
   const navigate = useNavigate();
@@ -20,8 +20,6 @@ export function DatePicker(): JSX.Element {
   const calendarYearEnd = new Date(today.getFullYear(), 11, 31);
 
   const { month, year } = useMonthDateRange();
-  const extendedStartDate = new Date(Number(year), 0, 1);
-  const extendedEndDate = new Date(Number(year), 11, 31);
   const defaultMonthDate = new Date(Number(year), Number(month) - 1, 1);
 
   const selectedDate = useSelectedDate();
@@ -31,11 +29,8 @@ export function DatePicker(): JSX.Element {
     isLoading,
     error,
     data: tracks,
-  } = useGetTrackByDateRange({
-    month,
+  } = useGetAllTracksOnYear({
     year,
-    startDate: extendedStartDate.toISOString(),
-    endDate: extendedEndDate.toISOString(),
   });
 
   if (error) {
