@@ -8,10 +8,10 @@ export function HomepageHero(): JSX.Element {
 
   return (
     <div className="space-y-6 text-center">
-      <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-text-primary color-highlight-selection">
+      <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-text-primary">
         My Mood
       </h1>
-      <p className="text-2xl text-text-secondary max-w-[600px] mx-auto color-highlight-selection">
+      <p className="text-2xl text-text-secondary max-w-[600px] mx-auto">
         A simple tool to track your emotions and discover your mood patterns
         over time.
       </p>
