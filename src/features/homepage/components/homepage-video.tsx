@@ -1,6 +1,6 @@
 export function HomepageVideo(): JSX.Element {
   return (
-    <div className="bg-background-primary relative w-full max-w-[1000px] aspect-video rounded-lg overflow-hidden shadow-xl">
+    <div className="bg-background-primary relative w-full max-w-[1000px] aspect-video rounded-lg overflow-hidden shadow-xl border-2 border-border-primary">
       <video
         className="w-full h-full object-cover"
         src="src/assets/homepage/homepage-example.mp4"
