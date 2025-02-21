@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
+import { logIn } from "utils";
 
 dotenv.config();
 
@@ -20,5 +21,18 @@ test.describe("features/homepage", () => {
     await getStartedButton.click();
 
     await expect(page).toHaveURL(`${BASE_URL}log-in`);
+  });
+
+  test("shouldn't show homepage and test get started button when user is logged in", async ({
+    page,
+    isMobile,
+  }) => {
+    await logIn({ page, isMobile, isSidebarOpen: false });
+
+    const homepageSection = page.getByTestId("homepage-section");
+    const getStartedButton = page.getByTestId("homepage-get-started-button");
+
+    await expect(homepageSection).toBeVisible();
+    await expect(getStartedButton).not.toBeVisible();
   });
 });

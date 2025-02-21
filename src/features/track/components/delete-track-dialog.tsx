@@ -31,12 +31,12 @@ export const DeleteTrackDialog = ({
       >
         Delete
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-background-primary border-border-primary">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-black">
+          <AlertDialogTitle className="text-text-primary">
             Are you absolutely sure?
           </AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="text-text-secondary">
             This action cannot be undone. Your track will be permanently
             deleted.
           </AlertDialogDescription>
@@ -61,4 +61,3 @@ export const DeleteTrackDialog = ({
     </AlertDialog>
   );
 };
-

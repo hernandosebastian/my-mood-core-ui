@@ -64,16 +64,16 @@ export function CreateTrackForm({
   };
 
   return (
-    <div className="lg:p-8 text-black">
+    <div className="lg:p-8">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1
-            className="text-2xl font-semibold tracking-tight"
+            className="text-2xl font-semibold tracking-tight text-text-primary"
             data-testid="create-track-title"
           >
             Track Your Mood | {format(date, "dd-MM-yyyy")}
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-text-secondary">
             Create your track and gain insights into your mood journey.
           </p>
         </div>
@@ -85,22 +85,23 @@ export function CreateTrackForm({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Mood</FormLabel>
+                  <FormLabel className="text-text-primary">Mood</FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel className="w-full max-w-xs flex flex-col gap-4">
                       <CarouselContent>
                         {Object.values(Mood).map((mood) => (
                           <CarouselItem key={mood.toString()}>
-                            <div>
+                            <div className="border-border-primary">
                               <Card
                                 style={{
                                   borderColor:
                                     field.value === mood
                                       ? getMoodColor(mood)
-                                      : "transparent",
+                                      : "inherit",
                                 }}
+                                className="bg-background-primary"
                               >
-                                <CardContent className="flex aspect-square items-center justify-center p-6">
+                                <CardContent className="flex aspect-square items-center justify-center p-6 bg-background-secondary border-border-primary rounded-xl">
                                   <button
                                     type="button"
                                     onClick={() => field.onChange(mood)}
@@ -138,11 +139,13 @@ export function CreateTrackForm({
                         <CarouselPrevious
                           type="button"
                           data-testid="previous-button"
+                          className="border-border-primary bg-background-secondary text-text-secondary hover:bg-background-primary hover:text-text-primary"
                           disabled={isLoading}
                         />
                         <CarouselNext
                           type="button"
                           data-testid="next-button"
+                          className="border-border-primary bg-background-secondary text-text-secondary hover:bg-background-primary hover:text-text-primary"
                           disabled={isLoading}
                         />
                       </div>
@@ -164,6 +167,7 @@ export function CreateTrackForm({
                       id="description"
                       placeholder="Enter your description"
                       data-testid="create-track-description-input"
+                      className="text-text-secondary"
                       {...field}
                       disabled={isLoading}
                     />

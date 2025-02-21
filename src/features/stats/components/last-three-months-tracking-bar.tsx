@@ -35,11 +35,16 @@ export function LastThreeMonthsMoodTrackingBar({
   const dateRange = getFormattedDateRange(lastThreeMonthsData);
 
   return (
-    <Card className="w-full max-w-[1000px]">
+    <Card className="w-full max-w-[1000px] bg-background-secondary border-border-primary">
       <CardHeader>
-        <CardTitle>Mood Tracking - Last 3 Months</CardTitle>
+        <CardTitle className="text-text-primary">
+          Mood Tracking - Last 3 Months
+        </CardTitle>
         {hasActivity && (
-          <CardDescription data-testid="last-three-months-date-range">
+          <CardDescription
+            data-testid="last-three-months-date-range"
+            className="text-text-secondary"
+          >
             {dateRange}
           </CardDescription>
         )}
@@ -48,7 +53,10 @@ export function LastThreeMonthsMoodTrackingBar({
         <CardContent data-testid="last-three-months-mood-tracking-bar">
           <ChartContainer config={chartConfiguration}>
             <BarChart accessibilityLayer data={lastThreeMonthsData}>
-              <CartesianGrid vertical={false} />
+              <CartesianGrid
+                vertical={false}
+                className="stroke-text-secondary"
+              />
               <XAxis
                 dataKey="month"
                 tickLine={false}
@@ -58,7 +66,12 @@ export function LastThreeMonthsMoodTrackingBar({
               />
               <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent indicator="dashed" />}
+                content={
+                  <ChartTooltipContent
+                    indicator="dashed"
+                    className="bg-background-secondary border-border-primary text-text-primary"
+                  />
+                }
               />
               {moodsToDisplay.map((mood) => (
                 <Bar
@@ -78,15 +91,19 @@ export function LastThreeMonthsMoodTrackingBar({
             className="leading-none text-muted-foreground"
             data-testid="last-three-months-mood-distribution"
           >
-            <p>Mood distribution over the last 3 months</p>
+            <p className="text-text-secondary">
+              Mood distribution over the last 3 months
+            </p>
           </div>
         ) : (
           <div
             className="leading-none text-muted-foreground"
             data-testid="last-three-months-mood-no-activity"
           >
-            <p>No activity over the last 3 months</p>
-            <p>Start tracking your moods</p>
+            <p className="text-text-secondary">
+              No activity over the last 3 months
+            </p>
+            <p className="text-text-secondary">Start tracking your moods</p>
           </div>
         )}
       </CardFooter>
