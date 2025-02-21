@@ -1,8 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { HomepageOpenSourceButton } from "./homepage-open-source-button";
-import { buttonVariants } from "@/components/ui/buttonVariants";
-import { env } from "@/config/env";
 import { useGetMe } from "@/features/authentication/hooks";
 
 export function HomepageHero(): JSX.Element {
@@ -11,14 +8,12 @@ export function HomepageHero(): JSX.Element {
 
   return (
     <div className="space-y-6 text-center">
-      <HomepageOpenSourceButton />
-
-      <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-text-primary color-highlight-selection">
+      <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-text-primary">
         My Mood
       </h1>
-      <p className="text-2xl text-text-secondary max-w-[600px] mx-auto color-highlight-selection">
-        Track your daily emotions, monitor patterns over time, and gain insights
-        into your mood journey.
+      <p className="text-2xl text-text-secondary max-w-[600px] mx-auto">
+        A simple tool to track your emotions and discover your mood patterns
+        over time.
       </p>
       <div className="flex gap-4 justify-center mt-2">
         {!isLoggedIn && (
@@ -32,19 +27,6 @@ export function HomepageHero(): JSX.Element {
             </Link>
           </Button>
         )}
-        <a
-          data-testid="homepage-github-button"
-          className={`w-32 ${buttonVariants({
-            variant: "secondary",
-            size: "lg",
-          })}`}
-          href={env.githubProfiles.projectRepositoryGithub}
-          target="_blank"
-          rel="noreferrer"
-          draggable={false}
-        >
-          Github
-        </a>
       </div>
     </div>
   );
