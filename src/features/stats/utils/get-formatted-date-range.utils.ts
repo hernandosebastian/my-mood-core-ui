@@ -1,16 +1,13 @@
 import { IMonthData } from "@/features/stats/interfaces";
-import { monthsNames } from "./months-names.utils";
 
 export const getFormattedDateRange = (data: IMonthData[]): string => {
-  const months = data.map((item) => item.month);
-  const sortedMonths = [...months].sort((a, b) => {
-    return monthsNames.indexOf(a) - monthsNames.indexOf(b);
+  const dates = data.map((item) => item.month);
+  const sortedDates = [...dates].sort((a, b) => {
+    return new Date(a).getTime() - new Date(b).getTime();
   });
 
-  const startMonth = sortedMonths[0];
-  const endMonth = sortedMonths[sortedMonths.length - 1];
-  const year = new Date().getFullYear();
+  const startDate = sortedDates[0];
+  const endDate = sortedDates[sortedDates.length - 1];
 
-  return `${startMonth} - ${endMonth} ${year}`;
+  return `${startDate} - ${endDate}`;
 };
-

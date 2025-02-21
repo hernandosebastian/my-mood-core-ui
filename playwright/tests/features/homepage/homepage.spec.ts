@@ -25,8 +25,9 @@ test.describe("features/homepage", () => {
 
   test("shouldn't show homepage and test get started button when user is logged in", async ({
     page,
+    isMobile,
   }) => {
-    await logIn({ page, isMobile: false, isSidebarOpen: false });
+    await logIn({ page, isMobile, isSidebarOpen: false });
 
     const homepageSection = page.getByTestId("homepage-section");
     const getStartedButton = page.getByTestId("homepage-get-started-button");

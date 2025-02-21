@@ -33,7 +33,7 @@ test.beforeEach(async ({ page, isMobile }) => {
 });
 
 test.describe("features/stats", () => {
-  const dateRange = "August - October 2024";
+  const dateRange = "August 2024 - October 2024";
 
   test("should render a message if there is no data", async ({
     page,
