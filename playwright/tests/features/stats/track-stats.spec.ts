@@ -178,10 +178,8 @@ test.describe("features/stats", () => {
       errorResponseBody.message
     );
 
-    await page.waitForTimeout(5_000);
-
-    await expect(errorToastMessageTitle).toBeVisible();
-    await expect(errorToastMessageDescription).toBeVisible();
+    await expect(errorToastMessageTitle).toBeVisible({ timeout: 10_000 });
+    await expect(errorToastMessageDescription).toBeVisible({ timeout: 10_000 });
   });
 
   test("should display default error message if there is no error message in the body", async ({
@@ -208,9 +206,7 @@ test.describe("features/stats", () => {
       trackStatsToastMessages.error.description
     );
 
-    await page.waitForTimeout(5_000);
     await expect(errorToastMessageTitle).toBeVisible();
     await expect(errorToastMessageDescription).toBeVisible();
   });
 });
-
