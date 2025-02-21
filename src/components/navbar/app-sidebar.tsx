@@ -30,7 +30,7 @@ export function AppSidebar({
   const getMeQuery = useGetMe();
   const isLoggedIn = getMeQuery.data?.user !== undefined;
 
-  if (getMeQuery.isLoading) {
+  if (isLoggedIn && getMeQuery.isLoading) {
     return (
       <Sidebar {...props} id="sidebar" className="border-sidebar-border">
         {isMobile && (
