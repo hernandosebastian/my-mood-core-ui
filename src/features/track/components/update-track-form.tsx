@@ -106,11 +106,11 @@ export function UpdateTrackForm({
                                 }}
                                 className="bg-background-primary"
                               >
-                                <CardContent className="flex aspect-square items-center justify-center p-6 bg-background-secondary border-border-primary rounded-xl">
+                                <CardContent className="flex aspect-square items-center justify-center bg-background-secondary border-border-primary rounded-xl">
                                   <button
                                     type="button"
                                     onClick={() => field.onChange(mood)}
-                                    className="w-full h-full"
+                                    className="w-full h-full p-6"
                                     data-testid={`update-track-${mood}-button`}
                                     disabled={isLoading}
                                   >
