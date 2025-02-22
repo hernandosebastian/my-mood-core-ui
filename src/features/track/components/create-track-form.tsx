@@ -64,8 +64,8 @@ export function CreateTrackForm({
   };
 
   return (
-    <div className="lg:p-8">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    <div className="lg:p-8 w-full max-w-[1200px] self-center">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 gap-8 sm:w-[350px] gap-4 lg:w-full">
         <div className="flex flex-col space-y-2 text-center">
           <h1
             className="text-2xl font-semibold tracking-tight text-text-primary"
@@ -79,12 +79,12 @@ export function CreateTrackForm({
         </div>
 
         <Form {...form}>
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8 lg:flex">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="lg:flex lg:flex-col lg:gap-4 lg:w-[60%] text-center">
                   <FormLabel className="text-text-primary text-lg">
                     How are you feeling today?
                   </FormLabel>
@@ -158,41 +158,43 @@ export function CreateTrackForm({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-text-primary text-lg">
-                    Write about your day
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      id="description"
-                      placeholder="Enter your description"
-                      data-testid="create-track-description-input"
-                      className="text-text-secondary"
-                      {...field}
-                      disabled={isLoading}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col gap-6 lg:w-[40%] lg:!my-auto lg:h-fit">
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-text-primary text-lg">
+                      Write about your day
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="description"
+                        placeholder="Enter your description"
+                        data-testid="create-track-description-input"
+                        className="text-text-secondary"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full"
-              id="create-track-button"
-              data-testid="create-track-submit-button"
-            >
-              {isLoading ? (
-                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
-              Done
-            </Button>
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="w-full"
+                id="create-track-button"
+                data-testid="create-track-submit-button"
+              >
+                {isLoading ? (
+                  <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
+                Done
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
