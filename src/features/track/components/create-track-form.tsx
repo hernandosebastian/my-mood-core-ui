@@ -110,7 +110,7 @@ export function CreateTrackForm({
                                     disabled={isLoading}
                                   >
                                     <img
-                                      src={`src/assets/mood/${mood}.png`}
+                                      src={`/assets/mood/${mood}.png`}
                                       alt={mood}
                                       className="w-full h-full object-contain"
                                     />

@@ -3,7 +3,7 @@ export function HomepageVideo(): JSX.Element {
     <div className="bg-background-primary relative w-full max-w-[1000px] aspect-video rounded-lg overflow-hidden shadow-xl border-2 border-border-primary">
       <video
         className="w-full h-full object-cover"
-        src="src/assets/homepage/homepage-example.mp4"
+        src="/assets/homepage/homepage-example.mp4"
         title="Mood tracking video experience"
         loop
         muted
