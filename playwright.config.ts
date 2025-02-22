@@ -59,12 +59,7 @@ export default defineConfig({
   projects:
     process.env.VITE_APP_MODE === "automated_tests"
       ? automatedTestsProjects
-      : [
-          {
-            name: "chromium",
-            use: { ...devices["Desktop Chrome"] },
-          },
-        ],
+      : defaultProjects,
   webServer: {
     command: "npm run start:dev",
     url: "http://localhost:3000/",
