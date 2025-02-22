@@ -175,7 +175,7 @@ export function UpdateTrackForm({
                       id="description"
                       placeholder="Enter your description"
                       data-testid="update-track-description-input"
-                      className="text-text-secondary"
+                      className="text-text-primary"
                       {...field}
                       disabled={isLoading}
                     />
