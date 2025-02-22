@@ -85,7 +85,9 @@ export function CreateTrackForm({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Mood</FormLabel>
+                  <FormLabel className="text-text-primary text-lg">
+                    How are you feeling today?
+                  </FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel className="w-full max-w-xs flex flex-col gap-4">
                       <CarouselContent>
@@ -161,7 +163,9 @@ export function CreateTrackForm({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel className="text-text-primary text-lg">
+                    Write about your day
+                  </FormLabel>
                   <FormControl>
                     <Input
                       id="description"

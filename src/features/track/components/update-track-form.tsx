@@ -87,7 +87,9 @@ export function UpdateTrackForm({
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Mood</FormLabel>
+                  <FormLabel className="text-text-primary text-lg">
+                    How are you feeling today?
+                  </FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel
                       startIndex={startIndex}
@@ -165,8 +167,8 @@ export function UpdateTrackForm({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">
-                    Description
+                  <FormLabel className="text-text-primary text-lg">
+                    Write about your day
                   </FormLabel>
                   <FormControl>
                     <Input
