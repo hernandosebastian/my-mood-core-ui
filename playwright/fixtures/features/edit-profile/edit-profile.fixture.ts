@@ -4,7 +4,7 @@ export const successEditProfileFixture = {
     id: 123,
     username: "johndoe@example.com",
     nickname: "TestNickname",
-    avatarSrc: "/src/assets/avatars/Multiavatar-0af9e888d36c86d96f.png",
+    avatarSrc: "/assets/avatars/Multiavatar-0af9e888d36c86d96f.png",
     externalId: "external-id-12345",
     roles: ["regular"],
     createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
@@ -20,7 +20,7 @@ export const successEditProfileOnlyAvatarFixture = {
     id: 123,
     username: "johndoe@example.com",
     nickname: "John Doe",
-    avatarSrc: "/src/assets/avatars/Multiavatar-0af9e888d36c86d96f.png",
+    avatarSrc: "/assets/avatars/Multiavatar-0af9e888d36c86d96f.png",
     externalId: "external-id-12345",
     roles: ["regular"],
     createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
@@ -36,7 +36,7 @@ export const successEditProfileOnlyNicknameFixture = {
     id: 123,
     username: "johndoe@example.com",
     nickname: "TestNickname",
-    avatarSrc: "/src/assets/avatars/Multiavatar-0ac91fa47b6b8fea10.png",
+    avatarSrc: "/assets/avatars/Multiavatar-0ac91fa47b6b8fea10.png",
     externalId: "external-id-12345",
     roles: ["regular"],
     createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
@@ -61,4 +61,3 @@ export const errorEditProfileFixtureWithoutMessage = {
   }),
   contentType: "application/json",
 };
-
