@@ -9,6 +9,7 @@ import {
   successLoginFixture,
   errorLoginFixture,
   axiosErrorLoginFixture,
+  unconfirmedUserFixture,
 } from "../../../fixtures/features/authentication/log-in.fixture";
 import { closeSidebarIfMobile, openSidebarIfMobile } from "utils";
 import { StorageKeys } from "@/services/local-storage/index";
@@ -207,5 +208,32 @@ test.describe("features/authentication", () => {
     await signUpButton.click();
 
     await expect(page).toHaveURL(`${BASE_URL}sign-up`);
+  });
+
+  test("should redirect to confirm-user page when user is not confirmed (403)", async ({
+    page,
+  }) => {
+    await page.route("**/api/v1/auth/sign-in", (route) => {
+      route.fulfill(unconfirmedUserFixture);
+    });
+
+    const emailInput = page.getByTestId("log-in-username-input");
+    const passwordInput = page.getByTestId("log-in-password-input");
+    const submitButton = page.getByTestId("log-in-submit-button");
+
+    const testEmail = "unconfirmed@example.com";
+    await emailInput.fill(testEmail);
+    await passwordInput.fill("Password123!");
+    await submitButton.click();
+
+    await expect(page).toHaveURL(`${BASE_URL}confirm-user`);
+
+    const errorToastMessage = page.getByText(
+      "User registered but not confirmed"
+    );
+    await expect(errorToastMessage).toBeVisible();
+
+    const usernameInput = page.getByTestId("confirm-user-username-input");
+    await expect(usernameInput).toHaveValue(testEmail);
   });
 });
