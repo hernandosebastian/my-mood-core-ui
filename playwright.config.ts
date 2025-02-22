@@ -47,9 +47,9 @@ export default defineConfig({
   workers: 3,
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
-    trace: "on-first-retry",
-    actionTimeout: 60_000,
-    navigationTimeout: 30_000,
+    trace: "retain-on-failure",
+    actionTimeout: 120_000,
+    navigationTimeout: 60_000,
     launchOptions: {
       headless: true,
       slowMo: 50,

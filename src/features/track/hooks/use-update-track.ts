@@ -28,6 +28,9 @@ export const useUpdateTrack = (
       const previous = queryClient.getQueryData<Track[] | undefined>(
         tracksKeys.list(month, year)
       );
+      const previousYear = queryClient.getQueryData<Track[] | undefined>(
+        tracksKeys.yearList(year)
+      );
 
       if (previous) {
         const updatedTracks = previous.map((track) =>
@@ -40,8 +43,19 @@ export const useUpdateTrack = (
         );
       }
 
+      if (previousYear) {
+        const updatedYearTracks = previousYear.map((track) =>
+          track.id === updatedTrack.id ? mapToTrack(updatedTrack) : track
+        );
+
+        queryClient.setQueryData<Track[] | undefined>(
+          tracksKeys.yearList(year),
+          updatedYearTracks
+        );
+      }
+
       queryClient.invalidateQueries(tracksKeys.all, {
-        refetchActive: !previous,
+        refetchActive: !previous && !previousYear,
       });
     },
   });

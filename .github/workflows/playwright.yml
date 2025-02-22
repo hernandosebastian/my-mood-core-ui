@@ -24,21 +24,24 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: yarn playwright install --with-deps
       - name: Pre-build Step (Compile TypeScript)
         run: npm run pretest
       - name: Run Playwright tests
         run: npx playwright test
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: playwright-report
           path: playwright/playwright-report/
           retention-days: 30
-      - name: Upload Videos as Artifacts (optional)
+      - name: Upload Playwright Test Assets
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: always()
         with:
-          name: playwright-videos
-          path: playwright/test-results/
+          name: playwright-test-results
+          path: |
+            playwright/test-results/
+            playwright/playwright-report/
           retention-days: 30

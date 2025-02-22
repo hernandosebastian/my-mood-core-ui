@@ -43,15 +43,10 @@ test.describe("features/track - get", () => {
 
     const errorResponseBody = JSON.parse(errorGetTrackFixtureWithMessage.body);
 
-    const errorToastMessageTitle = page.getByText(
-      calendarToastMessages.error.title
-    );
-    const errorToastMessageDescription = page.getByText(
-      errorResponseBody.message
-    );
-
-    await expect(errorToastMessageTitle).toBeVisible();
-    await expect(errorToastMessageDescription).toBeVisible();
+    await expect(
+      page.getByText(calendarToastMessages.error.title)
+    ).toBeVisible();
+    await expect(page.getByText(errorResponseBody.message)).toBeVisible();
   });
 
   test("should display default error message if there is no error message in the body", async ({
