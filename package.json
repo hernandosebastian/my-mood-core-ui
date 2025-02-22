@@ -10,6 +10,7 @@
   "author": "Mipmipp",
   "license": "MIT",
   "scripts": {
+    "start": "vite preview --host --port $PORT",
     "start:dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
