@@ -82,13 +82,17 @@ export function AppSidebar({
                     key="Stats"
                     className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
                   >
-                    <SidebarMenuButton asChild size="default">
+                    <SidebarMenuButton
+                      asChild
+                      size="lg"
+                      className="flex gap-3 bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
+                    >
                       <button
                         onClick={() => navigate("/stats")}
                         data-testid="sidebar-stats-button"
                       >
-                        <ChartNoAxesColumn />
-                        <span>Stats</span>
+                        <ChartNoAxesColumn className="h-5 w-5" />
+                        <span className="text-base">Stats</span>
                       </button>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
