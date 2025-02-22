@@ -24,26 +24,34 @@ export function SidebarContentUserAnonymous(): JSX.Element {
       <SidebarGroupContent>
         <SidebarMenu className="gap-4">
           <SidebarMenuItem key="Log in">
-            <SidebarMenuButton asChild size="default">
+            <SidebarMenuButton
+              asChild
+              size="lg"
+              className="flex gap-3 text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
+            >
               <button
                 onClick={handleLoginClick}
                 data-testid="sidebar-log-in-button"
-                className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
+                className="bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
               >
-                <LogIn />
-                <span>Log in</span>
+                <LogIn className="h-5 w-5" />
+                <span className="text-base">Log in</span>
               </button>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem key="Sign up">
-            <SidebarMenuButton asChild size="default">
+            <SidebarMenuButton
+              asChild
+              size="lg"
+              className="flex gap-3 text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
+            >
               <button
                 onClick={handleSignUpClick}
                 data-testid="sidebar-sign-up-button"
-                className="text-text-secondary hover:text-text-primary hover:bg-transparent transition-colors"
+                className="bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
               >
-                <UserPlus />
-                <span>Sign up</span>
+                <UserPlus className="h-5 w-5" />
+                <span className="text-base">Sign up</span>
               </button>
             </SidebarMenuButton>
           </SidebarMenuItem>

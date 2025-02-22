@@ -48,8 +48,15 @@ export function LogInPage(): JSX.Element {
           getMeQuery.refetch();
         },
         onError: (error: AxiosError) => {
+          const userRegisteredButNotConfirmed = error.response?.status === 403;
           const errorMessage = (error.response?.data as { message?: string })
             ?.message;
+
+          if (userRegisteredButNotConfirmed) {
+            navigate("/confirm-user", {
+              state: { username: values.username },
+            });
+          }
 
           showErrorToast(
             logInToastMessages.error.title,

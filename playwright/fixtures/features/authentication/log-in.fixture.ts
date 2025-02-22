@@ -24,3 +24,11 @@ export const axiosErrorLoginFixture = {
   contentType: "application/json",
 };
 
+export const unconfirmedUserFixture = {
+  status: 403,
+  body: JSON.stringify({
+    success: false,
+    message: "User registered but not confirmed",
+  }),
+  contentType: "application/json",
+};
