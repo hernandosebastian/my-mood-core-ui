@@ -46,7 +46,12 @@ test.describe("features/edit-profile", () => {
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
     const getMeBody = JSON.parse(successGetMeFixture.body);
-    await expect(currentAvatar).toHaveAttribute("src", getMeBody.avatarSrc);
+    await expect(currentAvatar).toHaveAttribute(
+      "src",
+      expect.stringMatching(
+        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
+      )
+    );
     await expect(nicknameInput).toHaveValue(getMeBody.nickname);
 
     await page.getByTestId("avatar-Multiavatar-0af9e888d36c86d96f").click();
@@ -56,7 +61,9 @@ test.describe("features/edit-profile", () => {
     const responseEditProfileBody = JSON.parse(successEditProfileFixture.body);
     await expect(currentAvatar).toHaveAttribute(
       "src",
-      responseEditProfileBody.avatarSrc
+      expect.stringMatching(
+        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
+      )
     );
     await expect(nicknameInput).toHaveValue(responseEditProfileBody.nickname);
 
@@ -97,7 +104,12 @@ test.describe("features/edit-profile", () => {
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
     const getMeBody = JSON.parse(successGetMeFixture.body);
-    await expect(currentAvatar).toHaveAttribute("src", getMeBody.avatarSrc);
+    await expect(currentAvatar).toHaveAttribute(
+      "src",
+      expect.stringMatching(
+        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
+      )
+    );
     await expect(nicknameInput).toHaveValue(getMeBody.nickname);
 
     await page.getByTestId("avatar-Multiavatar-0af9e888d36c86d96f").click();
@@ -107,7 +119,9 @@ test.describe("features/edit-profile", () => {
     );
     await expect(currentAvatar).toHaveAttribute(
       "src",
-      responseEditProfileBody.avatarSrc
+      expect.stringMatching(
+        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
+      )
     );
     await expect(nicknameInput).toHaveValue(getMeBody.nickname);
 
@@ -148,7 +162,12 @@ test.describe("features/edit-profile", () => {
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
     const getMeBody = JSON.parse(successGetMeFixture.body);
-    await expect(currentAvatar).toHaveAttribute("src", getMeBody.avatarSrc);
+    await expect(currentAvatar).toHaveAttribute(
+      "src",
+      expect.stringMatching(
+        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
+      )
+    );
     await expect(nicknameInput).toHaveValue(getMeBody.nickname);
 
     await nicknameInput.click();
@@ -157,7 +176,12 @@ test.describe("features/edit-profile", () => {
     const responseEditProfileBody = JSON.parse(
       successEditProfileOnlyNicknameFixture.body
     );
-    await expect(currentAvatar).toHaveAttribute("src", getMeBody.avatarSrc);
+    await expect(currentAvatar).toHaveAttribute(
+      "src",
+      expect.stringMatching(
+        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
+      )
+    );
     await expect(nicknameInput).toHaveValue(responseEditProfileBody.nickname);
 
     await page.getByTestId("edit-profile-submit-button").click();
@@ -243,4 +267,3 @@ test.describe("features/edit-profile", () => {
     ).toBeVisible();
   });
 });
-
