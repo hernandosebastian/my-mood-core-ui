@@ -30,7 +30,6 @@ export function LastThreeMonthsMoodTrackingBar({
   const hasActivity = lastThreeMonthsData.some((month) =>
     Object.values(month).some((value) => typeof value === "number" && value > 0)
   );
-
   const moodsToDisplay = getMoodsInData(lastThreeMonthsData);
   const dateRange = getFormattedDateRange(lastThreeMonthsData);
 
