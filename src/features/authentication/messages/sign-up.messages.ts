@@ -16,6 +16,9 @@ export const signUpErrorMessages = {
     specialChar:
       "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
   },
+  confirmPassword: {
+    mismatch: "Passwords do not match",
+  },
 };
 
 export const signUpToastMessages = {
