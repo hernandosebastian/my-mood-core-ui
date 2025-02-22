@@ -31,6 +31,7 @@ export function SignUpPage(): JSX.Element {
       nickname: "",
       avatarSrc: "/assets/avatars/Multiavatar-0e194b370c5a6c8ece.png",
       password: "",
+      confirmPassword: "",
     },
   });
 
