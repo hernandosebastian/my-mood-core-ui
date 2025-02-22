@@ -66,9 +66,9 @@ function SingleCalendar({
         day_today: "bg-background-secondary/30 text-text-primary font-medium",
         day_outside:
           "text-text-secondary opacity-50 [&:not([data-modifier])]:aria-selected:bg-primary/20 [&:not([data-modifier])]:aria-selected:text-text-primary [&:not([data-modifier])]:aria-selected:opacity-100 [&:not([data-modifier])]:aria-selected:ring-1 [&:not([data-modifier])]:aria-selected:ring-text-primary/60",
-        day_disabled: "text-slate-500 opacity-50 dark:text-slate-400",
+        day_disabled: "text-slate-500 opacity-50",
         day_range_middle:
-          "aria-selected:bg-slate-100 aria-selected:text-slate-900 dark:aria-selected:bg-slate-800 dark:aria-selected:text-slate-50",
+          "aria-selected:bg-slate-100 aria-selected:text-slate-900",
         day_hidden: "invisible",
         ...classNames,
       }}
