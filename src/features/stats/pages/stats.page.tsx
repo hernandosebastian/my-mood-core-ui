@@ -10,6 +10,7 @@ import { Loading } from "@/components/common/Loading";
 import { useToast } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import { trackStatsToastMessages } from "../messages";
+import { Button } from "@/components/ui/button";
 
 export const StatsPage = (): JSX.Element => {
   useSEO({
@@ -68,11 +69,11 @@ export const StatsPage = (): JSX.Element => {
       data-testid="stats-section-without-data"
     >
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-4 bg-gradient-to-b from-background to-secondary/20 gap-12">
-        <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 text-center">
+        <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-text-primary text-center">
           Currently there is no data
         </h1>
+        <Button onClick={() => navigate("/track")}>Track Mood</Button>
       </main>
-      <button onClick={() => navigate("/track")}>Track Mood</button>
     </div>
   );
 };
