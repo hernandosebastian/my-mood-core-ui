@@ -66,8 +66,8 @@ export function UpdateTrackForm({
   const startIndex = Object.values(Mood).indexOf(track.title);
 
   return (
-    <div className="lg:p-8">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    <div className="lg:p-8 w-full max-w-[1200px] self-center">
+      <div className="mx-auto flex w-full flex-col justify-center gap-8 space-y-6 sm:w-[350px] lg:w-full">
         <div className="flex flex-col space-y-2 text-center">
           <h1
             className="text-2xl font-semibold tracking-tight text-text-primary"
@@ -81,12 +81,12 @@ export function UpdateTrackForm({
         </div>
 
         <Form {...form}>
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8 lg:flex">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="lg:flex lg:flex-col lg:gap-4 lg:w-[60%] text-center">
                   <FormLabel className="text-text-primary text-lg">
                     How are you feeling today?
                   </FormLabel>
@@ -162,43 +162,50 @@ export function UpdateTrackForm({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-text-primary text-lg">
-                    Write about your day
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      id="description"
-                      placeholder="Enter your description"
-                      data-testid="update-track-description-input"
-                      className="text-text-primary"
-                      {...field}
-                      disabled={isLoading}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex flex-col gap-6 lg:w-[40%] lg:!my-auto lg:h-fit">
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-text-primary text-lg">
+                      Write about your day
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        id="description"
+                        placeholder="Enter your description"
+                        data-testid="update-track-description-input"
+                        className="text-text-primary"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full"
-              id="update-track-button"
-              data-testid="update-track-submit-button"
-            >
-              {isLoading ? (
-                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
-              Done
-            </Button>
+              <div className="flex gap-4">
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full"
+                  id="update-track-button"
+                  data-testid="update-track-submit-button"
+                >
+                  {isLoading ? (
+                    <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                  ) : null}
+                  Done
+                </Button>
 
-            <DeleteTrackDialog handleOnClick={onDelete} isLoading={isLoading} />
+                <DeleteTrackDialog
+                  handleOnClick={onDelete}
+                  isLoading={isLoading}
+                />
+              </div>
+            </div>
           </form>
         </Form>
       </div>
