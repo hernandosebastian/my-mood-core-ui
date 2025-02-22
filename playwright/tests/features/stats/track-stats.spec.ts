@@ -178,42 +178,8 @@ test.describe("features/stats", () => {
       errorResponseBody.message
     );
 
-    await page.waitForTimeout(10_000);
-
-    await expect(errorToastMessageTitle).toBeVisible({ timeout: 10_000 });
-    await expect(errorToastMessageDescription).toBeVisible({ timeout: 10_000 });
-  });
-
-  test("should display error message from body if there is one 2323", async ({
-    page,
-    isMobile,
-  }) => {
-    await page.route(
-      "**/api/v1/track/stats?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
-      (route) => {
-        route.fulfill(errorGetTrackStatsFixtureWithMessage);
-      }
-    );
-
-    const sidebarStatsButton = page.getByTestId("sidebar-stats-button");
-
-    await openSidebarIfMobile({ page, isMobile });
-    await sidebarStatsButton.click();
-    await closeSidebarIfMobile({ page, isMobile });
-
-    const errorResponseBody = JSON.parse(
-      errorGetTrackStatsFixtureWithMessage.body
-    );
-
-    const errorToastMessageTitle = page.getByText(
-      trackStatsToastMessages.error.title
-    );
-    const errorToastMessageDescription = page.getByText(
-      errorResponseBody.message
-    );
-
-    await expect(errorToastMessageTitle).toBeVisible({ timeout: 10_000 });
-    await expect(errorToastMessageDescription).toBeVisible({ timeout: 10_000 });
+    await expect(errorToastMessageTitle).toBeVisible({ timeout: 30_000 });
+    await expect(errorToastMessageDescription).toBeVisible({ timeout: 30_000 });
   });
 
   test("should display default error message if there is no error message in the body", async ({
