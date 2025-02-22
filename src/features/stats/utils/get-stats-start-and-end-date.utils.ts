@@ -6,7 +6,7 @@ export const getStatsStartAndEndDate = (): {
 
   const endDate = new Date(
     currentDate.getFullYear(),
-    currentDate.getMonth() + 1,
+    currentDate.getMonth() + 2,
     0,
     23,
     59,
