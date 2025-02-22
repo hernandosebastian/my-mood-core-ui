@@ -12,6 +12,9 @@ export const confirmPasswordErrorMessages = {
     specialChar:
       "New password must contain at least one special character (e.g., !, @, #, $, etc.).",
   },
+  confirmPassword: {
+    mismatch: "Passwords do not match",
+  },
   code: {
     length: "Code must be exactly 6 digits.",
     digitsOnly: "Code must only contain digits.",

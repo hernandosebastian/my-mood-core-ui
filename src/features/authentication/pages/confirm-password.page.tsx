@@ -30,6 +30,7 @@ export function ConfirmPasswordPage(): JSX.Element {
     defaultValues: {
       username: state?.username ?? "",
       newPassword: "",
+      confirmPassword: "",
       code: "",
     },
   });
