@@ -132,7 +132,7 @@ export function DatePicker(): JSX.Element {
 
   return (
     <SidebarGroup className="px-0" data-testid="sidebar-date-picker">
-      <SidebarGroupContent>
+      <SidebarGroupContent className="flex justify-center">
         <SingleCalendar
           className="[&_[role=gridcell].bg-accent]:bg-sidebar-primary [&_[role=gridcell].bg-accent]:text-sidebar-primary-foreground [&_[role=gridcell]]:w-[33px]"
           selected={selectedDate}
