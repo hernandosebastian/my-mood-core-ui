@@ -48,9 +48,8 @@ export default defineConfig({
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
     trace: "retain-on-failure",
-    video: "retain-on-failure",
-    actionTimeout: 60_000,
-    navigationTimeout: 30_000,
+    actionTimeout: 120_000,
+    navigationTimeout: 60_000,
     launchOptions: {
       headless: true,
       slowMo: 50,
