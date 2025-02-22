@@ -49,7 +49,7 @@ function SingleCalendar({
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
-        head_row: "flex gap-[2px]",
+        head_row: "flex gap-[2px] justify-center",
         head_cell: "text-text-primary rounded-md w-8 font-normal text-[0.8rem]",
         row: "flex w-full mt-2 gap-[6px]",
         cell: cn(
