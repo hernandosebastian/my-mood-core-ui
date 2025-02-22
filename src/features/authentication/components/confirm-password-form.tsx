@@ -25,6 +25,7 @@ interface IConfirmPasswordFormProps {
     {
       username: string;
       newPassword: string;
+      confirmPassword: string;
       code: string;
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,6 +115,33 @@ export function ConfirmPasswordForm({
                   </FormControl>
                   <FormDescription className="text-text-secondary">
                     Enter your new password.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-primary">
+                    Confirm Password
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-text-secondary border-text-secondary"
+                      id="confirmPassword"
+                      type="password"
+                      data-testid="confirm-password-confirm-password-input"
+                      placeholder="Confirm your new password"
+                      {...field}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Confirm your new password.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

@@ -73,7 +73,7 @@ export function EditProfileForm({
             isImageLoaded={isImageLoaded}
           />
           <div>
-            <h2 className="text-xl font-semibold text-text-secondary mb-4">
+            <h2 className="text-lg font-semibold text-text-primary mb-4">
               Choose a new avatar:
             </h2>
             <AvatarList
@@ -87,7 +87,7 @@ export function EditProfileForm({
             name="nickname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xl font-semibold text-text-secondary mb-4">
+                <FormLabel className="text-lg font-semibold text-text-primary mb-4">
                   Nickname
                 </FormLabel>
                 <FormControl>

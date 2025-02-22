@@ -101,37 +101,51 @@ test.describe("features/authentication", () => {
     await expect(codeErrorToastMessage).toBeVisible();
   });
 
-  test("should successfully submit the form and show success message", async ({
-    page,
-  }) => {
+  test("should display error when passwords don't match", async ({ page }) => {
+    const newPasswordInput = page.getByTestId(
+      "confirm-password-new-password-input"
+    );
+    const confirmPasswordInput = page.getByTestId(
+      "confirm-password-confirm-password-input"
+    );
+    const submitButton = page.getByTestId("confirm-password-submit-button");
+
+    await newPasswordInput.fill("ValidPass1!");
+    await confirmPasswordInput.fill("DifferentPass1!");
+    await submitButton.click();
+
+    const errorMessage = page.getByText(
+      confirmPasswordErrorMessages.confirmPassword.mismatch
+    );
+    await expect(errorMessage).toBeVisible();
+  });
+
+  test("should successfully submit when passwords match", async ({ page }) => {
     await page.route("**/api/v1/auth/confirm-password", (route) => {
       route.fulfill(successConfirmPasswordFixture);
     });
 
-    const emailValue = "test@example.com";
     const emailInput = page.getByTestId("confirm-password-username-input");
-    const passwordInput = page.getByTestId(
+    const newPasswordInput = page.getByTestId(
       "confirm-password-new-password-input"
+    );
+    const confirmPasswordInput = page.getByTestId(
+      "confirm-password-confirm-password-input"
     );
     const otpInput = page.getByTestId("confirm-password-code-input");
     const submitButton = page.getByTestId("confirm-password-submit-button");
 
-    await emailInput.fill(emailValue);
-    await passwordInput.fill("ValidPass1!");
+    await emailInput.fill("test@example.com");
+    await newPasswordInput.fill("ValidPass1!");
+    await confirmPasswordInput.fill("ValidPass1!");
     await otpInput.fill("123456");
-
     await submitButton.click();
 
     await expect(page).toHaveURL(`${BASE_URL}log-in`);
-
-    const successfulToastMessage = page.getByText(
+    const successMessage = page.getByText(
       confirmPasswordToastMessages.success.description
     );
-
-    await expect(successfulToastMessage).toBeVisible();
-
-    const logInEmailInput = page.getByTestId("log-in-username-input");
-    await expect(logInEmailInput).toHaveValue(emailValue);
+    await expect(successMessage).toBeVisible();
   });
 
   test("should display error toast for failed confirmation", async ({

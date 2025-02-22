@@ -9,7 +9,6 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/Icons";
 import { createTrackSchema } from "../schemas";
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ICreateTrackFormProps {
   form: UseFormReturn<
@@ -64,8 +64,8 @@ export function CreateTrackForm({
   };
 
   return (
-    <div className="lg:p-8">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    <div className="lg:p-8 w-full max-w-[1200px] self-center">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 gap-8 sm:w-[350px] lg:w-full">
         <div className="flex flex-col space-y-2 text-center">
           <h1
             className="text-2xl font-semibold tracking-tight text-text-primary"
@@ -79,13 +79,18 @@ export function CreateTrackForm({
         </div>
 
         <Form {...form}>
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-8 flex flex-col lg:flex-row gap-16 lg:gap-4"
+          >
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-text-primary">Mood</FormLabel>
+                <FormItem className="lg:flex lg:flex-col lg:gap-4 lg:w-[60%] xl:w-[50%] text-center">
+                  <FormLabel className="text-text-primary text-lg">
+                    How are you feeling today?
+                  </FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel className="w-full max-w-xs flex flex-col gap-4">
                       <CarouselContent>
@@ -160,35 +165,36 @@ export function CreateTrackForm({
               control={form.control}
               name="description"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
+                <FormItem className="flex flex-col gap-6 lg:w-[40%] xl:w-[50%] !mt-0 text-center lg:h-fit">
+                  <FormLabel className="text-text-primary text-lg">
+                    Write about your day
+                  </FormLabel>
                   <FormControl>
-                    <Input
+                    <Textarea
                       id="description"
-                      placeholder="Enter your description"
+                      placeholder="Share the highlights of your day! What made you smile? What did you learn?"
                       data-testid="create-track-description-input"
-                      className="text-text-secondary"
+                      className="text-text-secondary overflow-auto max-w-full mx-auto !my-[1px]"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormMessage />
+                  <Button
+                    type="submit"
+                    disabled={isLoading}
+                    className="w-full max-w-xs mx-auto"
+                    id="create-track-button"
+                    data-testid="create-track-submit-button"
+                  >
+                    {isLoading ? (
+                      <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    Done
+                  </Button>
                 </FormItem>
               )}
             />
-
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="w-full"
-              id="create-track-button"
-              data-testid="create-track-submit-button"
-            >
-              {isLoading ? (
-                <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
-              Done
-            </Button>
           </form>
         </Form>
       </div>

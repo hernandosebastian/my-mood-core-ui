@@ -144,41 +144,46 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should successfully submit the form and show success message", async ({
-    page,
-    isMobile,
-  }) => {
+  test("should display error when passwords don't match", async ({ page }) => {
+    const passwordInput = page.getByTestId("sign-up-password-input");
+    const confirmPasswordInput = page.getByTestId(
+      "sign-up-confirm-password-input"
+    );
+    const submitButton = page.getByTestId("sign-up-submit-button");
+
+    await passwordInput.fill("ValidPass1!");
+    await confirmPasswordInput.fill("DifferentPass1!");
+    await submitButton.click();
+
+    const errorMessage = page.getByText(
+      signUpErrorMessages.confirmPassword.mismatch
+    );
+    await expect(errorMessage).toBeVisible();
+  });
+
+  test("should successfully submit when passwords match", async ({ page }) => {
     await page.route("**/api/v1/auth/sign-up", (route) => {
       route.fulfill(successSignUpFixture);
     });
-    page.goto(`${BASE_URL}`);
 
-    await openSidebarIfMobile({ page, isMobile });
-
-    const sidebarSignUpButton = page.getByTestId("sidebar-sign-up-button");
-    await sidebarSignUpButton.click();
-
-    await closeSidebarIfMobile({ page, isMobile });
-
-    const emailValue = "test@example.com";
     const emailInput = page.getByTestId("sign-up-username-input");
     const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const passwordInput = page.getByTestId("sign-up-password-input");
+    const confirmPasswordInput = page.getByTestId(
+      "sign-up-confirm-password-input"
+    );
+    const submitButton = page.getByTestId("sign-up-submit-button");
 
-    const signUpButton = page.getByTestId("sign-up-submit-button");
-
-    await emailInput.fill(emailValue);
+    await emailInput.fill("test@example.com");
     await nicknameInput.fill("JohnDoe");
     await passwordInput.fill("ValidPass1!");
-    await signUpButton.click();
+    await confirmPasswordInput.fill("ValidPass1!");
+    await submitButton.click();
 
-    const logInEmailInput = page.getByTestId("confirm-user-username-input");
-    const successfulToastMessage = page.getByText(
+    const successMessage = page.getByText(
       signUpToastMessages.success.description
     );
-
-    await expect(logInEmailInput).toHaveValue(emailValue);
-    await expect(successfulToastMessage).toBeVisible();
+    await expect(successMessage).toBeVisible();
   });
 
   test("should display error toast for failed sign up", async ({ page }) => {

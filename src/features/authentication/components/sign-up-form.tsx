@@ -23,6 +23,7 @@ interface ISignUpFormProps {
       nickname: string;
       avatarSrc: string;
       password: string;
+      confirmPassword: string;
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any,
@@ -134,6 +135,33 @@ export function SignUpForm({
                   </FormControl>
                   <FormDescription className="text-text-secondary">
                     Enter the password to access your account.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-primary">
+                    Confirm Password
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className="text-text-secondary border-text-secondary"
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirm your password"
+                      data-testid="sign-up-confirm-password-input"
+                      {...field}
+                      disabled={isLoading}
+                    />
+                  </FormControl>
+                  <FormDescription className="text-text-secondary">
+                    Re-enter your password to confirm.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
