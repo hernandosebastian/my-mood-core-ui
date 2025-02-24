@@ -23,5 +23,5 @@ export const useScrollToTop = (props?: IUseScrollToTopProps): void => {
         behavior: "smooth",
       });
     }
-  }, [pathname, ...(Array.isArray(dependency) ? dependency : [dependency])]);
+  }, [pathname, dependency]);
 };
