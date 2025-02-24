@@ -23,13 +23,15 @@ export function NavUserLogged({
 }: Readonly<NavUserLoggedProps>): JSX.Element {
   const navigate = useNavigate();
   const logout = useLogOut();
-  const { isMobile } = useSidebar();
+  const { isMobile, closeSidebarIfMobile } = useSidebar();
 
-  const handleAccount = (): void => {
-    navigate("/edit-profile");
+  const handleNavigate = (path: string): void => {
+    closeSidebarIfMobile();
+    navigate(path);
   };
 
   const handleLogout = (): void => {
+    closeSidebarIfMobile();
     navigate("/");
     logout();
   };
@@ -85,7 +87,7 @@ export function NavUserLogged({
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-border-primary" />
         <DropdownMenuItem
-          onClick={handleAccount}
+          onClick={() => handleNavigate("/edit-profile")}
           className="cursor-pointer text-text-secondary hover:text-text-primary transition-colors"
           data-testid="sidebar-edit-profile-menu-item"
         >

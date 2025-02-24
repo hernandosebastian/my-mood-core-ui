@@ -7,12 +7,13 @@ import {
 } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { calendarToastMessages } from "../messages/calendar.messages";
-import { useToast } from "@/hooks";
+import { useSidebar, useToast } from "@/hooks";
 import { getMoodColor } from "@/features/track/utils/get-mood-color";
 import { useGetAllTracksOnYear } from "@/features/track/hooks/use-get-all-tracks-on-year";
 
 export function DatePicker(): JSX.Element {
   const navigate = useNavigate();
+  const { closeSidebarIfMobile } = useSidebar();
   const { showErrorToast } = useToast();
 
   const today = new Date();
@@ -126,6 +127,7 @@ export function DatePicker(): JSX.Element {
   };
 
   const handleOnDayClick = (date: Date): void => {
+    closeSidebarIfMobile();
     setSelectedDate(date);
     navigate("/track");
   };

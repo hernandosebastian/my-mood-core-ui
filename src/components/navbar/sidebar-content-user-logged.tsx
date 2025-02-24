@@ -9,7 +9,7 @@ import {
 import { DatePicker } from "../../features/calendar/components/date-picker";
 import { NavigateFunction } from "react-router-dom";
 import { ChartNoAxesColumn } from "lucide-react";
-
+import { useSidebar } from "@/hooks";
 interface ISidebarContentUserLoggedProps {
   navigate: NavigateFunction;
 }
@@ -17,6 +17,13 @@ interface ISidebarContentUserLoggedProps {
 export function SidebarContentUserLogged({
   navigate,
 }: Readonly<ISidebarContentUserLoggedProps>): JSX.Element {
+  const { closeSidebarIfMobile } = useSidebar();
+
+  const handleNavigate = (path: string): void => {
+    closeSidebarIfMobile();
+    navigate(path);
+  };
+
   return (
     <>
       <DatePicker />
@@ -34,7 +41,7 @@ export function SidebarContentUserLogged({
                 className="flex gap-3 bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
               >
                 <button
-                  onClick={() => navigate("/stats")}
+                  onClick={() => handleNavigate("/stats")}
                   data-testid="sidebar-stats-button"
                 >
                   <ChartNoAxesColumn className="h-5 w-5" />
