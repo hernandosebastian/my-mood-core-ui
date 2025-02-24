@@ -9,8 +9,6 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/ui/Icons";
 import { updateTrackSchema } from "../schemas";
 import { Mood } from "../enum";
 import { useSelectedDate } from "@/features/calendar/hooks";
@@ -27,6 +25,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
 import { Track } from "../entity";
 import { Textarea } from "@/components/ui/textarea";
+import { TrackSubmitButton } from "./submit-track-button";
 
 interface IUpdateTrackFormProps {
   track: Track;
@@ -187,18 +186,11 @@ export function UpdateTrackForm({
                       isLoading={isLoading}
                     />
 
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full"
+                    <TrackSubmitButton
+                      isLoading={isLoading}
                       id="update-track-button"
                       data-testid="update-track-submit-button"
-                    >
-                      {isLoading ? (
-                        <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                      ) : null}
-                      Done
-                    </Button>
+                    />
                   </div>
                 </FormItem>
               )}

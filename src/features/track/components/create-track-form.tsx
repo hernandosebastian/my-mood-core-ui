@@ -9,8 +9,6 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/ui/Icons";
 import { createTrackSchema } from "../schemas";
 import { Mood } from "../enum";
 import { format } from "date-fns";
@@ -25,6 +23,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
 import { Textarea } from "@/components/ui/textarea";
+import { TrackSubmitButton } from "./submit-track-button";
 
 interface ICreateTrackFormProps {
   form: UseFormReturn<
@@ -177,18 +176,12 @@ export function CreateTrackForm({
                     />
                   </FormControl>
                   <FormMessage />
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full max-w-xs mx-auto"
+                  <TrackSubmitButton
+                    isLoading={isLoading}
                     id="create-track-button"
                     data-testid="create-track-submit-button"
-                  >
-                    {isLoading ? (
-                      <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                    ) : null}
-                    Done
-                  </Button>
+                    className="w-full max-w-xs mx-auto"
+                  />
                 </FormItem>
               )}
             />
