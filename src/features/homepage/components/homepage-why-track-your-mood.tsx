@@ -4,7 +4,7 @@ import { whyTrackYourMoodData } from "../utils";
 export function HomepageWhyTrackYourMood(): JSX.Element {
   return (
     <section className="pb-16 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto flex flex-col gap-8">
         <h2 className="text-4xl font-bold mb-12 text-center text-text-primary">
           Why Track Your Mood?
         </h2>
