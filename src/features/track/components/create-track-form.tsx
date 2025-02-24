@@ -71,10 +71,11 @@ export function CreateTrackForm({
             className="text-2xl font-semibold tracking-tight text-text-primary"
             data-testid="create-track-title"
           >
-            Track Your Mood | {format(date, "dd-MM-yyyy")}
+            {format(date, "MMMM d, yyyy")}
           </h1>
           <p className="text-sm text-text-secondary">
-            Create your track and gain insights into your mood journey.
+            Record today&apos;s mood and build your personal emotional wellness
+            journey.
           </p>
         </div>
 

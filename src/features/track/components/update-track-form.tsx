@@ -73,10 +73,10 @@ export function UpdateTrackForm({
             className="text-2xl font-semibold tracking-tight text-text-primary"
             data-testid="update-track-title"
           >
-            Update Your Track | {format(date, "dd-MM-yyyy")}
+            {format(date, "MMMM d, yyyy")}
           </h1>
           <p className="text-sm text-text-secondary">
-            Update your track and gain insights into your mood journey.
+            Refine today&apos;s mood entry in your personal wellness journal.
           </p>
         </div>
 
