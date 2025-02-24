@@ -67,17 +67,14 @@ export function UpdateTrackForm({
 
   return (
     <div className="lg:p-8 w-full max-w-[1200px] self-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] lg:w-full gap-8">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] lg:w-full gap-16">
         <div className="flex flex-col space-y-2 text-center">
           <h1
-            className="text-2xl font-semibold tracking-tight text-text-primary"
+            className="text-4xl font-semibold tracking-tight text-text-primary"
             data-testid="update-track-title"
           >
             {format(date, "MMMM d, yyyy")}
           </h1>
-          <p className="text-sm text-text-secondary">
-            Refine today&apos;s mood entry in your personal wellness journal.
-          </p>
         </div>
 
         <Form {...form}>
@@ -185,6 +182,11 @@ export function UpdateTrackForm({
                   </FormControl>
                   <FormMessage />
                   <div className="flex gap-4">
+                    <DeleteTrackDialog
+                      handleOnClick={onDelete}
+                      isLoading={isLoading}
+                    />
+
                     <Button
                       type="submit"
                       disabled={isLoading}
@@ -197,11 +199,6 @@ export function UpdateTrackForm({
                       ) : null}
                       Done
                     </Button>
-
-                    <DeleteTrackDialog
-                      handleOnClick={onDelete}
-                      isLoading={isLoading}
-                    />
                   </div>
                 </FormItem>
               )}

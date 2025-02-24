@@ -65,20 +65,16 @@ export function CreateTrackForm({
 
   return (
     <div className="lg:p-8 w-full max-w-[1200px] self-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 gap-8 sm:w-[350px] lg:w-full">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 gap-16 sm:w-[350px] lg:w-full">
+        {" "}
         <div className="flex flex-col space-y-2 text-center">
           <h1
-            className="text-2xl font-semibold tracking-tight text-text-primary"
+            className="text-4xl font-semibold tracking-tight text-text-primary"
             data-testid="create-track-title"
           >
             {format(date, "MMMM d, yyyy")}
           </h1>
-          <p className="text-sm text-text-secondary">
-            Record today&apos;s mood and build your personal emotional wellness
-            journey.
-          </p>
         </div>
-
         <Form {...form}>
           <form
             onSubmit={handleSubmit}
