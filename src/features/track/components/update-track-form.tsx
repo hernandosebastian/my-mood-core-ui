@@ -9,8 +9,6 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/ui/Icons";
 import { updateTrackSchema } from "../schemas";
 import { Mood } from "../enum";
 import { useSelectedDate } from "@/features/calendar/hooks";
@@ -27,6 +25,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
 import { Track } from "../entity";
 import { Textarea } from "@/components/ui/textarea";
+import { TrackSubmitButton } from "./submit-track-button";
 
 interface IUpdateTrackFormProps {
   track: Track;
@@ -67,17 +66,14 @@ export function UpdateTrackForm({
 
   return (
     <div className="lg:p-8 w-full max-w-[1200px] self-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] lg:w-full">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] lg:w-full gap-16">
         <div className="flex flex-col space-y-2 text-center">
           <h1
-            className="text-2xl font-semibold tracking-tight text-text-primary"
+            className="text-4xl font-semibold tracking-tight text-text-primary"
             data-testid="update-track-title"
           >
-            Update Your Track | {format(date, "dd-MM-yyyy")}
+            {format(date, "MMMM d, yyyy")}
           </h1>
-          <p className="text-sm text-text-secondary">
-            Update your track and gain insights into your mood journey.
-          </p>
         </div>
 
         <Form {...form}>
@@ -185,22 +181,15 @@ export function UpdateTrackForm({
                   </FormControl>
                   <FormMessage />
                   <div className="flex gap-4">
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full"
-                      id="update-track-button"
-                      data-testid="update-track-submit-button"
-                    >
-                      {isLoading ? (
-                        <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                      ) : null}
-                      Done
-                    </Button>
-
                     <DeleteTrackDialog
                       handleOnClick={onDelete}
                       isLoading={isLoading}
+                    />
+
+                    <TrackSubmitButton
+                      isLoading={isLoading}
+                      id="update-track-button"
+                      data-testid="update-track-submit-button"
                     />
                   </div>
                 </FormItem>
