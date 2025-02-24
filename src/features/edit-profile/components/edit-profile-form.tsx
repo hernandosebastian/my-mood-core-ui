@@ -66,16 +66,17 @@ export function EditProfileForm({
   return (
     <div className="lg:p-8">
       <Form {...form}>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-8 text-center gap-8 flex flex-col"
+        >
           <CurrentAvatar
             currentAvatar={currentAvatar}
             selectedAvatar={selectedAvatar}
             isImageLoaded={isImageLoaded}
           />
-          <div>
-            <h2 className="text-lg font-semibold text-text-primary mb-4">
-              Choose a new avatar:
-            </h2>
+          <div className="flex flex-col gap-4">
+            <h2 className="text-text-primary text-lg">Choose a new avatar:</h2>
             <AvatarList
               avatarList={avatarList}
               selectedAvatar={selectedAvatar}
@@ -86,8 +87,8 @@ export function EditProfileForm({
             control={form.control}
             name="nickname"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold text-text-primary mb-4">
+              <FormItem className="flex flex-col gap-4">
+                <FormLabel className="text-lg text-text-primary">
                   Nickname
                 </FormLabel>
                 <FormControl>
@@ -97,7 +98,7 @@ export function EditProfileForm({
                     placeholder="Enter your nickname"
                     {...field}
                     disabled={isLoading}
-                    className="text-text-secondary border-border-primary"
+                    className="text-text-secondary border-border-primary !m-0"
                   />
                 </FormControl>
                 <FormMessage />
