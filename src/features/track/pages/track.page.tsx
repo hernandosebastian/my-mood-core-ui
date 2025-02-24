@@ -4,7 +4,7 @@ import { useSEO } from "@/seo/hooks";
 import { Loading } from "@/components/common/Loading";
 import { CreateTrackPage } from "./create-track.page";
 import { calendarToastMessages } from "@/features/calendar/messages";
-import { useToast } from "@/hooks";
+import { useScrollToTop, useToast } from "@/hooks";
 import { getTrackByDateFromTracks, isTrackedDay } from "../utils";
 import { useGetTrackByDateRange } from "../hooks";
 import { UpdateTrackPage } from "./update-track.page";
@@ -12,13 +12,6 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function TrackPage(): JSX.Element {
-  useSEO({
-    title: trackSeoConfig.title,
-    description: trackSeoConfig.createTrackDescription,
-  });
-
-  const navigate = useNavigate();
-  const { showErrorToast } = useToast();
   const date = useSelectedDate();
   const { month, year, startDate, endDate } = useMonthDateRange();
 
@@ -38,6 +31,16 @@ export function TrackPage(): JSX.Element {
     const trackedDay = getTrackByDateFromTracks(date, tracks);
     return { dayIsTracked, trackedDay };
   }, [date, tracks]);
+
+  useScrollToTop({ dependency: [date, dayIsTracked, isLoading] });
+
+  useSEO({
+    title: trackSeoConfig.title,
+    description: trackSeoConfig.createTrackDescription,
+  });
+
+  const navigate = useNavigate();
+  const { showErrorToast } = useToast();
 
   if (error) {
     const errorMessage = (error.response?.data as { message?: string })

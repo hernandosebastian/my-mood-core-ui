@@ -7,16 +7,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar";
+import { useSidebar } from "@/hooks";
 
 export function SidebarContentUserAnonymous(): JSX.Element {
   const navigate = useNavigate();
+  const { closeSidebarIfMobile } = useSidebar();
+
+  const handleNavigate = (path: string): void => {
+    closeSidebarIfMobile();
+    navigate(path);
+  };
 
   const handleLoginClick = (): void => {
-    navigate("/log-in");
+    handleNavigate("/log-in");
   };
 
   const handleSignUpClick = (): void => {
-    navigate("/sign-up");
+    handleNavigate("/sign-up");
   };
 
   return (

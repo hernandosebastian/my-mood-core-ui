@@ -95,6 +95,12 @@ const SidebarProvider = React.forwardRef<
     // This makes it easier to style the sidebar with Tailwind classes.
     const state = open ? "expanded" : "collapsed";
 
+    const closeSidebarIfMobile = React.useCallback(() => {
+      if (isMobile) {
+        setOpenMobile(false);
+      }
+    }, [isMobile]);
+
     const contextValue = React.useMemo<SidebarContext>(
       () => ({
         state,
@@ -104,8 +110,18 @@ const SidebarProvider = React.forwardRef<
         openMobile,
         setOpenMobile,
         toggleSidebar,
+        closeSidebarIfMobile,
       }),
-      [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+      [
+        state,
+        open,
+        setOpen,
+        isMobile,
+        openMobile,
+        setOpenMobile,
+        toggleSidebar,
+        closeSidebarIfMobile,
+      ]
     );
 
     return (

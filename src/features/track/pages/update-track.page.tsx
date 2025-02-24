@@ -1,4 +1,4 @@
-import { useToast } from "@/hooks";
+import { useScrollToTop, useToast } from "@/hooks";
 import { trackSeoConfig } from "@/seo/config";
 import { useSEO } from "@/seo/hooks";
 import { useEffect, useState } from "react";
@@ -23,6 +23,8 @@ interface IUpdateTrackPageProps {
 export function UpdateTrackPage({
   track,
 }: Readonly<IUpdateTrackPageProps>): JSX.Element {
+  useScrollToTop();
+
   useSEO({
     title: trackSeoConfig.title,
     description: trackSeoConfig.updateTrackDescription,

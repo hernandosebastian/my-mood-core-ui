@@ -9,8 +9,6 @@ import {
   FormControl,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/ui/Icons";
 import { createTrackSchema } from "../schemas";
 import { Mood } from "../enum";
 import { format } from "date-fns";
@@ -25,6 +23,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
 import { Textarea } from "@/components/ui/textarea";
+import { TrackSubmitButton } from "./submit-track-button";
 
 interface ICreateTrackFormProps {
   form: UseFormReturn<
@@ -65,19 +64,16 @@ export function CreateTrackForm({
 
   return (
     <div className="lg:p-8 w-full max-w-[1200px] self-center">
-      <div className="mx-auto flex w-full flex-col justify-center space-y-6 gap-8 sm:w-[350px] lg:w-full">
+      <div className="mx-auto flex w-full flex-col justify-center space-y-6 gap-16 sm:w-[350px] lg:w-full">
+        {" "}
         <div className="flex flex-col space-y-2 text-center">
           <h1
-            className="text-2xl font-semibold tracking-tight text-text-primary"
+            className="text-4xl font-semibold tracking-tight text-text-primary"
             data-testid="create-track-title"
           >
-            Track Your Mood | {format(date, "dd-MM-yyyy")}
+            {format(date, "MMMM d, yyyy")}
           </h1>
-          <p className="text-sm text-text-secondary">
-            Create your track and gain insights into your mood journey.
-          </p>
         </div>
-
         <Form {...form}>
           <form
             onSubmit={handleSubmit}
@@ -180,18 +176,12 @@ export function CreateTrackForm({
                     />
                   </FormControl>
                   <FormMessage />
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full max-w-xs mx-auto"
+                  <TrackSubmitButton
+                    isLoading={isLoading}
                     id="create-track-button"
                     data-testid="create-track-submit-button"
-                  >
-                    {isLoading ? (
-                      <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                    ) : null}
-                    Done
-                  </Button>
+                    className="w-full max-w-xs mx-auto"
+                  />
                 </FormItem>
               )}
             />

@@ -15,7 +15,7 @@ export function AvatarList({
 }: Readonly<IAvatarListProps>): JSX.Element {
   return (
     <ScrollArea className="h-[300px] border rounded-lg p-4 border-border-primary">
-      <div className="grid grid-cols-4 gap-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
+      <div className="grid grid-cols-3 gap-4 min-[400px]:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
         {avatarList.map((avatar, index) => (
           <button
             type="button"
@@ -28,14 +28,14 @@ export function AvatarList({
             onClick={() => setSelectedAvatar(avatar.src)}
             id={`avatar-${index}`}
           >
-            <Avatar className="w-16 h-16 bg-gray-300">
+            <Avatar className="w-16 h-16 bg-background-primary">
               <AvatarImage
                 src={avatar.src}
                 alt={`Avatar option ${avatar.name}`}
                 data-testid={`avatar-${avatar.name}`}
                 className="bg-background-secondary"
               />
-              <AvatarFallback className="rounded-lg bg-text-primary text-text-secondary">
+              <AvatarFallback className="rounded-lg bg-background-secondary text-background-secondary">
                 {avatar.name}
               </AvatarFallback>
             </Avatar>
