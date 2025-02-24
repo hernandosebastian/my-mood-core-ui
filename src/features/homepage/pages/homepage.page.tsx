@@ -14,7 +14,7 @@ export function Homepage(): JSX.Element {
       </main>
       <Separator
         orientation="vertical"
-        className="w-full h-[1px] bg-border-primary"
+        className="w-full h-[1px] bg-border-primary my-8"
       />
       <HomepageWhyTrackYourMood />
     </div>

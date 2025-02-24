@@ -7,7 +7,7 @@ export function HomepageHero(): JSX.Element {
   const isLoggedIn = getMeQuery.data?.user !== undefined;
 
   return (
-    <div className="space-y-6 text-center">
+    <div className="my-8 text-center flex flex-col gap-8">
       <h1 className="text-5xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-text-primary">
         My Mood
       </h1>
