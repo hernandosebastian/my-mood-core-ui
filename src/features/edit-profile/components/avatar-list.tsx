@@ -35,7 +35,7 @@ export function AvatarList({
                 data-testid={`avatar-${avatar.name}`}
                 className="bg-background-secondary"
               />
-              <AvatarFallback className="rounded-lg bg-background-secondary text-text-secondary">
+              <AvatarFallback className="rounded-lg bg-background-secondary text-background-secondary">
                 {avatar.name}
               </AvatarFallback>
             </Avatar>
