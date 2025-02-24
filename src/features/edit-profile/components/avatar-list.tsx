@@ -28,14 +28,14 @@ export function AvatarList({
             onClick={() => setSelectedAvatar(avatar.src)}
             id={`avatar-${index}`}
           >
-            <Avatar className="w-16 h-16 bg-gray-300">
+            <Avatar className="w-16 h-16 bg-background-primary">
               <AvatarImage
                 src={avatar.src}
                 alt={`Avatar option ${avatar.name}`}
                 data-testid={`avatar-${avatar.name}`}
                 className="bg-background-secondary"
               />
-              <AvatarFallback className="rounded-lg bg-text-primary text-text-secondary">
+              <AvatarFallback className="rounded-lg bg-background-secondary text-text-secondary">
                 {avatar.name}
               </AvatarFallback>
             </Avatar>
