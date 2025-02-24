@@ -15,7 +15,7 @@ export function AvatarList({
 }: Readonly<IAvatarListProps>): JSX.Element {
   return (
     <ScrollArea className="h-[300px] border rounded-lg p-4 border-border-primary">
-      <div className="grid grid-cols-4 gap-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
+      <div className="grid grid-cols-3 gap-4 min-[400px]:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8">
         {avatarList.map((avatar, index) => (
           <button
             type="button"
