@@ -3,12 +3,15 @@ import { AppSidebar } from "@/components/navbar/app-sidebar";
 
 import { AppHeader } from "@/components/navbar/app-header";
 import { Footer } from "@/features/footer/components";
+import { useScrollToTop } from "@/hooks";
 
 export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
+  useScrollToTop();
+
   return (
     <SidebarProvider>
       <AppSidebar />
