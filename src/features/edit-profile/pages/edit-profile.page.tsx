@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "@/components/common/Loading";
 import { EditProfileForm } from "../components";
-import { useAvatars, useProfile } from "../hooks";
+import { useProfile } from "../hooks";
 import { useToast } from "@/hooks";
-import { useUpdateProfile } from "../hooks/use-update-profile";
+import { useUpdateProfile, useUploadAvatar } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { editProfileSeoConfig } from "@/seo/config";
 import { z } from "zod";
@@ -19,46 +19,79 @@ export function EditProfilePage(): JSX.Element {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedAvatar, setSelectedAvatar] = useState<string | undefined>(
+  const [newAvatarFile, setNewAvatarFile] = useState<File | undefined>(
+    undefined
+  );
+  const [tempAvatarUrl, setTempAvatarUrl] = useState<string | undefined>(
     undefined
   );
 
   const { getMeQuery, currentAvatar } = useProfile();
-  const { avatarList, isImageLoaded } = useAvatars();
   const { showSuccessToast, showErrorToast } = useToast();
   const updateProfileMutation = useUpdateProfile();
+  const uploadAvatarMutation = useUploadAvatar();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    return (): void => {
+      if (tempAvatarUrl) {
+        URL.revokeObjectURL(tempAvatarUrl);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (getMeQuery.isLoading) return <Loading />;
+
+  const handleAvatarChange = (file: File): void => {
+    if (tempAvatarUrl) {
+      URL.revokeObjectURL(tempAvatarUrl);
+    }
+    const newTempUrl = URL.createObjectURL(file);
+    setTempAvatarUrl(newTempUrl);
+    setNewAvatarFile(file);
+  };
 
   async function onSubmit(
     values: z.infer<typeof editProfileSchema>
   ): Promise<void> {
     setIsLoading(true);
-
-    if (values.nickname === getMeQuery.data?.user.nickname) {
-      const { nickname, ...valuesWithoutNickname } = values;
-      values = valuesWithoutNickname;
-    }
+    let hasUpdates = false;
 
     try {
-      await updateProfileMutation.mutateAsync(values, {
-        onSuccess: () => {
-          showSuccessToast(
-            editProfileToastMessages.success.title,
-            editProfileToastMessages.success.description
-          );
-          navigate("/");
-        },
-        onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
-          showErrorToast(
-            editProfileToastMessages.error.title,
-            errorMessage ?? editProfileToastMessages.error.description
-          );
-        },
-      });
+      if (newAvatarFile) {
+        await uploadAvatarMutation.mutateAsync(newAvatarFile);
+        hasUpdates = true;
+      }
+
+      const hasNicknameChange =
+        values.nickname !== getMeQuery.data?.user.nickname;
+
+      if (hasNicknameChange) {
+        await updateProfileMutation.mutateAsync({ nickname: values.nickname });
+        hasUpdates = true;
+      }
+
+      if (!hasUpdates) {
+        return;
+      }
+
+      showSuccessToast(
+        editProfileToastMessages.success.title,
+        editProfileToastMessages.success.description
+      );
+
+      if (hasNicknameChange) {
+        navigate("/");
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const errorMessage = (axiosError.response?.data as { message?: string })
+        ?.message;
+      showErrorToast(
+        editProfileToastMessages.error.title,
+        errorMessage ?? editProfileToastMessages.error.description
+      );
     } finally {
       setIsLoading(false);
     }
@@ -71,13 +104,11 @@ export function EditProfilePage(): JSX.Element {
           <EditProfileForm
             isLoading={isLoading}
             currentAvatar={currentAvatar}
-            selectedAvatar={selectedAvatar}
-            avatarList={avatarList}
-            isImageLoaded={isImageLoaded}
+            tempAvatarUrl={tempAvatarUrl}
             initialNickname={getMeQuery.data?.user.nickname ?? ""}
             initialAvatarSrc={getMeQuery.data?.user.avatarSrc ?? ""}
             onSubmit={onSubmit}
-            setSelectedAvatar={setSelectedAvatar}
+            onAvatarChange={handleAvatarChange}
           />
         </div>
       </main>

@@ -53,11 +53,11 @@ function SingleCalendar({
         head_cell: "text-text-primary rounded-md w-8 font-normal text-[0.8rem]",
         row: "flex w-full mt-2 gap-[6px]",
         cell: cn(
-          "relative text-text-primary opacity-80 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:rounded-md"
+          "relative text-text-primary opacity-80 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([ariaSelected])]:rounded-md"
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-8 w-8 p-0 font-normal opacity-80 aria-selected:opacity-100 hover:bg-background-secondary/50"
+          "h-8 w-8 p-0 font-normal opacity-80 ariaSelected:opacity-100 hover:bg-background-secondary/50"
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
@@ -65,10 +65,10 @@ function SingleCalendar({
           "bg-primary/20 text-text-primary hover:bg-primary/30 ring-1 ring-text-primary/60 font-medium opacity-100",
         day_today: "bg-background-secondary/30 text-text-primary font-medium",
         day_outside:
-          "text-text-secondary opacity-50 [&:not([data-modifier])]:aria-selected:bg-primary/20 [&:not([data-modifier])]:aria-selected:text-text-primary [&:not([data-modifier])]:aria-selected:opacity-100 [&:not([data-modifier])]:aria-selected:ring-1 [&:not([data-modifier])]:aria-selected:ring-text-primary/60",
+          "text-text-secondary opacity-50 [&:not([data-modifier])]:ariaSelected:bg-primary/20 [&:not([data-modifier])]:ariaSelected:text-text-primary [&:not([data-modifier])]:ariaSelected:opacity-100 [&:not([data-modifier])]:ariaSelected:ring-1 [&:not([data-modifier])]:ariaSelected:ring-text-primary/60",
         day_disabled: "text-slate-500 opacity-50",
         day_range_middle:
-          "aria-selected:bg-slate-100 aria-selected:text-slate-900",
+          "ariaSelected:bg-slate-100 ariaSelected:text-slate-900",
         day_hidden: "invisible",
         ...classNames,
       }}
