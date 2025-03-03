@@ -13,6 +13,7 @@ import { User } from "@/features/authentication/entity";
 import { useLogOut } from "@/features/authentication/hooks/use-log-out";
 import { useSidebar } from "@/hooks";
 import { useNavigate } from "react-router-dom";
+import { useProfile } from "@/features/edit-profile/hooks";
 
 interface NavUserLoggedProps {
   user: User;
@@ -24,6 +25,7 @@ export function NavUserLogged({
   const navigate = useNavigate();
   const logout = useLogOut();
   const { isMobile, closeSidebarIfMobile } = useSidebar();
+  const { currentAvatar } = useProfile();
 
   const handleNavigate = (path: string): void => {
     closeSidebarIfMobile();
@@ -39,7 +41,7 @@ export function NavUserLogged({
   const renderAvatar = (): JSX.Element => (
     <>
       <Avatar className="h-8 w-8 rounded-lg ">
-        <AvatarImage src={user.avatarSrc} alt={"Avatar from user"} />
+        <AvatarImage src={currentAvatar} alt={"Avatar from user"} />
         <AvatarFallback className="rounded-lg bg-text-primary text-text-secondary">
           MM
         </AvatarFallback>

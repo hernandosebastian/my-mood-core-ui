@@ -9,11 +9,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/Icons";
-import { AvatarList } from "./avatar-list";
 import { CurrentAvatar } from "./current-avatar";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { IAvatar } from "../interfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { editProfileSchema } from "../schemas";
@@ -21,25 +19,21 @@ import { editProfileSchema } from "../schemas";
 interface IEditProfileFormProps {
   isLoading: boolean;
   currentAvatar: string | undefined;
-  selectedAvatar: string | undefined;
-  avatarList: IAvatar[];
-  isImageLoaded: boolean;
+  tempAvatarUrl: string | undefined;
   initialNickname: string;
   initialAvatarSrc: string;
   onSubmit: (values: z.infer<typeof editProfileSchema>) => void;
-  setSelectedAvatar: React.Dispatch<React.SetStateAction<string | undefined>>;
+  onAvatarChange: (file: File) => void;
 }
 
 export function EditProfileForm({
   isLoading,
   currentAvatar,
-  selectedAvatar,
-  avatarList,
-  isImageLoaded,
+  tempAvatarUrl,
   initialNickname,
   initialAvatarSrc,
   onSubmit,
-  setSelectedAvatar,
+  onAvatarChange,
 }: Readonly<IEditProfileFormProps>): JSX.Element {
   const form = useForm<z.infer<typeof editProfileSchema>>({
     resolver: zodResolver(editProfileSchema),
@@ -50,39 +44,42 @@ export function EditProfileForm({
   });
 
   useEffect(() => {
-    if (selectedAvatar) {
-      form.setValue("avatarSrc", selectedAvatar);
+    if (tempAvatarUrl) {
+      form.setValue("avatarSrc", tempAvatarUrl);
     }
-  }, [selectedAvatar, form]);
+  }, [tempAvatarUrl, form]);
 
-  const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
-    e.preventDefault();
-    const result = await form.trigger();
-    if (result) {
-      onSubmit(form.getValues());
-    }
+  const handleAvatarChange = (file: File): void => {
+    form.setValue("avatarFile", file, {
+      shouldValidate: true,
+    });
+    onAvatarChange(file);
   };
 
   return (
     <div className="lg:p-8">
       <Form {...form}>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 text-center gap-8 flex flex-col"
         >
-          <CurrentAvatar
-            currentAvatar={currentAvatar}
-            selectedAvatar={selectedAvatar}
-            isImageLoaded={isImageLoaded}
+          <FormField
+            control={form.control}
+            name="avatarFile"
+            render={() => (
+              <FormItem>
+                <FormControl>
+                  <CurrentAvatar
+                    currentAvatar={currentAvatar}
+                    tempAvatarUrl={tempAvatarUrl}
+                    onAvatarChange={handleAvatarChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          <div className="flex flex-col gap-4">
-            <h2 className="text-text-primary text-lg">Choose a new avatar:</h2>
-            <AvatarList
-              avatarList={avatarList}
-              selectedAvatar={selectedAvatar}
-              setSelectedAvatar={setSelectedAvatar}
-            />
-          </div>
+
           <FormField
             control={form.control}
             name="nickname"

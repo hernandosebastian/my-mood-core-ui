@@ -2,6 +2,10 @@ export const editProfileErrorMessages = {
   nickname: {
     maxLength: "Nickname cannot be longer than 35 characters.",
   },
+  avatar: {
+    invalidType: "File must be PNG, JPG, JPEG or WEBP",
+    invalidSize: "File size cannot exceed 1MB",
+  },
   getMeError: {
     title: "Error Retrieving User Information",
     description:
@@ -19,4 +23,3 @@ export const editProfileToastMessages = {
     description: "An error occurred while updating your profile.",
   },
 };
-
