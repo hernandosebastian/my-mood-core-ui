@@ -52,7 +52,7 @@ export function DatePicker(): JSX.Element {
         [`trackedCurrentMonth_${dateString}`]: {
           backgroundColor: getMoodColor(track.title),
           color: "#000000",
-          '&[aria-selected="true"]': {
+          '&[ariaSelected="true"]': {
             opacity: "1",
             backgroundColor: getMoodColor(track.title),
           },
@@ -89,7 +89,7 @@ export function DatePicker(): JSX.Element {
           ...styles,
           [`trackedOtherMonths_${dateString}`]: {
             color: getMoodColor(track.title),
-            '&[aria-selected="true"]': {
+            '&[ariaSelected="true"]': {
               opacity: "1",
               color: getMoodColor(track.title),
             },
