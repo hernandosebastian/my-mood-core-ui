@@ -30,18 +30,23 @@ export function useProfile(): IUseProfile {
   const navigate = useNavigate();
   const getMeQuery = useGetMe();
   const [currentAvatar, setCurrentAvatar] = useState<string | undefined>(
-    undefined
+    getMeQuery.data?.user?.avatarSrc
+      ? AVATAR_ENDPOINTS.user(
+          getMeQuery.data.user.id,
+          getMeQuery.data.user.avatarSrc
+        )
+      : AVATAR_ENDPOINTS.default
   );
 
   useEffect(() => {
-    setCurrentAvatar(
-      getMeQuery.data?.user?.avatarSrc
-        ? AVATAR_ENDPOINTS.user(
-            getMeQuery.data.user.id,
-            getMeQuery.data.user.avatarSrc
-          )
-        : AVATAR_ENDPOINTS.default
-    );
+    if (getMeQuery.data?.user?.avatarSrc) {
+      setCurrentAvatar(
+        AVATAR_ENDPOINTS.user(
+          getMeQuery.data.user.id,
+          getMeQuery.data.user.avatarSrc
+        )
+      );
+    }
   }, [getMeQuery.data]);
 
   useEffect(() => {
