@@ -15,8 +15,6 @@ const signUpSchema = z
         message: signUpErrorMessages.nickname.invalid,
       }),
 
-    avatarSrc: z.string(),
-
     password: z
       .string()
       .min(8, { message: signUpErrorMessages.password.minLength })

@@ -21,7 +21,6 @@ interface ISignUpFormProps {
     {
       username: string;
       nickname: string;
-      avatarSrc: string;
       password: string;
       confirmPassword: string;
     },
