@@ -29,7 +29,6 @@ export function SignUpPage(): JSX.Element {
     defaultValues: {
       username: "",
       nickname: "",
-      avatarSrc: "/assets/avatars/Multiavatar-0e194b370c5a6c8ece.png",
       password: "",
       confirmPassword: "",
     },
