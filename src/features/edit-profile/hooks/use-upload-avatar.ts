@@ -1,23 +1,21 @@
 import { useMutation, UseMutationResult, useQueryClient } from "react-query";
 import { IGetMeResponse } from "@/features/authentication/dto";
-import { IUpdateProfileDto } from "../interfaces";
-import { updateProfile } from "../services";
 import { AxiosError } from "axios";
 import { getMeKeys } from "@/features/authentication/hooks/use-get-me";
 import { User } from "@/features/authentication/entity";
 import { mapToUser } from "@/features/authentication/mapper";
+import { uploadAvatar } from "../services";
 
-export const useUpdateProfile = (): UseMutationResult<
+export const useUploadAvatar = (): UseMutationResult<
   IGetMeResponse,
   AxiosError,
-  IUpdateProfileDto,
+  File,
   unknown
 > => {
   const queryClient = useQueryClient();
 
-  return useMutation<IGetMeResponse, AxiosError, IUpdateProfileDto, unknown>({
-    mutationFn: ({ nickname }: IUpdateProfileDto) =>
-      updateProfile({ nickname }),
+  return useMutation<IGetMeResponse, AxiosError, File, unknown>({
+    mutationFn: (file: File) => uploadAvatar(file),
 
     onSuccess: (data) => {
       const previous = queryClient.getQueryData<{ user: User }>(getMeKeys());
