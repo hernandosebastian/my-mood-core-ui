@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UseQueryResult } from "react-query";
 import { User } from "@/features/authentication/entity";
 import { AxiosError } from "axios";
+import { env } from "@/config/env";
 
 interface IUseProfile {
   getMeQuery: UseQueryResult<
@@ -18,6 +19,12 @@ interface IUseProfile {
   currentAvatar: string | undefined;
 }
 
+const AVATAR_ENDPOINTS = {
+  default: `${env.s3.baseUrl}/default/avatar.webp`,
+  user: (userId: number, avatarSrc: string) =>
+    `${env.s3.baseUrl}/users/${userId}/avatar/${avatarSrc}`,
+} as const;
+
 export function useProfile(): IUseProfile {
   const { showErrorToast } = useToast();
   const navigate = useNavigate();
@@ -27,9 +34,14 @@ export function useProfile(): IUseProfile {
   );
 
   useEffect(() => {
-    if (getMeQuery.data?.user?.avatarSrc) {
-      setCurrentAvatar(getMeQuery.data.user.avatarSrc);
-    }
+    setCurrentAvatar(
+      getMeQuery.data?.user?.avatarSrc
+        ? AVATAR_ENDPOINTS.user(
+            getMeQuery.data.user.id,
+            getMeQuery.data.user.avatarSrc
+          )
+        : AVATAR_ENDPOINTS.default
+    );
   }, [getMeQuery.data]);
 
   useEffect(() => {
@@ -44,4 +56,3 @@ export function useProfile(): IUseProfile {
 
   return { getMeQuery, currentAvatar };
 }
-
