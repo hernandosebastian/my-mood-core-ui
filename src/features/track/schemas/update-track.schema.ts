@@ -16,7 +16,7 @@ export const updateTrackSchema = z.object({
 
   description: z
     .string()
-    .max(200, { message: updateTrackErrorMessages.description.maxLength })
+    .max(1000, { message: updateTrackErrorMessages.description.maxLength })
     .optional(),
 });
 

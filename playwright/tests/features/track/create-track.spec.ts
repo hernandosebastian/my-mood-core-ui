@@ -59,7 +59,7 @@ test.describe("features/track - create", () => {
 
     await createTrackTitleSadInput.click();
     await createTrackDescriptionInput.click();
-    await createTrackDescriptionInput.fill("x".repeat(201));
+    await createTrackDescriptionInput.fill("x".repeat(1001));
     await createTrackDoneButton.click();
 
     await expect(descriptionErrorMessage).toBeVisible();

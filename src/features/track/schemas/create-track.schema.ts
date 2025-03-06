@@ -14,7 +14,7 @@ export const createTrackSchema = z.object({
 
   description: z
     .string()
-    .max(200, { message: createTrackErrorMessages.description.maxLength })
+    .max(1000, { message: createTrackErrorMessages.description.maxLength })
     .optional(),
 
   date: z.date(),

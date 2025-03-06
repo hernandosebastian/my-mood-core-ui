@@ -62,7 +62,7 @@ test.describe("features/track - update", () => {
     await updateTrackPreviousTitleInput.click();
     await createTrackTitleHappyInput.click();
     await updateTrackDescriptionInput.click();
-    await updateTrackDescriptionInput.fill("x".repeat(201));
+    await updateTrackDescriptionInput.fill("x".repeat(1001));
     await updateTrackDoneButton.click();
 
     await expect(descriptionErrorMessage).toBeVisible();
