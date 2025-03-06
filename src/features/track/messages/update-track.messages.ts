@@ -3,7 +3,7 @@ export const updateTrackErrorMessages = {
     moodType: "Please select a mood type.",
   },
   description: {
-    maxLength: "Description cannot be longer than 200 characters.",
+    maxLength: "Description cannot be longer than 1000 characters.",
   },
 };
 
