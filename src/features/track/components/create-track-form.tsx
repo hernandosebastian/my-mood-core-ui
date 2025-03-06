@@ -170,7 +170,6 @@ export function CreateTrackForm({
                       id="description"
                       placeholder="Share the highlights of your day! What made you smile? What did you learn?"
                       data-testid="create-track-description-input"
-                      className="text-text-secondary overflow-auto max-w-full mx-auto !my-[1px]"
                       {...field}
                       disabled={isLoading}
                     />

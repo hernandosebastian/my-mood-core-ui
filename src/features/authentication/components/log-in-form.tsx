@@ -70,7 +70,6 @@ export function LogInForm({
                   <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
                       placeholder="Enter your email"
                       data-testid="log-in-username-input"
@@ -94,7 +93,6 @@ export function LogInForm({
                   <FormLabel className="text-text-primary">Password</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="password"
                       type="password"
                       placeholder="Enter your password"

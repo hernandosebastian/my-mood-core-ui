@@ -75,7 +75,6 @@ export function SignUpForm({
                   <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
                       placeholder="Enter your email"
                       data-testid="sign-up-username-input"
@@ -99,7 +98,6 @@ export function SignUpForm({
                   <FormLabel className="text-text-primary">Nickname</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="nickname"
                       placeholder="Enter your nickname"
                       data-testid="sign-up-nickname-input"
@@ -123,7 +121,6 @@ export function SignUpForm({
                   <FormLabel className="text-text-primary">Password</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="password"
                       type="password"
                       placeholder="Enter your password"
@@ -150,7 +147,6 @@ export function SignUpForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="confirmPassword"
                       type="password"
                       placeholder="Confirm your password"
@@ -186,7 +182,7 @@ export function SignUpForm({
           <button
             id="redirect-to-log-in"
             type="button"
-            className="text-text-secondary group hover:text-text-primary transition-colors"
+            className="text-text-secondary group hover:text-text-primary transition-colors bg-inherit hover:bg-inherit"
             onClick={handleRedirectToLogIn}
             data-testid="sign-up-redirect-to-log-in"
           >

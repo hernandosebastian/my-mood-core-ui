@@ -70,7 +70,6 @@ export function ResendConfirmationCodeForm({
                   <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="resend-confirmation-code-username-input"
                       placeholder="Enter your email"
@@ -105,7 +104,7 @@ export function ResendConfirmationCodeForm({
           <button
             id="redirect-to-log-in"
             type="button"
-            className="text-text-secondary group hover:text-text-primary transition-colors"
+            className="text-text-secondary group hover:text-text-primary transition-colors bg-inherit hover:bg-inherit"
             onClick={handleRedirectToLogIn}
             data-testid="resend-confirmation-code-redirect-to-log-in"
           >

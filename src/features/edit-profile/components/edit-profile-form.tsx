@@ -95,7 +95,6 @@ export function EditProfileForm({
                     placeholder="Enter your nickname"
                     {...field}
                     disabled={isLoading}
-                    className="text-text-secondary border-border-primary !m-0"
                   />
                 </FormControl>
                 <FormMessage />

@@ -78,7 +78,6 @@ export function ConfirmPasswordForm({
                   <FormLabel className="text-text-primary">Email</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="confirm-password-username-input"
                       placeholder="Enter your email"
@@ -104,7 +103,6 @@ export function ConfirmPasswordForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="newPassword"
                       type="password"
                       data-testid="confirm-password-new-password-input"
@@ -131,7 +129,6 @@ export function ConfirmPasswordForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="confirmPassword"
                       type="password"
                       data-testid="confirm-password-confirm-password-input"
@@ -159,27 +156,21 @@ export function ConfirmPasswordForm({
                       <InputOTPGroup>
                         <InputOTPSlot
                           index={0}
-                          className="border-text-secondary"
                         />
                         <InputOTPSlot
                           index={1}
-                          className="border-text-secondary"
                         />
                         <InputOTPSlot
                           index={2}
-                          className="border-text-secondary"
                         />
                         <InputOTPSlot
                           index={3}
-                          className="border-text-secondary"
                         />
                         <InputOTPSlot
                           index={4}
-                          className="border-text-secondary"
                         />
                         <InputOTPSlot
                           index={5}
-                          className="border-text-secondary"
                         />
                       </InputOTPGroup>
                     </InputOTP>
@@ -210,7 +201,7 @@ export function ConfirmPasswordForm({
           <button
             id="redirect-to-forgot-password"
             type="button"
-            className="text-text-secondary group hover:text-text-primary transition-colors"
+            className="text-text-secondary group hover:text-text-primary transition-colors bg-inherit hover:bg-inherit"
             onClick={handleRedirectToForgotPassword}
             data-testid="confirm-password-redirect-to-forgot-password-button"
           >

@@ -174,7 +174,6 @@ export function UpdateTrackForm({
                       id="description"
                       placeholder="Share the highlights of your day! What made you smile? What did you learn?"
                       data-testid="update-track-description-input"
-                      className="text-text-primary"
                       {...field}
                       disabled={isLoading}
                     />
