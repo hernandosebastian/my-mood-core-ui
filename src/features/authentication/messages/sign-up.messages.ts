@@ -26,7 +26,7 @@ export const signUpToastMessages = {
   success: {
     title: "Registro Exitoso",
     description:
-      "Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.",
+      "Tu cuenta ha sido creada exitosamente. Verifica tu correo electrónico para activar tu cuenta.",
   },
   error: {
     title: "Error en el Registro",
