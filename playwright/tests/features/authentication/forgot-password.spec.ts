@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import {
   forgotPasswordErrorMessages,
   forgotPasswordToastMessages,
-} from "@/features/authentication/messages/forgot-password.messages";
+} from "@/features/authentication/messages/olvidar-contraseña.messages";
 import {
   successForgotPasswordFixture,
   errorForgotPasswordFixture,
   axiosErrorForgotPasswordFixture,
-} from "../../../fixtures/features/authentication/forgot-password.fixture";
+} from "../../../fixtures/features/authentication/olvidar-contraseña.fixture";
 
 dotenv.config();
 
@@ -48,7 +48,7 @@ test.describe("features/authentication", () => {
   test("should successfully submit the form and show success message", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/forgot-password", (route) => {
+    await page.route("**/api/v1/auth/olvidar-contraseña", (route) => {
       route.fulfill(successForgotPasswordFixture);
     });
 
@@ -74,7 +74,7 @@ test.describe("features/authentication", () => {
   test("should display error toast for failed password reset request", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/forgot-password", (route) => {
+    await page.route("**/api/v1/auth/olvidar-contraseña", (route) => {
       route.fulfill(errorForgotPasswordFixture);
     });
 
@@ -94,7 +94,7 @@ test.describe("features/authentication", () => {
   test("should display error toast with axios message for failed password reset request", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/forgot-password", (route) => {
+    await page.route("**/api/v1/auth/olvidar-contraseña", (route) => {
       route.fulfill(axiosErrorForgotPasswordFixture);
     });
 

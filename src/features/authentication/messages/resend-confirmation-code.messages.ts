@@ -1,18 +1,20 @@
 export const resendConfirmationCodeErrorMessages = {
   username: {
-    maxLength: "Email cannot be longer than 50 characters.",
-    invalidEmail: "Email must be a valid email address.",
+    maxLength:
+      "El correo electrónico no puede ser más largo que 50 caracteres.",
+    invalidEmail: "El correo electrónico debe ser una dirección válida.",
   },
 };
 
 export const resendConfirmationCodeToastMessages = {
   success: {
-    title: "Code Sent",
-    description: "A new confirmation code has been sent to your email address.",
+    title: "Código enviado",
+    description:
+      "Se ha enviado un nuevo código de confirmación a tu dirección de correo electrónico.",
   },
   error: {
-    title: "Code Sending Failed",
+    title: "Error al enviar el código",
     description:
-      "There was an error sending the confirmation code. Please try again.",
+      "Hubo un error al enviar el código de confirmación. Por favor, inténtalo nuevamente.",
   },
 };

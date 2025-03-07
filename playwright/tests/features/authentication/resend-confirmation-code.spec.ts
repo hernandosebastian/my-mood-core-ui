@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import {
   resendConfirmationCodeErrorMessages,
   resendConfirmationCodeToastMessages,
-} from "@/features/authentication/messages/resend-confirmation-code.messages";
+} from "@/features/authentication/messages/reenviar-codigo-confirmacion.messages";
 import {
   successResendConfirmationCodeFixture,
   errorResendConfirmationCodeFixture,
   axiosErrorResendConfirmationCodeFixture,
-} from "../../../fixtures/features/authentication/resend-confirmation-code.fixture";
+} from "../../../fixtures/features/authentication/reenviar-codigo-confirmacion.fixture";
 
 dotenv.config();
 
@@ -56,7 +56,7 @@ test.describe("features/authentication", () => {
   test("should successfully submit the form and show success message", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/resend-confirmation-code", (route) => {
+    await page.route("**/api/v1/auth/reenviar-codigo-confirmacion", (route) => {
       route.fulfill(successResendConfirmationCodeFixture);
     });
 
@@ -86,7 +86,7 @@ test.describe("features/authentication", () => {
   test("should display error toast for failed code resend", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/resend-confirmation-code", (route) => {
+    await page.route("**/api/v1/auth/reenviar-codigo-confirmacion", (route) => {
       route.fulfill(errorResendConfirmationCodeFixture);
     });
 
@@ -109,7 +109,7 @@ test.describe("features/authentication", () => {
   test("should display error toast with axios message for failed code resend", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/resend-confirmation-code", (route) => {
+    await page.route("**/api/v1/auth/reenviar-codigo-confirmacion", (route) => {
       route.fulfill(axiosErrorResendConfirmationCodeFixture);
     });
 

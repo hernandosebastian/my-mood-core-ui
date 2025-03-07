@@ -50,7 +50,7 @@ export function SignUpForm({
   };
 
   const handleRedirectToLogIn = (): void => {
-    navigate("/log-in");
+    navigate("/iniciar-sesion");
   };
 
   return (
@@ -58,10 +58,10 @@ export function SignUpForm({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
-            Sign Up
+            Regístrate
           </h1>
           <p className="text-sm text-muted-foreground text-text-secondary">
-            Create your account by entering a email and password.
+            Crea tu cuenta ingresando un correo electrónico y una contraseña.
           </p>
         </div>
 
@@ -72,18 +72,20 @@ export function SignUpForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Email</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Correo electrónico
+                  </FormLabel>
                   <FormControl>
                     <Input
                       id="username"
-                      placeholder="Enter your email"
+                      placeholder="Ingresa tu correo electrónico"
                       data-testid="sign-up-username-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the email to create your account.
+                    Ingresa el correo electrónico para crear tu cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -95,18 +97,18 @@ export function SignUpForm({
               name="nickname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Nickname</FormLabel>
+                  <FormLabel className="text-text-primary">Apodo</FormLabel>
                   <FormControl>
                     <Input
                       id="nickname"
-                      placeholder="Enter your nickname"
+                      placeholder="Ingresa tu apodo"
                       data-testid="sign-up-nickname-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the nickname to identify yourself.
+                    Ingresa el apodo con el que te identificarás.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -118,19 +120,21 @@ export function SignUpForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Password</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Contraseña
+                  </FormLabel>
                   <FormControl>
                     <Input
                       id="password"
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder="Ingresa tu contraseña"
                       data-testid="sign-up-password-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the password to access your account.
+                    Ingresa la contraseña para acceder a tu cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -143,20 +147,20 @@ export function SignUpForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-text-primary">
-                    Confirm Password
+                    Confirmar Contraseña
                   </FormLabel>
                   <FormControl>
                     <Input
                       id="confirmPassword"
                       type="password"
-                      placeholder="Confirm your password"
+                      placeholder="Confirma tu contraseña"
                       data-testid="sign-up-confirm-password-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Re-enter your password to confirm.
+                    Vuelve a ingresar tu contraseña para confirmarla.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -173,7 +177,7 @@ export function SignUpForm({
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Sign Up
+              Regístrate
             </Button>
           </form>
         </Form>
@@ -186,9 +190,9 @@ export function SignUpForm({
             onClick={handleRedirectToLogIn}
             data-testid="sign-up-redirect-to-log-in"
           >
-            Already have an account?{" "}
+            ¿Ya tienes una cuenta?{" "}
             <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
-              Log In
+              Inicia sesión
             </span>
           </button>
         </div>

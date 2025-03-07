@@ -5,4 +5,3 @@ export interface ITrackMonthlyStats {
   year: number;
   moods: ITrackStats[];
 }
-

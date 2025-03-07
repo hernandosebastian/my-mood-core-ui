@@ -12,7 +12,7 @@ export function NavBarFooter(): JSX.Element {
         className="text-sm text-text-secondary hover:text-text-primary inline-flex items-center space-x-1 fill-text-secondary hover:fill-accent-primary transition-colors justify-center"
       >
         <ShadcnUiSVG className="w-4 h-4 mr-2" />
-        made with <span>shadcn/ui</span>
+        Creado con <span>shadcn/ui</span>
       </a>
     </SidebarFooter>
   );

@@ -51,7 +51,7 @@ export function ConfirmUserForm({
   };
 
   const handleRedirectToResendCode = (): void => {
-    navigate("/resend-confirmation-code");
+    navigate("/reenviar-codigo-confirmacion");
   };
 
   return (
@@ -59,10 +59,11 @@ export function ConfirmUserForm({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
-            Confirm User
+            Confirmar Usuario
           </h1>
           <p className="text-sm text-muted-foreground text-text-secondary">
-            Enter the email and confirmation code to confirm your account.
+            Ingresa el correo electrónico y el código de confirmación para
+            confirmar tu cuenta.
           </p>
         </div>
 
@@ -73,18 +74,20 @@ export function ConfirmUserForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Email</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Correo Electrónico
+                  </FormLabel>
                   <FormControl>
                     <Input
                       id="username"
-                      placeholder="Enter your email"
+                      placeholder="Ingresa tu correo electrónico"
                       data-testid="confirm-user-username-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the email to confirm your account.
+                    Ingresa el correo electrónico para confirmar tu cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -96,7 +99,7 @@ export function ConfirmUserForm({
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Code</FormLabel>
+                  <FormLabel className="text-text-primary">Código</FormLabel>
                   <FormControl data-testid="confirm-user-code-input">
                     <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
@@ -110,7 +113,8 @@ export function ConfirmUserForm({
                     </InputOTP>
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the 6-digit code sent to your email.
+                    Ingresa el código de 6 dígitos enviado a tu correo
+                    electrónico.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -126,7 +130,7 @@ export function ConfirmUserForm({
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Confirm
+              Confirmar
             </Button>
           </form>
         </Form>
@@ -139,9 +143,9 @@ export function ConfirmUserForm({
             onClick={handleRedirectToResendCode}
             data-testid="confirm-user-redirect-to-resend-code"
           >
-            Didn&apos;t receive the code?{" "}
+            ¿No recibiste el código?{" "}
             <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
-              Resend it
+              Reenvíalo
             </span>
           </button>
         </div>

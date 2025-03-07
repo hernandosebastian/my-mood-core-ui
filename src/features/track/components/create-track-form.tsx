@@ -24,6 +24,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getMoodColor } from "../utils";
 import { Textarea } from "@/components/ui/textarea";
 import { TrackSubmitButton } from "./submit-track-button";
+import { translateMood } from "../utils/translate-mood";
+import { es } from "date-fns/locale";
 
 interface ICreateTrackFormProps {
   form: UseFormReturn<
@@ -71,7 +73,7 @@ export function CreateTrackForm({
             className="text-4xl font-semibold tracking-tight text-text-primary"
             data-testid="create-track-title"
           >
-            {format(date, "MMMM d, yyyy")}
+            {format(date, "d 'de' MMMM 'de' yyyy", { locale: es })}
           </h1>
         </div>
         <Form {...form}>
@@ -85,55 +87,59 @@ export function CreateTrackForm({
               render={({ field }) => (
                 <FormItem className="lg:flex lg:flex-col lg:gap-4 lg:w-[60%] xl:w-[50%] text-center">
                   <FormLabel className="text-text-primary text-lg">
-                    How are you feeling today?
+                    ¿Cómo te sientes hoy?
                   </FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel className="w-full max-w-xs flex flex-col gap-4">
                       <CarouselContent>
-                        {Object.values(Mood).map((mood) => (
-                          <CarouselItem key={mood.toString()}>
-                            <div className="border-border-primary">
-                              <Card
-                                style={{
-                                  borderColor:
-                                    field.value === mood
-                                      ? getMoodColor(mood)
-                                      : "inherit",
-                                }}
-                                className="bg-background-primary"
-                              >
-                                <CardContent className="flex aspect-square items-center justify-center bg-background-secondary border-border-primary rounded-xl">
-                                  <button
-                                    type="button"
-                                    onClick={() => field.onChange(mood)}
-                                    className="w-full h-full p-6"
-                                    data-testid={`create-track-${mood}-button`}
-                                    disabled={isLoading}
-                                  >
-                                    <img
-                                      src={`/assets/mood/${mood}.png`}
-                                      alt={mood}
-                                      className="w-full h-full object-contain"
-                                    />
-                                  </button>
-                                </CardContent>
-                              </Card>
-                              <div className="text-center mt-2">
-                                <span
-                                  className="text-base font-medium"
+                        {Object.values(Mood).map((mood) => {
+                          const translatedMood = translateMood(mood);
+
+                          return (
+                            <CarouselItem key={mood.toString()}>
+                              <div className="border-border-primary">
+                                <Card
                                   style={{
-                                    color:
+                                    borderColor:
                                       field.value === mood
                                         ? getMoodColor(mood)
                                         : "inherit",
                                   }}
+                                  className="bg-background-primary"
                                 >
-                                  {mood}
-                                </span>
+                                  <CardContent className="flex aspect-square items-center justify-center bg-background-secondary border-border-primary rounded-xl">
+                                    <button
+                                      type="button"
+                                      onClick={() => field.onChange(mood)}
+                                      className="w-full h-full p-6"
+                                      data-testid={`create-track-${mood}-button`}
+                                      disabled={isLoading}
+                                    >
+                                      <img
+                                        src={`/assets/mood/${translatedMood}.png`}
+                                        alt={mood}
+                                        className="w-full h-full object-contain"
+                                      />
+                                    </button>
+                                  </CardContent>
+                                </Card>
+                                <div className="text-center mt-2">
+                                  <span
+                                    className="text-base font-medium"
+                                    style={{
+                                      color:
+                                        field.value === mood
+                                          ? getMoodColor(mood)
+                                          : "inherit",
+                                    }}
+                                  >
+                                    {translatedMood}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </CarouselItem>
-                        ))}
+                            </CarouselItem>
+                          );
+                        })}
                       </CarouselContent>
 
                       <div className="flex w-[35%] justify-between ml-auto mr-auto">
@@ -163,12 +169,12 @@ export function CreateTrackForm({
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-6 lg:w-[40%] xl:w-[50%] !mt-0 text-center lg:h-fit">
                   <FormLabel className="text-text-primary text-lg">
-                    Write about your day
+                    Escribe sobre tu día
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       id="description"
-                      placeholder="Share the highlights of your day! What made you smile? What did you learn?"
+                      placeholder="¡Comparte los momentos más destacados de tu día! ¿Qué te hizo sonreír? ¿Qué aprendiste?"
                       data-testid="create-track-description-input"
                       {...field}
                       disabled={isLoading}

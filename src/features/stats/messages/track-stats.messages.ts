@@ -1,7 +1,6 @@
 export const trackStatsToastMessages = {
   error: {
-    title: "Failed to get tracks stats",
-    description: "An error occurred while getting tracks stats.",
+    title: "No se pudieron obtener las estadísticas de seguimiento",
+    description: "Ocurrió un error al obtener las estadísticas de seguimiento.",
   },
 };
-

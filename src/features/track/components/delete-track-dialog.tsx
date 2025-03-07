@@ -29,21 +29,21 @@ export const DeleteTrackDialog = ({
         })}`}
         data-testid="open-delete-track-dialog-button"
       >
-        Delete
+        Eliminar
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-background-primary border-border-primary">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-text-primary">
-            Are you absolutely sure?
+            ¿Estás seguro?
           </AlertDialogTitle>
           <AlertDialogDescription className="text-text-secondary">
-            This action cannot be undone. Your track will be permanently
-            deleted.
+            Esta acción no se puede deshacer. Tu registro será eliminado
+            permanentemente.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel data-testid="cancel-delete-track-button">
-            Cancel
+            Cancelar
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleOnClick}
@@ -54,7 +54,7 @@ export const DeleteTrackDialog = ({
             {isLoading ? (
               <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : null}
-            Delete
+            Eliminar
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

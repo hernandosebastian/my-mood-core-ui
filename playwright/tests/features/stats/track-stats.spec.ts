@@ -21,7 +21,7 @@ test.beforeEach(async ({ page, isMobile }) => {
   await page.clock.setFixedTime(fixedDate);
 
   await page.route(
-    "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
     (route) => {
       route.fulfill({
         json: [],
@@ -41,7 +41,7 @@ test.describe("features/stats", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/stats?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
       (route) => {
         route.fulfill(successGetTrackStatsFixtureWithoutActivity);
       }
@@ -66,7 +66,7 @@ test.describe("features/stats", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/stats?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
       (route) => {
         route.fulfill(successGetTrackStatsFixtureWithoutLast3MonthsActivity);
       }
@@ -111,7 +111,7 @@ test.describe("features/stats", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/stats?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
       (route) => {
         route.fulfill(successGetTrackStatsFixtureWithLast3MonthsActivity);
       }
@@ -156,7 +156,7 @@ test.describe("features/stats", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/stats?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
       (route) => {
         route.fulfill(errorGetTrackStatsFixtureWithMessage);
       }
@@ -183,7 +183,7 @@ test.describe("features/stats", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/stats?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
       (route) => {
         route.fulfill(errorGetTrackStatsFixtureWithoutMessage);
       }

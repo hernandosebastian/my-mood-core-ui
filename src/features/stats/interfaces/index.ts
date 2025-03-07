@@ -5,4 +5,3 @@ export type { IMappedMoodTracking } from "./mapped-mood-tracking.interface";
 export type { IMonthData } from "./month-data.interface";
 export type { ITrackMonthlyStats } from "./track-monthly-stats.interface";
 export type { ITrackStats } from "./track-stats.interface";
-

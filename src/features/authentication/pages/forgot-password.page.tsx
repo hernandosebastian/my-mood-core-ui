@@ -43,7 +43,7 @@ export function ForgotPasswordPage(): JSX.Element {
             forgotPasswordToastMessages.success.title,
             forgotPasswordToastMessages.success.description
           );
-          navigate("/confirm-password", {
+          navigate("/confirmar-contraseña", {
             state: { username: values.username },
           });
         },

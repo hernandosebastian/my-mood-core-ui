@@ -5,4 +5,3 @@ export interface IGetTrackStatsResponse {
   totalTrackStats: ITrackStats[];
   tracksLast3MonthsStats: ITrackMonthlyStats[];
 }
-

@@ -43,7 +43,7 @@ export function ResendConfirmationCodePage(): JSX.Element {
             resendConfirmationCodeToastMessages.success.title,
             resendConfirmationCodeToastMessages.success.description
           );
-          navigate("/confirm-user", {
+          navigate("/confirmar-usuario", {
             state: { username: values.username },
           });
         },

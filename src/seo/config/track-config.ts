@@ -1,8 +1,7 @@
 export const trackSeoConfig = {
-  title: "My Mood - Track",
+  title: "My Mood - Registro",
   createTrackDescription:
-    "Track your mood over time and see how it fluctuates with easy-to-read statistics and charts.",
+    "Registra tu estado de ánimo a lo largo del tiempo y observa cómo fluctúa con estadísticas y gráficos fáciles de entender.",
   updateTrackDescription:
-    "Update your track and reflect on your daily emotional state and better understand the factors affecting your mood.",
+    "Actualiza tu registro, reflexiona sobre tu estado emocional diario y comprende mejor los factores que afectan tu ánimo.",
 };
-

@@ -18,4 +18,3 @@ export const getTrackStats = async (): Promise<IGetTrackStatsResponse> => {
 
   return response.data;
 };
-

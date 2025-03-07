@@ -86,13 +86,13 @@ export function EditProfileForm({
             render={({ field }) => (
               <FormItem className="flex flex-col gap-4">
                 <FormLabel className="text-lg text-text-primary">
-                  Nickname
+                  Apodo
                 </FormLabel>
                 <FormControl>
                   <Input
                     id="nickname"
                     data-testid="edit-profile-nickname"
-                    placeholder="Enter your nickname"
+                    placeholder="Ingresa tu apodo"
                     {...field}
                     disabled={isLoading}
                   />
@@ -111,7 +111,7 @@ export function EditProfileForm({
             {isLoading ? (
               <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : null}{" "}
-            Done
+            Hecho
           </Button>
         </form>
       </Form>

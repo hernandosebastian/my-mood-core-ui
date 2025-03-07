@@ -15,8 +15,8 @@ export function NotFound(): JSX.Element {
             404
           </h1>
           <p className="text-text-secondary">
-            Looks like this mood hasn&apos;t made it into our emotional universe
-            yet.
+            Parece que este estado de ánimo aún no ha llegado a nuestro universo
+            emocional.
           </p>
         </div>
         <Link
@@ -28,7 +28,7 @@ export function NotFound(): JSX.Element {
           id="not-found-return-button"
           data-testid="not-found-return-button"
         >
-          Return to website
+          Regresar al sitio web
         </Link>
       </div>
     </div>

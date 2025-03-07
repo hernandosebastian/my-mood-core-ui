@@ -4,4 +4,3 @@ export interface ITrackStats {
   mood: Mood;
   totalTracks: number;
 }
-

@@ -45,7 +45,7 @@ export function ResendConfirmationCodeForm({
   };
 
   const handleRedirectToLogIn = (): void => {
-    navigate("/log-in");
+    navigate("/iniciar-sesion");
   };
 
   return (
@@ -53,10 +53,11 @@ export function ResendConfirmationCodeForm({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
-            Resend Confirmation Code
+            Reenviar Código de Confirmación
           </h1>
           <p className="text-sm text-muted-foreground text-text-secondary">
-            Enter your email to resend the confirmation code.
+            Ingresa tu correo electrónico para reenviar el código de
+            confirmación.
           </p>
         </div>
 
@@ -67,19 +68,21 @@ export function ResendConfirmationCodeForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Email</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Correo Electrónico
+                  </FormLabel>
                   <FormControl>
                     <Input
                       id="username"
                       data-testid="resend-confirmation-code-username-input"
-                      placeholder="Enter your email"
+                      placeholder="Ingresa tu correo electrónico"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the email to which you want to resend the confirmation
-                    code.
+                    Ingresa el correo electrónico al cual deseas reenviar el
+                    código de confirmación.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -95,7 +98,7 @@ export function ResendConfirmationCodeForm({
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Resend Confirmation Code
+              Reenviar Código de Confirmación
             </Button>
           </form>
         </Form>
@@ -108,9 +111,9 @@ export function ResendConfirmationCodeForm({
             onClick={handleRedirectToLogIn}
             data-testid="resend-confirmation-code-redirect-to-log-in"
           >
-            Already have an account?{" "}
+            ¿Ya tienes una cuenta?{" "}
             <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
-              Sign In
+              Iniciar Sesión
             </span>
           </button>
         </div>

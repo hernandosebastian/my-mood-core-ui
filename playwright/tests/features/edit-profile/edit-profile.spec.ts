@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
-import { editProfileToastMessages } from "@/features/edit-profile/messages/edit-profile.messages";
+import { editProfileToastMessages } from "@/features/edit-profile/messages/editar-perfil.messages";
 import { successGetMeFixture } from "../../../fixtures/features/authentication/get-me.fixture";
 import {
   errorEditProfileFixtureWithoutMessage,
@@ -8,7 +8,7 @@ import {
   successEditProfileFixture,
   successEditProfileOnlyAvatarFixture,
   successEditProfileOnlyNicknameFixture,
-} from "../../../fixtures/features/edit-profile/edit-profile.fixture";
+} from "../../../fixtures/features/edit-profile/editar-perfil.fixture";
 import { logIn, openSidebarIfMobile, closeSidebarIfMobile } from "utils";
 
 dotenv.config();

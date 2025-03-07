@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { logIn } from "../../../utils/log-in";
+import { logIn } from "../../../utils/iniciar-sesion";
 import { logOut } from "../../../utils/log-out";
 import { openSidebarIfMobile } from "../../../utils";
 import dotenv from "dotenv";

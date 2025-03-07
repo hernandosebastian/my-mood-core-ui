@@ -10,4 +10,3 @@ export const mapTotalMoodTrackingData = (
     fill: getMoodColor(stat.mood),
   }));
 };
-

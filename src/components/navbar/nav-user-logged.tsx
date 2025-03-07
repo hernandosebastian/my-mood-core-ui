@@ -89,12 +89,12 @@ export function NavUserLogged({
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-border-primary" />
         <DropdownMenuItem
-          onClick={() => handleNavigate("/edit-profile")}
+          onClick={() => handleNavigate("/editar-perfil")}
           className="cursor-pointer text-text-secondary hover:text-text-primary transition-colors"
           data-testid="sidebar-edit-profile-menu-item"
         >
           <BadgeCheck />
-          Account
+          Cuenta
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-border-primary" />
         <DropdownMenuItem
@@ -104,7 +104,7 @@ export function NavUserLogged({
           data-testid="sidebar-logout-menu-item"
         >
           <LogOut />
-          Log out
+          Cerrar sesión
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

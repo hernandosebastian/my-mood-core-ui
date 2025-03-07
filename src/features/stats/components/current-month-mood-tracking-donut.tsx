@@ -27,10 +27,10 @@ export function CurrentMonthMoodTrackingDonut({
     >
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-text-primary">
-          Mood Tracking - This Month
+          Seguimiento del estado de ánimo - Este mes
         </CardTitle>
         <CardDescription className="text-text-secondary">
-          Moods tracked throughout the current month
+          Estados de ánimo rastreados durante el mes actual
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -58,7 +58,7 @@ export function CurrentMonthMoodTrackingDonut({
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="leading-none text-text-secondary">
-          Total moods tracked during the current month
+          Total de estados de ánimo rastreados durante el mes actual
         </div>
       </CardFooter>
     </Card>

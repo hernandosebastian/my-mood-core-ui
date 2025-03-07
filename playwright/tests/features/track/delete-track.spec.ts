@@ -27,7 +27,7 @@ test.beforeEach(async ({ page, isMobile }) => {
   await logIn({ page, isMobile, isSidebarOpen: false });
 
   await page.route(
-    "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
     (route) => {
       route.fulfill(successGetTrackFixture);
     }
@@ -40,7 +40,7 @@ test.beforeEach(async ({ page, isMobile }) => {
 
 test.describe("features/track - delete", () => {
   test("should delete a track successfully", async ({ page }) => {
-    await page.route("**/api/v1/track/1", (route, request) => {
+    await page.route("**/api/v1/registro/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(successDeleteTrackFixture);
       }
@@ -71,7 +71,7 @@ test.describe("features/track - delete", () => {
   test("should display error message if there is an error", async ({
     page,
   }) => {
-    await page.route("**/api/v1/track/1", (route, request) => {
+    await page.route("**/api/v1/registro/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(errorDeleteTrackFixture);
       }
@@ -102,7 +102,7 @@ test.describe("features/track - delete", () => {
   test("should display default error message if there is no error message in the body", async ({
     page,
   }) => {
-    await page.route("**/api/v1/track/1", (route, request) => {
+    await page.route("**/api/v1/registro/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(errorDeleteTrackFixtureWithoutMessage);
       }

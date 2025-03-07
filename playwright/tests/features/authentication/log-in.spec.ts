@@ -3,14 +3,14 @@ import dotenv from "dotenv";
 import {
   logInErrorMessages,
   logInToastMessages,
-} from "@/features/authentication/messages/log-in.messages";
+} from "@/features/authentication/messages/iniciar-sesion.messages";
 import { successGetMeFixture } from "../../../fixtures/features/authentication/get-me.fixture";
 import {
   successLoginFixture,
   errorLoginFixture,
   axiosErrorLoginFixture,
   unconfirmedUserFixture,
-} from "../../../fixtures/features/authentication/log-in.fixture";
+} from "../../../fixtures/features/authentication/iniciar-sesion.fixture";
 import { closeSidebarIfMobile, openSidebarIfMobile } from "utils";
 import { StorageKeys } from "@/services/local-storage/index";
 

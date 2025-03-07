@@ -19,4 +19,3 @@ export const forgotPassword = async (
 
   return response.data;
 };
-

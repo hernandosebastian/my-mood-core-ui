@@ -19,11 +19,11 @@ export function SidebarContentUserAnonymous(): JSX.Element {
   };
 
   const handleLoginClick = (): void => {
-    handleNavigate("/log-in");
+    handleNavigate("/iniciar-sesion");
   };
 
   const handleSignUpClick = (): void => {
-    handleNavigate("/sign-up");
+    handleNavigate("/registrarse");
   };
 
   return (
@@ -42,7 +42,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
                 className="bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
               >
                 <LogIn className="h-5 w-5" />
-                <span className="text-base">Log in</span>
+                <span className="text-base">Iniciar sesión</span>
               </button>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -58,7 +58,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
                 className="bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
               >
                 <UserPlus className="h-5 w-5" />
-                <span className="text-base">Sign up</span>
+                <span className="text-base">Registrarse</span>
               </button>
             </SidebarMenuButton>
           </SidebarMenuItem>

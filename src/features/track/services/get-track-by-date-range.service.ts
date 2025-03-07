@@ -19,4 +19,3 @@ export const getTrackByDateRange = async ({
 
   return response.data;
 };
-

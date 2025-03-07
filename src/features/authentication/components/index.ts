@@ -4,4 +4,3 @@ export { ForgotPasswordForm } from "./forgot-password-form";
 export { LogInForm } from "./log-in-form";
 export { ResendConfirmationCodeForm } from "./resend-confirmation-code-form";
 export { SignUpForm } from "./sign-up-form";
-

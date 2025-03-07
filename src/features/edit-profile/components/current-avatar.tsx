@@ -47,7 +47,7 @@ export function CurrentAvatar({
         </div>
 
         <div className="absolute inset-0 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200 flex flex-col items-center justify-center">
-          <span className="text-white text-sm font-medium">Change Avatar</span>
+          <span className="text-white text-sm font-medium">Cambiar avatar</span>
         </div>
 
         <input

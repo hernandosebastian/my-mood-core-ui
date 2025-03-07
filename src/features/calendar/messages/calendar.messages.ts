@@ -1,7 +1,6 @@
 export const calendarToastMessages = {
   error: {
-    title: "Failed to get tracks",
-    description: "An error occurred while getting tracks.",
+    title: "Error al obtener los registros",
+    description: "Ocurrió un error al obtener los registros.",
   },
 };
-

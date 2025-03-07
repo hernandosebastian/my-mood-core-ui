@@ -19,4 +19,3 @@ export const confirmUser = async (
 
   return response.data;
 };
-

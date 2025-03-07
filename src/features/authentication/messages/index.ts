@@ -16,4 +16,3 @@ export {
   resendConfirmationCodeToastMessages,
 } from "./resend-confirmation-code.messages";
 export { signUpErrorMessages, signUpToastMessages } from "./sign-up.messages";
-

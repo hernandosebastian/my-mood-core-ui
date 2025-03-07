@@ -26,7 +26,7 @@ export const withAuthenticationRequired = (
         return;
       }
 
-      navigate("/log-in");
+      navigate("/iniciar-sesion");
       removeItem(StorageKeys.COGNITO_ACCESS_TOKEN);
       queryClient.removeQueries(getMeKeys());
     }, [isLoading, data, accessToken, queryClient, navigate]);

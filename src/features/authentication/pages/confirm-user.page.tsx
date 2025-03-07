@@ -45,7 +45,7 @@ export function ConfirmUserPage(): JSX.Element {
             confirmUserToastMessages.success.title,
             confirmUserToastMessages.success.description
           );
-          navigate("/log-in", {
+          navigate("/iniciar-sesion", {
             state: { username: values.username },
           });
         },

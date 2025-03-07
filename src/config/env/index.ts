@@ -18,7 +18,6 @@ interface GithubProfilesConfig {
   ownerGithubProfile: string;
   ownerGithubName: string;
   shadcnGithubProfile: string;
-  multiavatarGithubProfile: string;
 }
 
 interface S3Config {

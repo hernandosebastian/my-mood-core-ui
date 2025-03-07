@@ -16,4 +16,3 @@ export const deleteTrack = async (id: number): Promise<void> => {
 
   return response.data;
 };
-

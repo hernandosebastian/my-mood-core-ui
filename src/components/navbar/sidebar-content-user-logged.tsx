@@ -41,11 +41,11 @@ export function SidebarContentUserLogged({
                 className="flex gap-3 bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
               >
                 <button
-                  onClick={() => handleNavigate("/stats")}
+                  onClick={() => handleNavigate("/estadisticas")}
                   data-testid="sidebar-stats-button"
                 >
                   <ChartNoAxesColumn className="h-5 w-5" />
-                  <span className="text-base">Stats</span>
+                  <span className="text-base">Estadísticas</span>
                 </button>
               </SidebarMenuButton>
             </SidebarMenuItem>

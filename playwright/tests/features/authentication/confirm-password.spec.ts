@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import {
   confirmPasswordErrorMessages,
   confirmPasswordToastMessages,
-} from "@/features/authentication/messages/confirm-password.messages";
+} from "@/features/authentication/messages/confirmar-contraseña.messages";
 import {
   successConfirmPasswordFixture,
   errorConfirmPasswordFixture,
   axiosErrorConfirmPasswordFixture,
-} from "../../../fixtures/features/authentication/confirm-password.fixture";
+} from "../../../fixtures/features/authentication/confirmar-contraseña.fixture";
 
 dotenv.config();
 
@@ -121,7 +121,7 @@ test.describe("features/authentication", () => {
   });
 
   test("should successfully submit when passwords match", async ({ page }) => {
-    await page.route("**/api/v1/auth/confirm-password", (route) => {
+    await page.route("**/api/v1/auth/confirmar-contraseña", (route) => {
       route.fulfill(successConfirmPasswordFixture);
     });
 
@@ -151,7 +151,7 @@ test.describe("features/authentication", () => {
   test("should display error toast for failed confirmation", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirm-password", (route) => {
+    await page.route("**/api/v1/auth/confirmar-contraseña", (route) => {
       route.fulfill(errorConfirmPasswordFixture);
     });
 
@@ -178,7 +178,7 @@ test.describe("features/authentication", () => {
   test("should display error toast with axios message for failed confirmation", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirm-password", (route) => {
+    await page.route("**/api/v1/auth/confirmar-contraseña", (route) => {
       route.fulfill(axiosErrorConfirmPasswordFixture);
     });
 

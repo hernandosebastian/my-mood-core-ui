@@ -1,25 +1,26 @@
 export const editProfileErrorMessages = {
   nickname: {
-    maxLength: "Nickname cannot be longer than 35 characters.",
+    maxLength: "El nombre de usuario no puede tener más de 35 caracteres.",
+    invalid: "El nombre de usuario no puede contener caracteres especiales.",
   },
   avatar: {
-    invalidType: "File must be PNG, JPG, JPEG or WEBP",
-    invalidSize: "File size cannot exceed 1MB",
+    invalidType: "El archivo debe ser PNG, JPG, JPEG o WEBP",
+    invalidSize: "El tamaño del archivo no puede superar los 1MB",
   },
   getMeError: {
-    title: "Error Retrieving User Information",
+    title: "Error al obtener la información del usuario",
     description:
-      "An error occurred while fetching the user details. Please try again later.",
+      "Ocurrió un error al recuperar los detalles del usuario. Por favor, intenta nuevamente más tarde.",
   },
 };
 
 export const editProfileToastMessages = {
   success: {
-    title: "Edit Profile Successful",
-    description: "Your profile has been updated successfully.",
+    title: "Perfil editado con éxito",
+    description: "Tu perfil ha sido actualizado correctamente.",
   },
   error: {
-    title: "Edit Profile Error",
-    description: "An error occurred while updating your profile.",
+    title: "Error al editar el perfil",
+    description: "Ocurrió un error al actualizar tu perfil.",
   },
 };
