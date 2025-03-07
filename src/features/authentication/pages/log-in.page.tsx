@@ -53,7 +53,7 @@ export function LogInPage(): JSX.Element {
             ?.message;
 
           if (userRegisteredButNotConfirmed) {
-            navigate("/confirm-user", {
+            navigate("/confirmar-usuario", {
               state: { username: values.username },
             });
           }

@@ -6,7 +6,7 @@ export function HomepageWhyTrackYourMood(): JSX.Element {
     <section className="pb-16 py-8 px-4">
       <div className="max-w-6xl mx-auto flex flex-col gap-8">
         <h2 className="text-4xl font-bold mb-12 text-center text-text-primary">
-          Why Track Your Mood?
+          ¿Por qué hacer un seguimiento de tu estado de ánimo?
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {whyTrackYourMoodData.map((item) => (

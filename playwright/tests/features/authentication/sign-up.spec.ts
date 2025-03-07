@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import {
   signUpErrorMessages,
   signUpToastMessages,
-} from "@/features/authentication/messages/sign-up.messages";
+} from "@/features/authentication/messages/registrarse.messages";
 import {
   successSignUpFixture,
   errorSignUpFixture,
   axiosErrorSignUpFixture,
-} from "../../../fixtures/features/authentication/sign-up.fixture";
+} from "../../../fixtures/features/authentication/registrarse.fixture";
 import { closeSidebarIfMobile, openSidebarIfMobile } from "utils";
 
 dotenv.config();
@@ -162,7 +162,7 @@ test.describe("features/authentication", () => {
   });
 
   test("should successfully submit when passwords match", async ({ page }) => {
-    await page.route("**/api/v1/auth/sign-up", (route) => {
+    await page.route("**/api/v1/auth/registrarse", (route) => {
       route.fulfill(successSignUpFixture);
     });
 
@@ -187,7 +187,7 @@ test.describe("features/authentication", () => {
   });
 
   test("should display error toast for failed sign up", async ({ page }) => {
-    await page.route("**/api/v1/auth/sign-up", (route) => {
+    await page.route("**/api/v1/auth/registrarse", (route) => {
       route.fulfill(errorSignUpFixture);
     });
 
@@ -211,7 +211,7 @@ test.describe("features/authentication", () => {
   test("should display error toast with axios message for failed sign up", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/sign-up", (route) => {
+    await page.route("**/api/v1/auth/registrarse", (route) => {
       route.fulfill(axiosErrorSignUpFixture);
     });
 

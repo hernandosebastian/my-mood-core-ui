@@ -1,18 +1,20 @@
 export const forgotPasswordErrorMessages = {
   username: {
-    maxLength: "Email cannot be longer than 50 characters.",
-    invalidEmail: "Email must be a valid email address.",
+    maxLength:
+      "El correo electrónico no puede ser más largo que 50 caracteres.",
+    invalidEmail: "El correo electrónico debe ser una dirección válida.",
   },
 };
 
 export const forgotPasswordToastMessages = {
   success: {
-    title: "Password Reset Requested",
-    description: "A password reset link has been sent to your email address.",
+    title: "Solicitud de Restablecimiento de Contraseña",
+    description:
+      "Se ha enviado un enlace para restablecer la contraseña a tu dirección de correo electrónico.",
   },
   error: {
-    title: "Password Reset Failed",
+    title: "Error al Solicitar el Restablecimiento de Contraseña",
     description:
-      "There was an error requesting the password reset. Please try again.",
+      "Hubo un error al solicitar el restablecimiento de la contraseña. Por favor, inténtalo nuevamente.",
   },
 };

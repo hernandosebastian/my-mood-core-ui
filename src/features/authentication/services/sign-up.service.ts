@@ -15,4 +15,3 @@ export const signUp = async (
 
   return response.data;
 };
-

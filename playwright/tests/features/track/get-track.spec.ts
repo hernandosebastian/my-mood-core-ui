@@ -31,7 +31,7 @@ test.describe("features/track - get", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+      "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
       (route) => {
         route.fulfill(errorGetTrackFixtureWithMessage);
       }
@@ -54,7 +54,7 @@ test.describe("features/track - get", () => {
     isMobile,
   }) => {
     await page.route(
-      "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+      "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
       (route) => {
         route.fulfill(errorGetTrackFixtureWithoutMessage);
       }

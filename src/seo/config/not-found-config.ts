@@ -1,5 +1,4 @@
 export const notFoundSeoConfig = {
-  title: "My Mood - Not Found",
-  description: "Page was not found.",
+  title: "My Mood - No encontrado",
+  description: "La página no fue encontrada.",
 };
-

@@ -16,26 +16,26 @@ const defaultProjects = [
     name: "chromium",
     use: { ...devices["Desktop Chrome"] },
   },
-  // {
-  //   name: "firefox",
-  //   use: { ...devices["Desktop Firefox"] },
-  // },
-  // {
-  //   name: "webkit",
-  //   use: { ...devices["Desktop Safari"] },
-  // },
-  // {
-  //   name: "Mobile Chrome (Pixel 5)",
-  //   use: { ...devices["Pixel 5"] },
-  // },
-  // {
-  //   name: "Mobile Safari (iPhone 12)",
-  //   use: { ...devices["iPhone 12"] },
-  // },
-  // {
-  //   name: "Microsoft Edge",
-  //   use: { ...devices["Desktop Edge"], channel: "msedge" },
-  // },
+  {
+    name: "firefox",
+    use: { ...devices["Desktop Firefox"] },
+  },
+  {
+    name: "webkit",
+    use: { ...devices["Desktop Safari"] },
+  },
+  {
+    name: "Mobile Chrome (Pixel 5)",
+    use: { ...devices["Pixel 5"] },
+  },
+  {
+    name: "Mobile Safari (iPhone 12)",
+    use: { ...devices["iPhone 12"] },
+  },
+  {
+    name: "Microsoft Edge",
+    use: { ...devices["Desktop Edge"], channel: "msedge" },
+  },
 ];
 
 export default defineConfig({
@@ -47,9 +47,9 @@ export default defineConfig({
   workers: 3,
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
-    trace: "retain-on-failure",
-    actionTimeout: 120_000,
-    navigationTimeout: 60_000,
+    trace: "on-first-retry",
+    actionTimeout: 60_000,
+    navigationTimeout: 30_000,
     launchOptions: {
       headless: true,
       slowMo: 50,

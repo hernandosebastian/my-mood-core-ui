@@ -1,27 +1,28 @@
 export const logInErrorMessages = {
   username: {
-    maxLength: "Email cannot be longer than 50 characters.",
-    invalidEmail: "Email must be a valid email address.",
+    maxLength:
+      "El correo electrónico no puede ser más largo que 50 caracteres.",
+    invalidEmail: "El correo electrónico debe ser una dirección válida.",
   },
   password: {
-    minLength: "Password must be at least 8 characters long.",
-    maxLength: "Password cannot be longer than 50 characters.",
-    uppercase: "Password must contain at least one uppercase letter.",
-    lowercase: "Password must contain at least one lowercase letter.",
-    number: "Password must contain at least one number.",
+    minLength: "La contraseña debe tener al menos 8 caracteres.",
+    maxLength: "La contraseña no puede ser más larga que 50 caracteres.",
+    uppercase: "La contraseña debe contener al menos una letra mayúscula.",
+    lowercase: "La contraseña debe contener al menos una letra minúscula.",
+    number: "La contraseña debe contener al menos un número.",
     specialChar:
-      "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
+      "La contraseña debe contener al menos un carácter especial (por ejemplo, !, @, #, $, etc.).",
   },
 };
 
 export const logInToastMessages = {
   success: {
-    title: "Login Successful",
-    description: "You have successfully logged in. Welcome back!",
+    title: "Inicio de sesión exitoso",
+    description: "Has iniciado sesión correctamente. ¡Bienvenido de nuevo!",
   },
   error: {
-    title: "Login Failed",
+    title: "Error al iniciar sesión",
     description:
-      "There was an error logging in. Please check your credentials and try again.",
+      "Hubo un error al iniciar sesión. Verifica tus credenciales e inténtalo nuevamente.",
   },
 };

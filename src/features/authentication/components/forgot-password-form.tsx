@@ -48,10 +48,10 @@ export function ForgotPasswordForm({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
-            Forgot Password
+            Olvidé mi Contraseña
           </h1>
           <p className="text-sm text-muted-foreground text-text-secondary">
-            Enter your email to reset your password.
+            Ingresa tu correo electrónico para restablecer tu contraseña.
           </p>
         </div>
 
@@ -62,20 +62,22 @@ export function ForgotPasswordForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Email</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Correo Electrónico
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="forgot-password-username-input"
-                      placeholder="Enter your email"
+                      placeholder="Ingresa tu correo electrónico"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the email associated with your account to reset your
-                    password.
+                    Ingresa el correo asociado a tu cuenta para restablecer tu
+                    contraseña.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -91,7 +93,7 @@ export function ForgotPasswordForm({
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Reset Password
+              Restablecer Contraseña
             </Button>
           </form>
         </Form>

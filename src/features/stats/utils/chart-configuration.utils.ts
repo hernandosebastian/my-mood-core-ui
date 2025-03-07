@@ -4,36 +4,35 @@ import { getMoodColor } from "@/features/track/utils";
 
 export const chartConfiguration = {
   [Mood.HAPPY]: {
-    label: "Happy",
+    label: "Feliz",
     color: getMoodColor(Mood.HAPPY),
   },
   [Mood.SAD]: {
-    label: "Sad",
+    label: "Triste",
     color: getMoodColor(Mood.SAD),
   },
   [Mood.ANGRY]: {
-    label: "Angry",
+    label: "Enojado",
     color: getMoodColor(Mood.ANGRY),
   },
   [Mood.BORED]: {
-    label: "Bored",
+    label: "Aburrido",
     color: getMoodColor(Mood.BORED),
   },
   [Mood.EXCITED]: {
-    label: "Excited",
+    label: "Emocionado",
     color: getMoodColor(Mood.EXCITED),
   },
   [Mood.ANXIOUS]: {
-    label: "Anxious",
+    label: "Ansioso",
     color: getMoodColor(Mood.ANXIOUS),
   },
   [Mood.CALM]: {
-    label: "Calm",
+    label: "Tranquilo",
     color: getMoodColor(Mood.CALM),
   },
   [Mood.CONFUSED]: {
-    label: "Confused",
+    label: "Confundido",
     color: getMoodColor(Mood.CONFUSED),
   },
 } satisfies ChartConfig;
-

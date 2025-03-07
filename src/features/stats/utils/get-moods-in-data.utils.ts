@@ -14,4 +14,3 @@ export const getMoodsInData = (lastThreeMonthsData: IMonthData[]): string[] => {
 
   return Array.from(moodsInData);
 };
-

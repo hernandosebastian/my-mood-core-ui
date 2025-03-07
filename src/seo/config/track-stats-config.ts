@@ -1,5 +1,5 @@
 export const trackStatsSeoConfig = {
-  title: "My Mood - Stats",
+  title: "My Mood - Estadísticas",
   description:
-    "Track and analyze your mood over time with My Mood. View your personal mood statistics, trends, and insights to better understand your mental health.",
+    "Registra y analiza tu estado de ánimo a lo largo del tiempo con My Mood. Visualiza tus estadísticas personales, tendencias e información para comprender mejor tu salud mental.",
 };

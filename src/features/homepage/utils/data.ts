@@ -3,27 +3,26 @@ import { BarChart2, Brain, TrendingUp, Users } from "lucide-react";
 export const whyTrackYourMoodData = [
   {
     icon: BarChart2,
-    title: "Visualize Your Mood",
+    title: "Visualiza tu estado de ánimo",
     description:
-      "Track your mood over time and see how it fluctuates with easy-to-read statistics and charts.",
+      "Haz un seguimiento de tu estado de ánimo a lo largo del tiempo y observa cómo fluctúa con estadísticas y gráficos fáciles de leer.",
   },
   {
     icon: Brain,
-    title: "Gain Self-Awareness",
+    title: "Desarrolla autoconciencia",
     description:
-      "Reflect on your daily emotional state and better understand the factors affecting your mood.",
+      "Reflexiona sobre tu estado emocional diario y comprende mejor los factores que afectan tu estado de ánimo.",
   },
   {
     icon: TrendingUp,
-    title: "Monitor Progress",
+    title: "Monitorea tu progreso",
     description:
-      "See trends in your mood over time and celebrate improvements or identify areas for attention.",
+      "Observa las tendencias en tu estado de ánimo a lo largo del tiempo y celebra las mejoras o identifica áreas que necesitan atención.",
   },
   {
     icon: Users,
-    title: "Personal Use Only",
+    title: "Uso personal únicamente",
     description:
-      "This tool is for personal tracking only. It does not provide professional advice or mental health support.",
+      "Esta herramienta es solo para el seguimiento personal. No ofrece asesoramiento profesional ni apoyo en salud mental.",
   },
 ];
-

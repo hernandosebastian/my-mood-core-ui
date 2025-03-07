@@ -16,15 +16,15 @@ import { Route } from "react-router-dom";
 
 const authRoutes = (
   <>
-    <Route path="/log-in" element={<LogInPage />} />
-    <Route path="/sign-up" element={<SignUpPage />} />
-    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+    <Route path="/iniciar-sesion" element={<LogInPage />} />
+    <Route path="/registrarse" element={<SignUpPage />} />
+    <Route path="/olvidar-contraseña" element={<ForgotPasswordPage />} />
     <Route
-      path="/resend-confirmation-code"
+      path="/reenviar-codigo-confirmacion"
       element={<ResendConfirmationCodePage />}
     />
-    <Route path="/confirm-password" element={<ConfirmPasswordPage />} />
-    <Route path="/confirm-user" element={<ConfirmUserPage />} />
+    <Route path="/confirmar-contraseña" element={<ConfirmPasswordPage />} />
+    <Route path="/confirmar-usuario" element={<ConfirmUserPage />} />
   </>
 );
 
@@ -33,15 +33,15 @@ export const RoutesList = (
     {authRoutes}
     <Route path="/" element={<Homepage />} />
     <Route
-      path="/track"
+      path="/registro"
       element={<AuthenticationGuard Component={TrackPage} />}
     />
     <Route
-      path="/stats"
+      path="/estadisticas"
       element={<AuthenticationGuard Component={StatsPage} />}
     />
     <Route
-      path="/edit-profile"
+      path="/editar-perfil"
       element={<AuthenticationGuard Component={EditProfilePage} />}
     />
     <Route path="*" element={<NotFoundPage />} />

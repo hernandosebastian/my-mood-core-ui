@@ -4,15 +4,15 @@ export function HomepageVideo(): JSX.Element {
       <video
         className="w-full h-full object-cover"
         src="/assets/homepage/homepage-example.mp4"
-        title="Mood tracking video experience"
+        title="Experiencia de seguimiento del estado de ánimo en video"
         loop
         muted
         autoPlay
         playsInline
         preload="metadata"
-        aria-label="Illustrative video showing mood tracking experience"
+        aria-label="Video ilustrativo mostrando la experiencia de seguimiento del estado de ánimo"
       >
-        Your browser does not support the video tag.
+        Tu navegador no soporta la etiqueta de video.
       </video>
     </div>
   );

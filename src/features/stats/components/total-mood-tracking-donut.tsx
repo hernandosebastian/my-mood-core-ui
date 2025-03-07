@@ -59,10 +59,11 @@ export function TotalMoodTrackingDonut({
     <Card className="flex flex-col w-full max-w-80 bg-background-secondary border-border-primary">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-text-primary">
-          Mood Tracking History
+          Historial de seguimiento del estado de ánimo
         </CardTitle>
         <CardDescription className="text-text-secondary">
-          All moods tracked across your account&apos;s history
+          Todos los estados de ánimo rastreados a lo largo del historial de tu
+          cuenta
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -98,7 +99,8 @@ export function TotalMoodTrackingDonut({
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="leading-none text-text-secondary">
-          Total days tracked across all moods in your account&apos;s history
+          Total de días rastreados en todos los estados de ánimo en el historial
+          de tu cuenta
         </div>
       </CardFooter>
     </Card>

@@ -53,7 +53,7 @@ export function ConfirmPasswordForm({
   };
 
   const handleRedirectToForgotPassword = (): void => {
-    navigate("/forgot-password");
+    navigate("/olvidar-contraseña");
   };
 
   return (
@@ -61,10 +61,11 @@ export function ConfirmPasswordForm({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
-            Confirm Password
+            Confirmar Contraseña
           </h1>
           <p className="text-sm text-muted-foreground text-text-secondary">
-            Enter your email and confirmation code to reset your password.
+            Ingresa tu correo electrónico y el código de confirmación para
+            restablecer tu contraseña.
           </p>
         </div>
 
@@ -75,19 +76,20 @@ export function ConfirmPasswordForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Email</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Correo electrónico
+                  </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="confirm-password-username-input"
-                      placeholder="Enter your email"
+                      placeholder="Ingresa tu correo electrónico"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the email associated with your account.
+                    Ingresa el correo electrónico asociado a tu cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -100,21 +102,20 @@ export function ConfirmPasswordForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-text-primary">
-                    New Password
+                    Nueva Contraseña
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="newPassword"
                       type="password"
                       data-testid="confirm-password-new-password-input"
-                      placeholder="Enter your new password"
+                      placeholder="Ingresa tu nueva contraseña"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter your new password.
+                    Ingresa tu nueva contraseña.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -127,21 +128,20 @@ export function ConfirmPasswordForm({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-text-primary">
-                    Confirm Password
+                    Confirmar Contraseña
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="confirmPassword"
                       type="password"
                       data-testid="confirm-password-confirm-password-input"
-                      placeholder="Confirm your new password"
+                      placeholder="Confirma tu nueva contraseña"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Confirm your new password.
+                    Confirma tu nueva contraseña.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -153,39 +153,22 @@ export function ConfirmPasswordForm({
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Code</FormLabel>
+                  <FormLabel className="text-text-primary">Código</FormLabel>
                   <FormControl data-testid="confirm-password-code-input">
                     <InputOTP maxLength={6} {...field}>
                       <InputOTPGroup>
-                        <InputOTPSlot
-                          index={0}
-                          className="border-text-secondary"
-                        />
-                        <InputOTPSlot
-                          index={1}
-                          className="border-text-secondary"
-                        />
-                        <InputOTPSlot
-                          index={2}
-                          className="border-text-secondary"
-                        />
-                        <InputOTPSlot
-                          index={3}
-                          className="border-text-secondary"
-                        />
-                        <InputOTPSlot
-                          index={4}
-                          className="border-text-secondary"
-                        />
-                        <InputOTPSlot
-                          index={5}
-                          className="border-text-secondary"
-                        />
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
                       </InputOTPGroup>
                     </InputOTP>
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the 6-digit code sent to your email.
+                    Ingresa el código de 6 dígitos enviado a tu correo
+                    electrónico.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -201,7 +184,7 @@ export function ConfirmPasswordForm({
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
-              Confirm Password
+              Confirmar Contraseña
             </Button>
           </form>
         </Form>
@@ -210,13 +193,13 @@ export function ConfirmPasswordForm({
           <button
             id="redirect-to-forgot-password"
             type="button"
-            className="text-text-secondary group hover:text-text-primary transition-colors"
+            className="text-text-secondary group hover:text-text-primary transition-colors bg-inherit hover:bg-inherit"
             onClick={handleRedirectToForgotPassword}
             data-testid="confirm-password-redirect-to-forgot-password-button"
           >
-            Didn&apos;t receive a code?{" "}
+            ¿No recibiste un código?{" "}
             <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
-              Request a new one
+              Solicita uno nuevo
             </span>
           </button>
         </div>

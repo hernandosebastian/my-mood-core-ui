@@ -10,6 +10,7 @@ import { calendarToastMessages } from "../messages/calendar.messages";
 import { useSidebar, useToast } from "@/hooks";
 import { getMoodColor } from "@/features/track/utils/get-mood-color";
 import { useGetAllTracksOnYear } from "@/features/track/hooks/use-get-all-tracks-on-year";
+import { es } from "date-fns/locale";
 
 export function DatePicker(): JSX.Element {
   const navigate = useNavigate();
@@ -129,7 +130,7 @@ export function DatePicker(): JSX.Element {
   const handleOnDayClick = (date: Date): void => {
     closeSidebarIfMobile();
     setSelectedDate(date);
-    navigate("/track");
+    navigate("/registro");
   };
 
   return (
@@ -146,6 +147,8 @@ export function DatePicker(): JSX.Element {
           fromDate={calendarYearStart}
           toDate={calendarYearEnd}
           defaultMonth={defaultMonthDate}
+          locale={es}
+          weekStartsOn={1}
         />
       </SidebarGroupContent>
     </SidebarGroup>

@@ -19,4 +19,3 @@ export const confirmPassword = async (
 
   return response.data;
 };
-

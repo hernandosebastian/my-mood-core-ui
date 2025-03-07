@@ -44,7 +44,7 @@ export function SignUpPage(): JSX.Element {
             signUpToastMessages.success.title,
             signUpToastMessages.success.description
           );
-          navigate("/confirm-user", {
+          navigate("/confirmar-usuario", {
             state: { username: values.username },
           });
         },

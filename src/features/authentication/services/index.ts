@@ -5,4 +5,3 @@ export { getMe } from "./get-me.service";
 export { logIn } from "./log-in.service";
 export { resendConfirmationCode } from "./resend-confirmation-code.service";
 export { signUp } from "./sign-up.service";
-

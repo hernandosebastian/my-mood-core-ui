@@ -8,4 +8,3 @@ export type { ILogInDto } from "./log-in.dto.interface";
 export type { ISignUpResponse } from "./sign-up-response.interface";
 export type { ISignUpDto } from "./sign-up.dto.interface";
 export type { ISuccessfulOperationResponse } from "./successful-operation-response.interface";
-

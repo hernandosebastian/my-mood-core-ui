@@ -22,10 +22,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import { getMoodColor } from "../utils";
+import { getMoodColor, translateMood } from "../utils";
 import { Track } from "../entity";
 import { Textarea } from "@/components/ui/textarea";
 import { TrackSubmitButton } from "./submit-track-button";
+import { es } from "date-fns/locale";
 
 interface IUpdateTrackFormProps {
   track: Track;
@@ -72,7 +73,7 @@ export function UpdateTrackForm({
             className="text-4xl font-semibold tracking-tight text-text-primary"
             data-testid="update-track-title"
           >
-            {format(date, "MMMM d, yyyy")}
+            {format(date, "d 'de' MMMM 'de' yyyy", { locale: es })}
           </h1>
         </div>
 
@@ -87,7 +88,7 @@ export function UpdateTrackForm({
               render={({ field }) => (
                 <FormItem className="lg:flex lg:flex-col lg:gap-4 lg:w-[60%] xl:w-[50%] text-center">
                   <FormLabel className="text-text-primary text-lg">
-                    How are you feeling today?
+                    ¿Cómo te sientes hoy?
                   </FormLabel>
                   <FormControl className="ml-auto mr-auto">
                     <Carousel
@@ -95,50 +96,54 @@ export function UpdateTrackForm({
                       className="w-full max-w-xs flex flex-col gap-4"
                     >
                       <CarouselContent>
-                        {Object.values(Mood).map((mood) => (
-                          <CarouselItem key={mood.toString()}>
-                            <div className="border-border-primary">
-                              <Card
-                                style={{
-                                  borderColor:
-                                    field.value === mood
-                                      ? getMoodColor(mood)
-                                      : "inherit",
-                                }}
-                                className="bg-background-primary"
-                              >
-                                <CardContent className="flex aspect-square items-center justify-center bg-background-secondary border-border-primary rounded-xl">
-                                  <button
-                                    type="button"
-                                    onClick={() => field.onChange(mood)}
-                                    className="w-full h-full p-6"
-                                    data-testid={`update-track-${mood}-button`}
-                                    disabled={isLoading}
-                                  >
-                                    <img
-                                      src={`/assets/mood/${mood}.png`}
-                                      alt={mood}
-                                      className="w-full h-full object-contain"
-                                    />
-                                  </button>
-                                </CardContent>
-                              </Card>
-                              <div className="text-center mt-2">
-                                <span
-                                  className="text-base font-medium"
+                        {Object.values(Mood).map((mood) => {
+                          const translatedMood = translateMood(mood);
+
+                          return (
+                            <CarouselItem key={mood.toString()}>
+                              <div className="border-border-primary">
+                                <Card
                                   style={{
-                                    color:
+                                    borderColor:
                                       field.value === mood
                                         ? getMoodColor(mood)
                                         : "inherit",
                                   }}
+                                  className="bg-background-primary"
                                 >
-                                  {mood}
-                                </span>
+                                  <CardContent className="flex aspect-square items-center justify-center bg-background-secondary border-border-primary rounded-xl">
+                                    <button
+                                      type="button"
+                                      onClick={() => field.onChange(mood)}
+                                      className="w-full h-full p-6"
+                                      data-testid={`update-track-${mood}-button`}
+                                      disabled={isLoading}
+                                    >
+                                      <img
+                                        src={`/assets/mood/${translatedMood}.png`}
+                                        alt={mood}
+                                        className="w-full h-full object-contain"
+                                      />
+                                    </button>
+                                  </CardContent>
+                                </Card>
+                                <div className="text-center mt-2">
+                                  <span
+                                    className="text-base font-medium"
+                                    style={{
+                                      color:
+                                        field.value === mood
+                                          ? getMoodColor(mood)
+                                          : "inherit",
+                                    }}
+                                  >
+                                    {translatedMood}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </CarouselItem>
-                        ))}
+                            </CarouselItem>
+                          );
+                        })}
                       </CarouselContent>
                       <div className="flex w-[35%] justify-between ml-auto mr-auto">
                         <CarouselPrevious
@@ -167,14 +172,13 @@ export function UpdateTrackForm({
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-6 lg:w-[40%] xl:w-[50%] !mt-0 text-center lg:h-fit">
                   <FormLabel className="text-text-primary text-lg">
-                    Write about your day
+                    Escribe sobre tu día
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       id="description"
-                      placeholder="Share the highlights of your day! What made you smile? What did you learn?"
+                      placeholder="¡Comparte lo más destacado de tu día! ¿Qué te hizo sonreír? ¿Qué aprendiste?"
                       data-testid="update-track-description-input"
-                      className="text-text-primary"
                       {...field}
                       disabled={isLoading}
                     />

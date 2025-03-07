@@ -22,4 +22,3 @@ export const resendConfirmationCode = async (
 
   return response.data;
 };
-

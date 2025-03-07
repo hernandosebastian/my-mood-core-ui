@@ -29,7 +29,7 @@ test.beforeEach(async ({ page, isMobile }) => {
   await logIn({ page, isMobile, isSidebarOpen: false });
 
   await page.route(
-    "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
     (route) => {
       route.fulfill({
         json: [],
@@ -59,14 +59,14 @@ test.describe("features/track - create", () => {
 
     await createTrackTitleSadInput.click();
     await createTrackDescriptionInput.click();
-    await createTrackDescriptionInput.fill("x".repeat(201));
+    await createTrackDescriptionInput.fill("x".repeat(1001));
     await createTrackDoneButton.click();
 
     await expect(descriptionErrorMessage).toBeVisible();
   });
 
   test("should create successfully track", async ({ page }) => {
-    await page.route("**/api/v1/track", (route) => {
+    await page.route("**/api/v1/registro", (route) => {
       route.fulfill(successCreateTrackFixture);
     });
 
@@ -102,7 +102,7 @@ test.describe("features/track - create", () => {
   test("should display error message from body if there is one", async ({
     page,
   }) => {
-    await page.route("**/api/v1/track", (route) => {
+    await page.route("**/api/v1/registro", (route) => {
       route.fulfill(errorCreateTrackFixtureWithMessage);
     });
 
@@ -132,7 +132,7 @@ test.describe("features/track - create", () => {
   test("should display default error message if there is no error message in the body", async ({
     page,
   }) => {
-    await page.route("**/api/v1/track", (route) => {
+    await page.route("**/api/v1/registro", (route) => {
       route.fulfill(errorCreateTrackFixtureWithoutMessage);
     });
 

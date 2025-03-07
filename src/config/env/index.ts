@@ -18,7 +18,6 @@ interface GithubProfilesConfig {
   ownerGithubProfile: string;
   ownerGithubName: string;
   shadcnGithubProfile: string;
-  multiavatarGithubProfile: string;
 }
 
 interface S3Config {
@@ -51,7 +50,6 @@ export const env: EnvConfig = {
     ownerGithubProfile: import.meta.env.VITE_OWNER_GITHUB_PROFILE,
     ownerGithubName: import.meta.env.VITE_OWNER_GITHUB_NAME,
     shadcnGithubProfile: import.meta.env.VITE_SHADCN_GITHUB_PROFILE,
-    multiavatarGithubProfile: import.meta.env.VITE_MULTIAVATAR_GITHUB_PROFILE,
   },
   s3: {
     baseUrl: import.meta.env.VITE_AWS_S3_BASE_URL,

@@ -41,11 +41,11 @@ export function LogInForm({
   };
 
   const handleRedirectToSignUp = (): void => {
-    navigate("/sign-up");
+    navigate("/registrarse");
   };
 
   const handleRedirectToForgotPassword = (): void => {
-    navigate("/forgot-password");
+    navigate("/olvidar-contraseña");
   };
 
   return (
@@ -53,10 +53,10 @@ export function LogInForm({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight text-text-primary">
-            Log In
+            Iniciar Sesión
           </h1>
           <p className="text-sm text-muted-foreground text-text-secondary">
-            Enter your email and password to access your account
+            Ingresa tu correo electrónico y contraseña para acceder a tu cuenta
           </p>
         </div>
 
@@ -67,19 +67,20 @@ export function LogInForm({
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Email</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Correo Electrónico
+                  </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
-                      placeholder="Enter your email"
+                      placeholder="Ingresa tu correo electrónico"
                       data-testid="log-in-username-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the email to access your account.
+                    Ingresa el correo electrónico para acceder a tu cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -91,20 +92,21 @@ export function LogInForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-text-primary">Password</FormLabel>
+                  <FormLabel className="text-text-primary">
+                    Contraseña
+                  </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="password"
                       type="password"
-                      placeholder="Enter your password"
+                      placeholder="Ingresa tu contraseña"
                       data-testid="log-in-password-input"
                       {...field}
                       disabled={isLoading}
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
-                    Enter the password to access your account.
+                    Ingresa la contraseña para acceder a tu cuenta.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -117,7 +119,7 @@ export function LogInForm({
                 onClick={handleRedirectToForgotPassword}
                 className="text-sm text-text-secondary hover:text-accent-primary transition-colors"
               >
-                Forgot Password?
+                ¿Olvidaste tu contraseña?
               </button>
             </div>
 
@@ -131,7 +133,7 @@ export function LogInForm({
               {isLoading ? (
                 <Icons.Spinner className="mr-2 h-4 w-4 animate-spin text-text-primary" />
               ) : null}
-              Log In
+              Iniciar Sesión
             </Button>
           </form>
         </Form>
@@ -144,9 +146,9 @@ export function LogInForm({
             onClick={handleRedirectToSignUp}
             data-testid="log-in-redirect-to-sign-up-button"
           >
-            Don&apos;t have an account?{" "}
+            ¿No tienes cuenta?{" "}
             <span className="underline underline-offset-4 text-text-secondary group-hover:text-accent-primary transition-colors">
-              Sign Up
+              Regístrate
             </span>
           </button>
         </div>

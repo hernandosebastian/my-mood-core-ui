@@ -1,20 +1,19 @@
 export const createTrackErrorMessages = {
   title: {
-    moodType: "Please select a mood type.",
+    moodType: "Por favor, selecciona un tipo de estado de ánimo.",
   },
   description: {
-    maxLength: "Description cannot be longer than 200 characters.",
+    maxLength: "La descripción no puede exceder los 1000 caracteres.",
   },
 };
 
 export const createTrackToastMessages = {
   success: {
-    title: "Create Track Successful",
-    description: "Your track has been created successfully.",
+    title: "Registro de estado de ánimo exitoso",
+    description: "Tu registro de estado de ánimo ha sido realizado con éxito.",
   },
   error: {
-    title: "Create Track Error",
-    description: "An error occurred while creating your track.",
+    title: "Error al registrar el estado de ánimo",
+    description: "Ocurrió un error al registrar tu estado de ánimo.",
   },
 };
-

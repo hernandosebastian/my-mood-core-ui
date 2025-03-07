@@ -1,32 +1,32 @@
 export const authenticationSeoConfig = {
   confirmPassword: {
-    title: "My Mood - Confirm Password",
-    description: "Set your new password for My Mood and regain full access.",
+    title: "My Mood - Confirmar contraseña",
+    description:
+      "Establece tu nueva contraseña para My Mood y recupera el acceso completo.",
   },
   confirmUser: {
-    title: "My Mood - Confirm Your Account",
+    title: "My Mood - Confirma tu cuenta",
     description:
-      "Confirm your account to complete registration and start using My Mood.",
+      "Confirma tu cuenta para completar el registro y comenzar a usar My Mood.",
   },
   forgotPassword: {
-    title: "My Mood - Forgot Password",
+    title: "My Mood - Olvidé mi contraseña",
     description:
-      "Reset your password and regain access to your My Mood account.",
+      "Restablece tu contraseña y recupera el acceso a tu cuenta de My Mood.",
   },
   logIn: {
-    title: "My Mood - Log In",
+    title: "My Mood - Iniciar sesión",
     description:
-      "Log in to your My Mood account to track your mood and well-being.",
+      "Inicia sesión en tu cuenta de My Mood para registrar tu estado de ánimo y bienestar.",
   },
   resendConfirmationCode: {
-    title: "My Mood - Resend Confirmation Code",
+    title: "My Mood - Reenviar código de confirmación",
     description:
-      "Resend the confirmation code to your My Mood account to complete the registration process.",
+      "Reenvía el código de confirmación a tu cuenta de My Mood para completar el proceso de registro.",
   },
   signUp: {
-    title: "My Mood - Sign Up",
+    title: "My Mood - Registrarse",
     description:
-      "Create an account on My Mood to track and improve your mood and well-being.",
+      "Crea una cuenta en My Mood para registrar y mejorar tu estado de ánimo y bienestar.",
   },
 };
-

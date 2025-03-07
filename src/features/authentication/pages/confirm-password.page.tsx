@@ -47,7 +47,7 @@ export function ConfirmPasswordPage(): JSX.Element {
             confirmPasswordToastMessages.success.title,
             confirmPasswordToastMessages.success.description
           );
-          navigate("/log-in", {
+          navigate("/iniciar-sesion", {
             state: { username: values.username },
           });
         },

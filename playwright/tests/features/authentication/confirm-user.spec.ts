@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import {
   confirmUserErrorMessages,
   confirmUserToastMessages,
-} from "@/features/authentication/messages/confirm-user.messages";
+} from "@/features/authentication/messages/confirmar-usuario.messages";
 import {
   successConfirmUserFixture,
   errorConfirmUserFixture,
   axiosErrorConfirmUserFixture,
-} from "../../../fixtures/features/authentication/confirm-user.fixture";
+} from "../../../fixtures/features/authentication/confirmar-usuario.fixture";
 
 dotenv.config();
 
@@ -74,7 +74,7 @@ test.describe("features/authentication", () => {
   test("should successfully submit the form and show success message", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirm-user", (route) => {
+    await page.route("**/api/v1/auth/confirmar-usuario", (route) => {
       route.fulfill(successConfirmUserFixture);
     });
 
@@ -103,7 +103,7 @@ test.describe("features/authentication", () => {
   test("should display error toast for failed confirmation", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirm-user", (route) => {
+    await page.route("**/api/v1/auth/confirmar-usuario", (route) => {
       route.fulfill(errorConfirmUserFixture);
     });
 
@@ -126,7 +126,7 @@ test.describe("features/authentication", () => {
   test("should display error toast with axios message for failed confirmation", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirm-user", (route) => {
+    await page.route("**/api/v1/auth/confirmar-usuario", (route) => {
       route.fulfill(axiosErrorConfirmUserFixture);
     });
 

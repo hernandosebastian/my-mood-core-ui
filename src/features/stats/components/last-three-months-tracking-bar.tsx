@@ -37,7 +37,7 @@ export function LastThreeMonthsMoodTrackingBar({
     <Card className="w-full max-w-[1000px] bg-background-secondary border-border-primary">
       <CardHeader>
         <CardTitle className="text-text-primary">
-          Mood Tracking - Last 3 Months
+          Seguimiento del estado de ánimo - Últimos 3 meses
         </CardTitle>
         {hasActivity && (
           <CardDescription
@@ -91,7 +91,7 @@ export function LastThreeMonthsMoodTrackingBar({
             data-testid="last-three-months-mood-distribution"
           >
             <p className="text-text-secondary">
-              Mood distribution over the last 3 months
+              Distribución de estados de ánimo durante los últimos 3 meses
             </p>
           </div>
         ) : (
@@ -100,9 +100,11 @@ export function LastThreeMonthsMoodTrackingBar({
             data-testid="last-three-months-mood-no-activity"
           >
             <p className="text-text-secondary">
-              No activity over the last 3 months
+              No hay actividad en los últimos 3 meses
             </p>
-            <p className="text-text-secondary">Start tracking your moods</p>
+            <p className="text-text-secondary">
+              Comienza a rastrear tus estados de ánimo
+            </p>
           </div>
         )}
       </CardFooter>

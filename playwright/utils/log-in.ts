@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { successLoginFixture } from "../fixtures/features/authentication/log-in.fixture";
+import { successLoginFixture } from "../fixtures/features/authentication/iniciar-sesion.fixture";
 import { successGetMeFixture } from "../fixtures/features/authentication/get-me.fixture";
 import { openSidebarIfMobile } from "./open-sidebar-if-mobile";
 import { closeSidebarIfMobile } from "./close-sidebar-if-mobile";

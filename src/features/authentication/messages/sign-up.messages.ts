@@ -1,34 +1,36 @@
 export const signUpErrorMessages = {
   username: {
-    maxLength: "Email cannot be longer than 50 characters.",
-    invalidEmail: "Email must be a valid email address.",
+    maxLength:
+      "El correo electrónico no puede ser más largo que 50 caracteres.",
+    invalidEmail: "El correo electrónico debe ser una dirección válida.",
   },
   nickname: {
-    maxLength: "Nickname cannot be longer than 35 characters.",
-    invalid: "Nickname cannot contain spaces and special characters",
+    maxLength: "El apodo no puede ser más largo que 35 caracteres.",
+    invalid: "El apodo no puede contener espacios ni caracteres especiales.",
   },
   password: {
-    minLength: "Password must be at least 8 characters long.",
-    maxLength: "Password cannot be longer than 50 characters.",
-    uppercase: "Password must contain at least one uppercase letter.",
-    lowercase: "Password must contain at least one lowercase letter.",
-    number: "Password must contain at least one number.",
+    minLength: "La contraseña debe tener al menos 8 caracteres.",
+    maxLength: "La contraseña no puede ser más larga que 50 caracteres.",
+    uppercase: "La contraseña debe contener al menos una letra mayúscula.",
+    lowercase: "La contraseña debe contener al menos una letra minúscula.",
+    number: "La contraseña debe contener al menos un número.",
     specialChar:
-      "Password must contain at least one special character (e.g., !, @, #, $, etc.).",
+      "La contraseña debe contener al menos un carácter especial (por ejemplo, !, @, #, $, etc.).",
   },
   confirmPassword: {
-    mismatch: "Passwords do not match",
+    mismatch: "Las contraseñas no coinciden",
   },
 };
 
 export const signUpToastMessages = {
   success: {
-    title: "Sign Up Successful",
+    title: "Registro Exitoso",
     description:
-      "Your account has been created successfully. You can now log in.",
+      "Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión.",
   },
   error: {
-    title: "Sign Up Failed",
-    description: "There was an error signing up. Please try again.",
+    title: "Error en el Registro",
+    description:
+      "Hubo un error al registrarte. Por favor, inténtalo nuevamente.",
   },
 };

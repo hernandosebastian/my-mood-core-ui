@@ -25,7 +25,7 @@ export function TrackSubmitButton({
       {isLoading ? (
         <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
       ) : null}
-      Done
+      Listo
     </Button>
   );
 }

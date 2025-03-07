@@ -1,35 +1,38 @@
 export const confirmPasswordErrorMessages = {
   username: {
-    maxLength: "Email cannot be longer than 50 characters.",
-    invalidEmail: "Email must be a valid email address.",
+    maxLength:
+      "El correo electrónico no puede ser más largo que 50 caracteres.",
+    invalidEmail: "El correo electrónico debe ser una dirección válida.",
   },
   newPassword: {
-    minLength: "New password must be at least 8 characters long.",
-    maxLength: "New password cannot be longer than 50 characters.",
-    uppercase: "New password must contain at least one uppercase letter.",
-    lowercase: "New password must contain at least one lowercase letter.",
-    number: "New password must contain at least one number.",
+    minLength: "La nueva contraseña debe tener al menos 8 caracteres.",
+    maxLength: "La nueva contraseña no puede ser más larga que 50 caracteres.",
+    uppercase:
+      "La nueva contraseña debe contener al menos una letra mayúscula.",
+    lowercase:
+      "La nueva contraseña debe contener al menos una letra minúscula.",
+    number: "La nueva contraseña debe contener al menos un número.",
     specialChar:
-      "New password must contain at least one special character (e.g., !, @, #, $, etc.).",
+      "La nueva contraseña debe contener al menos un carácter especial (por ejemplo, !, @, #, $, etc.).",
   },
   confirmPassword: {
-    mismatch: "Passwords do not match",
+    mismatch: "Las contraseñas no coinciden.",
   },
   code: {
-    length: "Code must be exactly 6 digits.",
-    digitsOnly: "Code must only contain digits.",
+    length: "El código debe tener exactamente 6 dígitos.",
+    digitsOnly: "El código debe contener solo dígitos.",
   },
 };
 
 export const confirmPasswordToastMessages = {
   success: {
-    title: "Password Confirmed",
+    title: "Contraseña Confirmada",
     description:
-      "Your password has been successfully confirmed. You can now log in.",
+      "Tu contraseña ha sido confirmada con éxito. Ahora puedes iniciar sesión.",
   },
   error: {
-    title: "Confirmation Failed",
+    title: "Error al Confirmar",
     description:
-      "There was an error confirming your password. Please try again.",
+      "Ocurrió un error al confirmar tu contraseña. Por favor, inténtalo nuevamente.",
   },
 };

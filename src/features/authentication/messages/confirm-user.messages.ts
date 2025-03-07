@@ -1,21 +1,23 @@
 export const confirmUserErrorMessages = {
   username: {
-    maxLength: "Email cannot be longer than 50 characters.",
-    invalidEmail: "Email must be a valid email address.",
+    maxLength:
+      "El correo electrónico no puede ser más largo que 50 caracteres.",
+    invalidEmail: "El correo electrónico debe ser una dirección válida.",
   },
   code: {
-    length: "Code must be exactly 6 digits.",
-    digitsOnly: "Code must only contain digits.",
+    length: "El código debe tener exactamente 6 dígitos.",
+    digitsOnly: "El código debe contener solo dígitos.",
   },
 };
 
 export const confirmUserToastMessages = {
   success: {
-    title: "User Confirmed",
-    description: "The user has been successfully confirmed.",
+    title: "Usuario Confirmado",
+    description: "El usuario ha sido confirmado con éxito.",
   },
   error: {
-    title: "User Confirmation Failed",
-    description: "There was an error confirming the user. Please try again.",
+    title: "Error al Confirmar el Usuario",
+    description:
+      "Hubo un error al confirmar el usuario. Por favor, inténtalo nuevamente.",
   },
 };

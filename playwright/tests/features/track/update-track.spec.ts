@@ -30,7 +30,7 @@ test.beforeEach(async ({ page, isMobile }) => {
   await logIn({ page, isMobile, isSidebarOpen: false });
 
   await page.route(
-    "**/api/v1/track/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
     (route) => {
       route.fulfill(successGetTrackFixture);
     }
@@ -62,14 +62,14 @@ test.describe("features/track - update", () => {
     await updateTrackPreviousTitleInput.click();
     await createTrackTitleHappyInput.click();
     await updateTrackDescriptionInput.click();
-    await updateTrackDescriptionInput.fill("x".repeat(201));
+    await updateTrackDescriptionInput.fill("x".repeat(1001));
     await updateTrackDoneButton.click();
 
     await expect(descriptionErrorMessage).toBeVisible();
   });
 
   test("should update successfully track", async ({ page }) => {
-    await page.route("**/api/v1/track/1", (route) => {
+    await page.route("**/api/v1/registro/1", (route) => {
       if (route.request().method() === "PATCH") {
         route.fulfill(successUpdateTrackFixture);
       }
@@ -115,7 +115,7 @@ test.describe("features/track - update", () => {
   test("should display error message from body if there is one", async ({
     page,
   }) => {
-    await page.route("**/api/v1/track/1", (route) => {
+    await page.route("**/api/v1/registro/1", (route) => {
       if (route.request().method() === "PATCH") {
         route.fulfill(errorUpdateTrackFixtureWithMessage);
       }
@@ -148,7 +148,7 @@ test.describe("features/track - update", () => {
   test("should display default error message if there is no error message in the body", async ({
     page,
   }) => {
-    await page.route("**/api/v1/track/1", (route) => {
+    await page.route("**/api/v1/registro/1", (route) => {
       if (route.request().method() === "PATCH") {
         route.fulfill(errorUpdateTrackFixtureWithoutMessage);
       }
