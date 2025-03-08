@@ -39,7 +39,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
               <button
                 onClick={handleLoginClick}
                 data-testid="sidebar-log-in-button"
-                className="bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
+                className="!bg-background-secondary border-border-primary border hover:!bg-background-primary transition-colors"
               >
                 <LogIn className="h-5 w-5" />
                 <span className="text-base">Iniciar sesión</span>
@@ -55,7 +55,7 @@ export function SidebarContentUserAnonymous(): JSX.Element {
               <button
                 onClick={handleSignUpClick}
                 data-testid="sidebar-sign-up-button"
-                className="bg-background-secondary border-border-primary border hover:bg-background-primary transition-colors"
+                className="!bg-background-secondary border-border-primary border hover:!bg-background-primary transition-colors"
               >
                 <UserPlus className="h-5 w-5" />
                 <span className="text-base">Registrarse</span>
