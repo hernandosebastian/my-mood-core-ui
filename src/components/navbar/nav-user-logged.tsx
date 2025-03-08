@@ -68,7 +68,7 @@ export function NavUserLogged({
       <DropdownMenuTrigger asChild>
         <SidebarMenuButton
           size="lg"
-          className="data-[state=open]:bg-background-secondary bg-inherit hover:bg-inherit text-text-secondary"
+          className="data-[state=open]:!bg-background-secondary !bg-background-primary hover:!bg-background-secondary text-text-secondary"
           data-testid="sidebar-open-menu-button"
         >
           {renderAvatar()}
