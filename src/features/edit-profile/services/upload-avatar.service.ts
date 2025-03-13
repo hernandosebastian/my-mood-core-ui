@@ -1,10 +1,10 @@
 import axios from "axios";
 import { env } from "@/config/env";
 import { IGetMeResponse } from "@/features/authentication/dto";
-import { getItem, StorageKeys } from "@/services/local-storage";
+import { getCognitoToken } from "@/services/cookies";
 
 export const uploadAvatar = async (file: File): Promise<IGetMeResponse> => {
-  const authToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
+  const authToken = getCognitoToken();
   const formData = new FormData();
   formData.append("avatar", file);
 

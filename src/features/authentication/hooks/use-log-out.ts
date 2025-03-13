@@ -1,5 +1,5 @@
 import { useQueryClient } from "react-query";
-import { removeItem, StorageKeys } from "@/services/local-storage";
+import { removeItem, StorageKeys } from "@/services/cookies";
 import { getMeKeys } from "./use-get-me";
 
 export const useLogOut = (): (() => void) => {

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryResult, useQueryClient } from "react-query";
 import { getMe } from "../services";
 import { IGetMeResponse } from "../dto";
-import { getItem, removeItem, StorageKeys } from "@/services/local-storage";
+import { getCognitoToken, removeItem, StorageKeys } from "@/services/cookies";
 import { mapToUser } from "../mapper";
 import { User } from "../entity";
 import { AxiosError } from "axios";
@@ -13,7 +13,7 @@ const RETRY_DELAY = (attemptIndex: number): number =>
 
 export const useGetMe = (): UseQueryResult<{ user: User }, AxiosError> => {
   const queryClient = useQueryClient();
-  const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
+  const accessToken = getCognitoToken();
 
   return useQuery<IGetMeResponse, AxiosError, { user: User }>({
     queryKey: getMeKeys(),

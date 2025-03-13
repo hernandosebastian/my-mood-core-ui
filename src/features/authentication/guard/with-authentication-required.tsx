@@ -1,7 +1,7 @@
 import { ComponentType, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetMe } from "../hooks";
-import { getItem, removeItem, StorageKeys } from "@/services/local-storage";
+import { getCognitoToken, removeItem, StorageKeys } from "@/services/cookies";
 import { useQueryClient } from "react-query";
 import { getMeKeys } from "../hooks/use-get-me";
 
@@ -18,7 +18,7 @@ export const withAuthenticationRequired = (
     const { onRedirecting } = options;
 
     const { data, isLoading } = useGetMe();
-    const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
+    const accessToken = getCognitoToken();
     const queryClient = useQueryClient();
 
     useEffect(() => {
@@ -34,4 +34,3 @@ export const withAuthenticationRequired = (
     return data?.user && accessToken ? <Component /> : onRedirecting();
   };
 };
-

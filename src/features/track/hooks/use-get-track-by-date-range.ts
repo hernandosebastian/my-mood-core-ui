@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "react-query";
-import { getItem, StorageKeys } from "@/services/local-storage";
+import { getCognitoToken } from "@/services/cookies";
 import { Track } from "../entity";
 import { AxiosError } from "axios";
 import { IGetTrackByDateRangeDto, ITrack } from "../interfaces";
@@ -21,7 +21,7 @@ export const useGetTrackByDateRange = ({
   Track[] | undefined,
   AxiosError
 > => {
-  const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
+  const accessToken = getCognitoToken();
 
   return useQuery<ITrack[], AxiosError, Track[] | undefined>({
     queryKey: tracksKeys.list(month, year),
@@ -32,4 +32,3 @@ export const useGetTrackByDateRange = ({
     },
   });
 };
-
