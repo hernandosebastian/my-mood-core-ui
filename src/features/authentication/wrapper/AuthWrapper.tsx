@@ -1,22 +1,20 @@
-import { useEffect } from "react";
-
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { ReactNode } from "react";
 import { useRefreshToken } from "../hooks/use-refresh-token";
 
 export function AuthWrapper({ children }: { children: ReactNode }): ReactNode {
-  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const refreshToken = useRefreshToken();
+  const hasAttemptedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    if (!isRefreshing) {
-      setIsRefreshing(true);
-      refreshToken().finally(() => {
-        setIsRefreshing(false);
+    if (!hasAttemptedRef.current) {
+      hasAttemptedRef.current = true;
+      refreshToken().catch(() => {
+        hasAttemptedRef.current = false;
       });
     }
-  }, [refreshToken, isRefreshing]);
+  }, [refreshToken]);
 
   return <>{children}</>;
 }
