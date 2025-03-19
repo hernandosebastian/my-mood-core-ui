@@ -30,8 +30,17 @@ export function useRefreshToken() {
       const refreshToken = getCookie(StoredCookies.REFRESH_TOKEN) || "";
 
       if (!username || !refreshToken) {
-        handleSessionExpired();
-        throw new Error("Tu sesión expiro, por favor inicia sesión de nuevo");
+        const isProtectedRoute = [
+          "/registro",
+          "/estadisticas",
+          "/editar-perfil",
+        ].includes(window.location.pathname);
+
+        if (isProtectedRoute) {
+          handleSessionExpired();
+          throw new Error("Tu sesión expiro, por favor inicia sesión de nuevo");
+        }
+        return;
       }
 
       const shouldRefreshToken = !accessToken;
