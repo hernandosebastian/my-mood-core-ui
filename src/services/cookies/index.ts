@@ -6,12 +6,12 @@ export enum StoredCookies {
   REFRESH_TOKEN = "refreshToken",
 }
 
-const TWO_MINUTES_IN_MILLISECONDS = 1000 * 60 * 2;
+const ONE_HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
 
 const cookies = new Cookies({ path: "/" });
 
 export function setUsernameCookie(username: string): void {
-  const expires = new Date(Date.now() + TWO_MINUTES_IN_MILLISECONDS);
+  const expires = new Date(Date.now() + ONE_HOUR_IN_MILLISECONDS);
   cookies.set(StoredCookies.USERNAME, username, {
     expires,
     path: "/",
@@ -20,7 +20,7 @@ export function setUsernameCookie(username: string): void {
 
 export function setRefreshTokenCookie(refreshToken: string): void {
   cookies.set(StoredCookies.REFRESH_TOKEN, refreshToken, {
-    expires: new Date(Date.now() + TWO_MINUTES_IN_MILLISECONDS),
+    expires: new Date(Date.now() + ONE_HOUR_IN_MILLISECONDS),
     path: "/",
   });
 }
