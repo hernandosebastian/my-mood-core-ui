@@ -1,5 +1,5 @@
 import { useQuery, UseQueryResult } from "react-query";
-import { getCognitoToken } from "@/services/cookies";
+import { getCookie, StoredCookies } from "@/services/cookies";
 import { Track } from "../entity";
 import { AxiosError } from "axios";
 import { ITrack } from "../interfaces";
@@ -17,7 +17,7 @@ export const useGetAllTracksOnYear = ({
   Track[] | undefined,
   AxiosError
 > => {
-  const accessToken = getCognitoToken();
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN);
 
   const startDate = new Date(Number(year), 0, 1).toISOString();
   const endDate = new Date(Number(year), 11, 31).toISOString();

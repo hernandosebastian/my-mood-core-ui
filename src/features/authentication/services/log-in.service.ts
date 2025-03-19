@@ -1,16 +1,9 @@
-import axios from "axios";
 import { env } from "@/config/env";
 import { ILogInDto, ILogInResponse } from "../dto";
+import { apiService } from "@/config/requests/api-service";
 
 export const logIn = async (logInDto: ILogInDto): Promise<ILogInResponse> => {
   const apiUrl = `${env.coreApi.baseUrl}/auth/sign-in`;
 
-  const response = await axios.post<ILogInResponse>(apiUrl, logInDto, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  return response.data;
+  return apiService.post<ILogInResponse>(apiUrl, logInDto);
 };
-

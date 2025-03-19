@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useGetMe } from "@/features/authentication/hooks";
+import { getCookie, StoredCookies } from "@/services/cookies";
 
 export function HomepageHero(): JSX.Element {
-  const getMeQuery = useGetMe();
-  const isLoggedIn = getMeQuery.data?.user !== undefined;
+  const username = getCookie(StoredCookies.USERNAME) || "";
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+  const isLoggedIn = username && accessToken;
 
   return (
     <div className="my-8 text-center flex flex-col gap-8">
