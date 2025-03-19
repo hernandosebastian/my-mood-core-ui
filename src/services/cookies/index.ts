@@ -7,6 +7,7 @@ export enum StoredCookies {
 }
 
 const THIRTY_DAYS_IN_MILLISECONDS = 1000 * 60 * 60 * 24 * 30;
+const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
 
 const cookies = new Cookies({ path: "/" });
 
@@ -27,6 +28,7 @@ export function setRefreshTokenCookie(refreshToken: string): void {
 
 export function setAccessTokenCookie(accessToken: string): void {
   cookies.set(StoredCookies.ACCESS_TOKEN, accessToken, {
+    expires: new Date(Date.now() + ONE_DAY_IN_MILLISECONDS),
     path: "/",
   });
 }
