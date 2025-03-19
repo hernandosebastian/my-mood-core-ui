@@ -24,18 +24,12 @@ interface S3Config {
   baseUrl: string;
 }
 
-interface CookiesConfig {
-  secure: boolean;
-  sameSite: "strict" | "Strict" | "lax" | "Lax" | "none" | "None" | undefined;
-}
-
 interface EnvConfig {
   app: AppConfig;
   coreApi: CoreApiConfig;
   cognito: CognitoConfig;
   githubProfiles: GithubProfilesConfig;
   s3: S3Config;
-  cookies: CookiesConfig;
 }
 
 export const env: EnvConfig = {
@@ -59,9 +53,5 @@ export const env: EnvConfig = {
   },
   s3: {
     baseUrl: import.meta.env.VITE_AWS_S3_BASE_URL,
-  },
-  cookies: {
-    secure: import.meta.env.VITE_COOKIES_SECURE,
-    sameSite: import.meta.env.VITE_COOKIES_SAME_SITE,
   },
 };
