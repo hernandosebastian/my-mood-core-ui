@@ -28,25 +28,37 @@ export function useRefreshToken() {
       const username = getCookie(StoredCookies.USERNAME) || "";
       const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
       const refreshToken = getCookie(StoredCookies.REFRESH_TOKEN) || "";
+      console.log("entered to refresh token");
+      console.log("values on object log are: ", {
+        username: username,
+        refreshToken: refreshToken,
+        accessToken: accessToken,
+      });
 
       if (!username || !refreshToken) {
+        console.log("username or refreshToken is empty");
         handleSessionExpired();
         throw new Error("Tu sesión expiro, por favor inicia sesión de nuevo");
       }
 
       const shouldRefreshToken = !accessToken;
+      console.log("shouldRefreshToken: ", shouldRefreshToken);
 
       if (shouldRefreshToken) {
+        console.log("entered to should refresh token");
         const response = await refreshTokenService({
           username,
           refreshToken,
         });
+
+        console.log("response from refresh token: ", response);
 
         setAccessTokenCookie(response.accessToken);
         apiService.setAuthentication(response.accessToken);
         getMeQuery.refetch();
       }
     } catch (error) {
+      console.log("error on refresh token: ", error);
       handleSessionExpired();
 
       if (error instanceof Error) {
