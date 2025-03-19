@@ -1,34 +1,46 @@
-import { env } from "@/config/env";
-import Cookies from "js-cookie";
-import { isTokenExpired } from "../cognito";
+import Cookies from "universal-cookie";
 
-export const StorageKeys = {
-  COGNITO_ACCESS_TOKEN: "cognitoAccessToken",
-};
+export enum StoredCookies {
+  ACCESS_TOKEN = "accessToken",
+  USERNAME = "username",
+  REFRESH_TOKEN = "refreshToken",
+}
 
-export const setItem = (key: string, value: string, expires: number): void => {
-  Cookies.set(key, value, {
+const ONE_MINUTE_IN_MILLISECONDS = 1000 * 60;
+
+const cookies = new Cookies({ path: "/" });
+
+export function setUsernameCookie(username: string): void {
+  const expires = new Date(Date.now() + ONE_MINUTE_IN_MILLISECONDS);
+  cookies.set(StoredCookies.USERNAME, username, {
     expires,
-    secure: env.cookies.secure,
-    sameSite: env.cookies.sameSite,
+    path: "/",
   });
-};
+}
 
-export const getItem = (key: string): string | null => {
-  return Cookies.get(key) || null;
-};
+export function setRefreshTokenCookie(refreshToken: string): void {
+  cookies.set(StoredCookies.REFRESH_TOKEN, refreshToken, {
+    expires: new Date(Date.now() + ONE_MINUTE_IN_MILLISECONDS),
+    path: "/",
+  });
+}
 
-export const getCognitoToken = (): string | null => {
-  const token = Cookies.get(StorageKeys.COGNITO_ACCESS_TOKEN);
+export function setAccessTokenCookie(accessToken: string): void {
+  cookies.set(StoredCookies.ACCESS_TOKEN, accessToken, {
+    path: "/",
+  });
+}
 
-  if (token && isTokenExpired(token)) {
-    removeItem(StorageKeys.COGNITO_ACCESS_TOKEN);
-    return null;
+export function getCookie(name: StoredCookies): string | null {
+  return cookies.get(name) || null;
+}
+
+export function removeCookie(name: StoredCookies): void {
+  cookies.remove(name);
+}
+
+export function removeAllCookies(): void {
+  for (const cookie of Object.values(StoredCookies)) {
+    cookies.remove(cookie);
   }
-
-  return token || null;
-};
-
-export const removeItem = (key: string): void => {
-  Cookies.remove(key);
-};
+}
