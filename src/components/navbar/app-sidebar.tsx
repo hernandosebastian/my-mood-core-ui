@@ -16,6 +16,7 @@ import { SidebarContentUserLogged } from "./sidebar-content-user-logged";
 import { useSidebar } from "@/hooks";
 import { useNavigate } from "react-router-dom";
 import { SidebarLoading } from "./sidebar-loading";
+import { getCookie, StoredCookies } from "@/services/cookies";
 
 export function AppSidebar({
   ...props
@@ -23,8 +24,10 @@ export function AppSidebar({
   const navigate = useNavigate();
   const { isMobile } = useSidebar();
   const getMeQuery = useGetMe();
-  const isLoggedIn = getMeQuery.data?.user !== undefined;
-
+  const username = getCookie(StoredCookies.USERNAME) || "";
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+  const isLoggedIn = username && accessToken;
+ 
   if (isLoggedIn && getMeQuery.isLoading) {
     return <SidebarLoading {...props} />;
   }

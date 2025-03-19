@@ -2,7 +2,12 @@ import { useMutation, UseMutationResult } from "react-query";
 import { ILogInDto, ILogInResponse } from "../dto";
 import { logIn } from "../services";
 import { AxiosError } from "axios";
-import { setItem, StorageKeys } from "@/services/cookies";
+import {
+  setAccessTokenCookie,
+  setRefreshTokenCookie,
+  setUsernameCookie,
+} from "@/services/cookies";
+import { apiService } from "@/config/requests/api-service";
 
 export const useLogIn = (): UseMutationResult<
   ILogInResponse,
@@ -10,13 +15,14 @@ export const useLogIn = (): UseMutationResult<
   ILogInDto,
   unknown
 > => {
-  const THIRTY_DAYS = 30;
-
   return useMutation<ILogInResponse, AxiosError, ILogInDto, unknown>({
     mutationFn: ({ username, password }: ILogInDto) =>
       logIn({ username, password }),
-    onSuccess: ({ accessToken }: ILogInResponse) => {
-      setItem(StorageKeys.COGNITO_ACCESS_TOKEN, accessToken, THIRTY_DAYS);
+    onSuccess: ({ accessToken, refreshToken, username }: ILogInResponse) => {
+      setAccessTokenCookie(accessToken);
+      setRefreshTokenCookie(refreshToken);
+      setUsernameCookie(username);
+      apiService.setAuthentication(accessToken);
     },
   });
 };
