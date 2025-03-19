@@ -1,21 +1,19 @@
-import axios from "axios";
 import { env } from "@/config/env";
 import { IGetMeResponse } from "@/features/authentication/dto";
-import { getItem, StorageKeys } from "@/services/local-storage";
+import { getCookie, StoredCookies } from "@/services/cookies";
+import { apiService } from "@/config/requests/api-service";
 
 export const uploadAvatar = async (file: File): Promise<IGetMeResponse> => {
-  const authToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
+  const authToken = getCookie(StoredCookies.ACCESS_TOKEN);
   const formData = new FormData();
   formData.append("avatar", file);
 
-  const apiUrl = `${env.coreApi.baseUrl}/user/avatar`;
-
-  const response = await axios.post<IGetMeResponse>(apiUrl, formData, {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-      "Content-Type": "multipart/form-data",
-    },
-  });
-
-  return response.data;
+  apiService.setAuthentication(authToken || "");
+  return apiService.post<IGetMeResponse>(
+    `${env.coreApi.baseUrl}/user/avatar`,
+    formData,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+    }
+  );
 };

@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { logInSchema } from "../schemas";
 import { LogInForm } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetMe, useLogIn } from "../hooks";
 import { useSEO } from "@/seo/hooks";
@@ -11,6 +11,7 @@ import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { logInToastMessages } from "../messages";
 import { AxiosError } from "axios";
+import { StoredCookies, getCookie } from "@/services/cookies";
 
 export function LogInPage(): JSX.Element {
   useSEO({
@@ -22,6 +23,15 @@ export function LogInPage(): JSX.Element {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { showSuccessToast, showErrorToast } = useToast();
+  const username = getCookie(StoredCookies.USERNAME) || "";
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+  const isLogged = username && accessToken;
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/");
+    }
+  }, [isLogged, navigate]);
 
   const logInMutation = useLogIn();
   const getMeQuery = useGetMe();

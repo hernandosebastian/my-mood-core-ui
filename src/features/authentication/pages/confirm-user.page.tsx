@@ -4,13 +4,14 @@ import { z } from "zod";
 import { confirmUserSchema } from "../schemas";
 import { ConfirmUserForm } from "../components";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useConfirmUser } from "../hooks";
 import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { confirmUserToastMessages } from "../messages";
 import { AxiosError } from "axios";
+import { StoredCookies, getCookie } from "@/services/cookies";
 
 export function ConfirmUserPage(): JSX.Element {
   useSEO({
@@ -22,6 +23,15 @@ export function ConfirmUserPage(): JSX.Element {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { showSuccessToast, showErrorToast } = useToast();
+  const username = getCookie(StoredCookies.USERNAME) || "";
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+  const isLogged = username && accessToken;
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/");
+    }
+  }, [isLogged, navigate]);
 
   const confirmUserMutation = useConfirmUser();
 

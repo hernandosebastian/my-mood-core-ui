@@ -1,8 +1,13 @@
 import { useMutation, UseMutationResult } from "react-query";
 import { ILogInDto, ILogInResponse } from "../dto";
 import { logIn } from "../services";
-import { setItem, StorageKeys } from "@/services/local-storage";
 import { AxiosError } from "axios";
+import {
+  setAccessTokenCookie,
+  setRefreshTokenCookie,
+  setUsernameCookie,
+} from "@/services/cookies";
+import { apiService } from "@/config/requests/api-service";
 
 export const useLogIn = (): UseMutationResult<
   ILogInResponse,
@@ -13,8 +18,11 @@ export const useLogIn = (): UseMutationResult<
   return useMutation<ILogInResponse, AxiosError, ILogInDto, unknown>({
     mutationFn: ({ username, password }: ILogInDto) =>
       logIn({ username, password }),
-    onSuccess: ({ accessToken }: ILogInResponse) => {
-      setItem(StorageKeys.COGNITO_ACCESS_TOKEN, accessToken);
+    onSuccess: ({ accessToken, refreshToken, username }: ILogInResponse) => {
+      setAccessTokenCookie(accessToken);
+      setRefreshTokenCookie(refreshToken);
+      setUsernameCookie(username);
+      apiService.setAuthentication(accessToken);
     },
   });
 };

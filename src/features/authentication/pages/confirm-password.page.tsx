@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { confirmPasswordSchema } from "../schemas";
 import { ConfirmPasswordForm } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useConfirmPassword } from "../hooks";
 import { useSEO } from "@/seo/hooks";
@@ -11,6 +11,7 @@ import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { confirmPasswordToastMessages } from "../messages";
 import { AxiosError } from "axios";
+import { StoredCookies, getCookie } from "@/services/cookies";
 
 export function ConfirmPasswordPage(): JSX.Element {
   useSEO({
@@ -22,6 +23,15 @@ export function ConfirmPasswordPage(): JSX.Element {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { showSuccessToast, showErrorToast } = useToast();
+  const username = getCookie(StoredCookies.USERNAME) || "";
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+  const isLogged = username && accessToken;
+
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/");
+    }
+  }, [isLogged, navigate]);
 
   const confirmPasswordMutation = useConfirmPassword();
 

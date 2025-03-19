@@ -4,7 +4,7 @@ import {
   IMapTrackStatsToMoodTrackingResponse,
 } from "../interfaces";
 import { AxiosError } from "axios";
-import { getItem, StorageKeys } from "@/services/local-storage";
+import { getCookie, StoredCookies } from "@/services/cookies";
 import { getTrackStats } from "../services";
 import {
   mapCurrentMonthMoodTrackingData,
@@ -20,7 +20,7 @@ export const useGetTrackStats = (): UseQueryResult<
   IMapTrackStatsToMoodTrackingResponse | undefined,
   AxiosError
 > => {
-  const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN);
 
   return useQuery<
     IGetTrackStatsResponse,

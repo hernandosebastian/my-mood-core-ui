@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { forgotPasswordSchema } from "../schemas";
 import { ForgotPasswordForm } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForgotPassword } from "../hooks";
 import { useSEO } from "@/seo/hooks";
@@ -11,6 +11,7 @@ import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { forgotPasswordToastMessages } from "../messages";
 import { AxiosError } from "axios";
+import { StoredCookies, getCookie } from "@/services/cookies";
 
 export function ForgotPasswordPage(): JSX.Element {
   useSEO({
@@ -21,7 +22,15 @@ export function ForgotPasswordPage(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { showSuccessToast, showErrorToast } = useToast();
+  const username = getCookie(StoredCookies.USERNAME) || "";
+  const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+  const isLogged = username && accessToken;
 
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/");
+    }
+  }, [isLogged, navigate]);
   const forgotPasswordMutation = useForgotPassword();
 
   const form = useForm<z.infer<typeof forgotPasswordSchema>>({

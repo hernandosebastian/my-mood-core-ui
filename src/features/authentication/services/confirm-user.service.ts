@@ -1,21 +1,12 @@
-import axios from "axios";
 import { env } from "@/config/env";
 import { IConfirmUserDto, ISuccessfulOperationResponse } from "../dto";
+import { apiService } from "@/config/requests/api-service";
 
 export const confirmUser = async (
   confirmUserDto: IConfirmUserDto
 ): Promise<ISuccessfulOperationResponse> => {
-  const apiUrl = `${env.coreApi.baseUrl}/auth/confirm-user`;
-
-  const response = await axios.post<ISuccessfulOperationResponse>(
-    apiUrl,
-    confirmUserDto,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+  return apiService.post<ISuccessfulOperationResponse>(
+    `${env.coreApi.baseUrl}/auth/confirm-user`,
+    confirmUserDto
   );
-
-  return response.data;
 };

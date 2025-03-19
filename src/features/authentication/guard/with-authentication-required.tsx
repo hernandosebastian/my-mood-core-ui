@@ -1,37 +1,34 @@
-import { ComponentType, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useGetMe } from "../hooks";
-import { getItem, removeItem, StorageKeys } from "@/services/local-storage";
-import { useQueryClient } from "react-query";
-import { getMeKeys } from "../hooks/use-get-me";
+import { ComponentType, useEffect, useState } from "react";
+
+import { useRefreshToken } from "../hooks/use-refresh-token";
+import { StoredCookies } from "@/services/cookies";
+import { getCookie } from "@/services/cookies";
 
 type WithAuthenticationRequiredOptions = {
   onRedirecting: () => JSX.Element;
 };
-
 export const withAuthenticationRequired = (
   Component: ComponentType,
   options: WithAuthenticationRequiredOptions
 ) => {
   return function WithAuthenticationRequired(): JSX.Element {
-    const navigate = useNavigate();
+    const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
+    const refreshToken = useRefreshToken();
     const { onRedirecting } = options;
-
-    const { data, isLoading } = useGetMe();
-    const accessToken = getItem(StorageKeys.COGNITO_ACCESS_TOKEN);
-    const queryClient = useQueryClient();
+    const username = getCookie(StoredCookies.USERNAME) || "";
+    const accessToken = getCookie(StoredCookies.ACCESS_TOKEN) || "";
+    const isLogged = username && accessToken;
 
     useEffect(() => {
-      if (isLoading || data?.user || accessToken) {
-        return;
+      if (!isRefreshing) {
+        setIsRefreshing(true);
+        refreshToken().finally(() => {
+          setIsRefreshing(false);
+        });
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refreshToken]);
 
-      navigate("/iniciar-sesion");
-      removeItem(StorageKeys.COGNITO_ACCESS_TOKEN);
-      queryClient.removeQueries(getMeKeys());
-    }, [isLoading, data, accessToken, queryClient, navigate]);
-
-    return data?.user && accessToken ? <Component /> : onRedirecting();
+    return isLogged ? <Component /> : onRedirecting();
   };
 };
-
