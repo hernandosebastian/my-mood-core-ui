@@ -10,7 +10,11 @@ export const useSignUp = (): UseMutationResult<
   unknown
 > => {
   return useMutation<ISignUpResponse, AxiosError, ISignUpDto, unknown>({
-    mutationFn: ({ username, nickname, password }: ISignUpDto) =>
-      signUp({ username, nickname, password }),
+    mutationFn: ({
+      username,
+      nickname,
+      password,
+      recaptchaToken,
+    }: ISignUpDto) => signUp({ username, nickname, password, recaptchaToken }),
   });
 };
