@@ -12,6 +12,7 @@ import { useToast } from "@/hooks";
 import { signUpToastMessages } from "../messages";
 import { AxiosError } from "axios";
 import { StoredCookies, getCookie } from "@/services/cookies";
+import { ISignUpDto } from "../dto";
 
 export function SignUpPage(): JSX.Element {
   useSEO({
@@ -44,11 +45,19 @@ export function SignUpPage(): JSX.Element {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof signUpSchema>): Promise<void> {
+  async function onSubmit(
+    values: z.infer<typeof signUpSchema>,
+    captchaToken: string
+  ): Promise<void> {
     setIsLoading(true);
 
+    const signUpDto: ISignUpDto = {
+      ...values,
+      recaptchaToken: captchaToken,
+    };
+
     try {
-      await signUpMutation.mutateAsync(values, {
+      await signUpMutation.mutateAsync(signUpDto, {
         onSuccess: () => {
           showSuccessToast(
             signUpToastMessages.success.title,
