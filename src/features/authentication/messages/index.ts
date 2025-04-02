@@ -11,6 +11,7 @@ export {
   forgotPasswordToastMessages,
 } from "./forgot-password.messages";
 export { logInErrorMessages, logInToastMessages } from "./log-in.messages";
+export { recaptchaMessages } from "./recaptcha.messages";
 export {
   resendConfirmationCodeErrorMessages,
   resendConfirmationCodeToastMessages,
