@@ -24,12 +24,17 @@ interface S3Config {
   baseUrl: string;
 }
 
+interface RecaptchaConfig {
+  siteKey: string;
+}
+
 interface EnvConfig {
   app: AppConfig;
   coreApi: CoreApiConfig;
   cognito: CognitoConfig;
   githubProfiles: GithubProfilesConfig;
   s3: S3Config;
+  recaptcha: RecaptchaConfig;
 }
 
 export const env: EnvConfig = {
@@ -53,5 +58,8 @@ export const env: EnvConfig = {
   },
   s3: {
     baseUrl: import.meta.env.VITE_AWS_S3_BASE_URL,
+  },
+  recaptcha: {
+    siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
   },
 };
