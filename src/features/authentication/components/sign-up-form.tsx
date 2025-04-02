@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
+import ReCAPTCHA from "react-google-recaptcha";
 import { signUpSchema } from "../schemas";
 import {
   Form,
@@ -15,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/Icons";
+import { env } from "@/config/env";
+import { recaptchaMessages } from "../messages";
 
 interface ISignUpFormProps {
   form: UseFormReturn<
@@ -28,7 +31,10 @@ interface ISignUpFormProps {
     any,
     undefined
   >;
-  onSubmit: (values: z.infer<typeof signUpSchema>) => void;
+  onSubmit: (
+    values: z.infer<typeof signUpSchema>,
+    captchaToken: string
+  ) => void;
   isLoading: boolean;
 }
 
@@ -38,15 +44,26 @@ export function SignUpForm({
   isLoading,
 }: Readonly<ISignUpFormProps>): JSX.Element {
   const navigate = useNavigate();
+  const recaptchaRef = React.useRef<ReCAPTCHA>(null);
 
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
 
     const result = await form.trigger();
+    const currentRecaptchaRef = recaptchaRef?.current;
 
-    if (result) {
-      onSubmit(form.getValues());
+    if (!(result && currentRecaptchaRef)) {
+      return;
     }
+
+    const captchaToken = await currentRecaptchaRef.executeAsync();
+    currentRecaptchaRef.reset();
+
+    if (!captchaToken) {
+      throw new Error(recaptchaMessages.error.title);
+    }
+
+    onSubmit(form.getValues(), captchaToken);
   };
 
   const handleRedirectToLogIn = (): void => {
@@ -165,6 +182,12 @@ export function SignUpForm({
                   <FormMessage />
                 </FormItem>
               )}
+            />
+
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              size="invisible"
+              sitekey={env.recaptcha.siteKey}
             />
 
             <Button
