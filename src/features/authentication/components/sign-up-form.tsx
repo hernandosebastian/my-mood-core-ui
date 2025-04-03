@@ -50,8 +50,6 @@ export function SignUpForm({
     e.preventDefault();
 
     const result = await form.trigger();
-    onSubmit(form.getValues(), "captchaToken");
-
     const currentRecaptchaRef = recaptchaRef?.current;
 
     if (!(result && currentRecaptchaRef)) {
