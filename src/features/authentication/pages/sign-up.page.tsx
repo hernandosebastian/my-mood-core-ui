@@ -10,10 +10,8 @@ import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { signUpToastMessages } from "../messages";
-import { AxiosError } from "axios";
 import { StoredCookies, getCookie } from "@/services/cookies";
 import { ISignUpDto } from "../dto";
-import { cn } from "@/lib/utils";
 
 export function SignUpPage(): JSX.Element {
   useSEO({
