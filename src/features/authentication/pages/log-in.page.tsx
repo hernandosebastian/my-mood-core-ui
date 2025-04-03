@@ -59,8 +59,8 @@ export function LogInPage(): JSX.Element {
         },
         onError: (error: AxiosError) => {
           const userRegisteredButNotConfirmed = error.response?.status === 403;
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+          const errorMessage =
+            error.message || logInToastMessages.error.description;
 
           if (userRegisteredButNotConfirmed) {
             navigate("/confirmar-usuario", {
@@ -68,10 +68,7 @@ export function LogInPage(): JSX.Element {
             });
           }
 
-          showErrorToast(
-            logInToastMessages.error.title,
-            errorMessage ?? logInToastMessages.error.description
-          );
+          showErrorToast(logInToastMessages.error.title, errorMessage);
         },
       });
     } finally {

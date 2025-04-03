@@ -62,12 +62,12 @@ export function ConfirmPasswordPage(): JSX.Element {
           });
         },
         onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+          const errorMessage =
+            error.message || confirmPasswordToastMessages.error.description;
 
           showErrorToast(
             confirmPasswordToastMessages.error.title,
-            errorMessage ?? confirmPasswordToastMessages.error.description
+            errorMessage
           );
         },
       });

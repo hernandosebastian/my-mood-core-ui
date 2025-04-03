@@ -58,13 +58,13 @@ export function ResendConfirmationCodePage(): JSX.Element {
           });
         },
         onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+          const errorMessage =
+            error.message ||
+            resendConfirmationCodeToastMessages.error.description;
 
           showErrorToast(
             resendConfirmationCodeToastMessages.error.title,
-            errorMessage ??
-              resendConfirmationCodeToastMessages.error.description
+            errorMessage
           );
         },
       });

@@ -57,13 +57,10 @@ export function ForgotPasswordPage(): JSX.Element {
           });
         },
         onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+          const errorMessage =
+            error.message || forgotPasswordToastMessages.error.description;
 
-          showErrorToast(
-            forgotPasswordToastMessages.error.title,
-            errorMessage ?? forgotPasswordToastMessages.error.description
-          );
+          showErrorToast(forgotPasswordToastMessages.error.title, errorMessage);
         },
       });
     } finally {
