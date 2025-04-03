@@ -60,13 +60,10 @@ export function ConfirmUserPage(): JSX.Element {
           });
         },
         onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+          const errorMessage =
+            error.message || confirmUserToastMessages.error.description;
 
-          showErrorToast(
-            confirmUserToastMessages.error.title,
-            errorMessage ?? confirmUserToastMessages.error.description
-          );
+          showErrorToast(confirmUserToastMessages.error.title, errorMessage);
         },
       });
     } finally {

@@ -13,6 +13,7 @@ import { signUpToastMessages } from "../messages";
 import { AxiosError } from "axios";
 import { StoredCookies, getCookie } from "@/services/cookies";
 import { ISignUpDto } from "../dto";
+import { cn } from "@/lib/utils";
 
 export function SignUpPage(): JSX.Element {
   useSEO({
@@ -67,14 +68,10 @@ export function SignUpPage(): JSX.Element {
             state: { username: values.username },
           });
         },
-        onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
-
-          showErrorToast(
-            signUpToastMessages.error.title,
-            errorMessage ?? signUpToastMessages.error.description
-          );
+        onError: (error: Error) => {
+          const errorMessage =
+            error.message || signUpToastMessages.error.description;
+          showErrorToast(signUpToastMessages.error.title, errorMessage);
         },
       });
     } finally {
