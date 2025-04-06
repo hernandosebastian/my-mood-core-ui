@@ -84,6 +84,7 @@ export function ConfirmUserForm({
                       data-testid="confirm-user-username-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">

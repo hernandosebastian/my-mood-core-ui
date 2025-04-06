@@ -99,6 +99,7 @@ export function SignUpForm({
                       data-testid="sign-up-username-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -122,6 +123,7 @@ export function SignUpForm({
                       data-testid="sign-up-nickname-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -148,6 +150,7 @@ export function SignUpForm({
                       data-testid="sign-up-password-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -174,6 +177,7 @@ export function SignUpForm({
                       data-testid="sign-up-confirm-password-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">

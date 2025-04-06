@@ -86,6 +86,7 @@ export function ConfirmPasswordForm({
                       placeholder="Ingresa tu correo electrónico"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -112,6 +113,7 @@ export function ConfirmPasswordForm({
                       placeholder="Ingresa tu nueva contraseña"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -138,6 +140,7 @@ export function ConfirmPasswordForm({
                       placeholder="Confirma tu nueva contraseña"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
