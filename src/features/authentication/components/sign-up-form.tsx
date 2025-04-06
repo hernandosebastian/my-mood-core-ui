@@ -99,6 +99,7 @@ export function SignUpForm({
                       data-testid="sign-up-username-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -122,6 +123,7 @@ export function SignUpForm({
                       data-testid="sign-up-nickname-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -148,11 +150,21 @@ export function SignUpForm({
                       data-testid="sign-up-password-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
                     Ingresa la contraseña para acceder a tu cuenta.
                   </FormDescription>
+                  <ul className="text-xs text-text-secondary space-y-1 mt-2 list-inside">
+                    <li className="list-disc">Mínimo 8 caracteres</li>
+                    <li className="list-disc">Al menos una letra mayúscula</li>
+                    <li className="list-disc">Al menos una letra minúscula</li>
+                    <li className="list-disc">Al menos un número</li>
+                    <li className="list-disc">
+                      Al menos un carácter especial (!, @, #, $, etc.)
+                    </li>
+                  </ul>
                   <FormMessage />
                 </FormItem>
               )}
@@ -174,6 +186,7 @@ export function SignUpForm({
                       data-testid="sign-up-confirm-password-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">

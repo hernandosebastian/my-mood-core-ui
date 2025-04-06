@@ -67,12 +67,12 @@ export function ForgotPasswordForm({
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="text-text-secondary border-text-secondary"
                       id="username"
                       data-testid="forgot-password-username-input"
                       placeholder="Ingresa tu correo electrónico"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">

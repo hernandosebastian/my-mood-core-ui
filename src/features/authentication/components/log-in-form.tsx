@@ -77,6 +77,7 @@ export function LogInForm({
                       data-testid="log-in-username-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
@@ -103,6 +104,7 @@ export function LogInForm({
                       data-testid="log-in-password-input"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">

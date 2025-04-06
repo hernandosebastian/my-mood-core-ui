@@ -78,6 +78,7 @@ export function ResendConfirmationCodeForm({
                       placeholder="Ingresa tu correo electrónico"
                       {...field}
                       disabled={isLoading}
+                      className="border-border-secondary/75"
                     />
                   </FormControl>
                   <FormDescription className="text-text-secondary">
