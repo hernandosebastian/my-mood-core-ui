@@ -16,6 +16,7 @@ export default {
         },
         border: {
           primary: "#1C1E21",
+          secondary: "#d7d9dd",
         },
         text: {
           primary: "#d7d9dd",
