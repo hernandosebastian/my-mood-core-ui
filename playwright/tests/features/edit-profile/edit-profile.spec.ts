@@ -22,6 +22,15 @@ test.use({
 
 test.beforeEach(async ({ page, isMobile }) => {
   await page.goto(`${BASE_URL}`);
+
+  await openSidebarOnMobile({ page, isMobile });
+
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
+
+  await openSidebarOnMobile({ page, isMobile });
 });
 
 test.describe("Edit profile", () => {
