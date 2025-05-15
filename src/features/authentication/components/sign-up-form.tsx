@@ -45,25 +45,47 @@ export function SignUpForm({
 }: Readonly<ISignUpFormProps>): JSX.Element {
   const navigate = useNavigate();
   const recaptchaRef = React.useRef<ReCAPTCHA>(null);
+  
+  const isTestMode = (): boolean => {
+    return import.meta.env.VITE_APP_MODE === "automated_tests";
+  };
+  
+  const MOCK_CAPTCHA_TOKEN = "test-captcha-token";
+  
+  const getCaptchaToken = async (): Promise<string> => {
+    if (isTestMode()) {
+      return MOCK_CAPTCHA_TOKEN;
+    }
+    
+    const currentRecaptchaRef = recaptchaRef?.current;
+    if (!currentRecaptchaRef) {
+      throw new Error("ReCAPTCHA reference not available");
+    }
+    
+    const token = await currentRecaptchaRef.executeAsync() || "";
+    currentRecaptchaRef.reset();
+    
+    if (!token) {
+      throw new Error(recaptchaMessages.error.title);
+    }
+    
+    return token;
+  };
 
   const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
 
     const result = await form.trigger();
-    const currentRecaptchaRef = recaptchaRef?.current;
-
-    if (!(result && currentRecaptchaRef)) {
+    if (!result) {
       return;
     }
 
-    const captchaToken = await currentRecaptchaRef.executeAsync();
-    currentRecaptchaRef.reset();
-
-    if (!captchaToken) {
-      throw new Error(recaptchaMessages.error.title);
+    try {
+      const captchaToken = await getCaptchaToken();
+      onSubmit(form.getValues(), captchaToken);
+    } catch (error) {
+      console.error("Error during form submission:", error);
     }
-
-    onSubmit(form.getValues(), captchaToken);
   };
 
   const handleRedirectToLogIn = (): void => {
@@ -197,11 +219,13 @@ export function SignUpForm({
               )}
             />
 
-            <ReCAPTCHA
-              ref={recaptchaRef}
-              size="invisible"
-              sitekey={env.recaptcha.siteKey}
-            />
+            {!isTestMode() && (
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                size="invisible"
+                sitekey={env.recaptcha.siteKey}
+              />
+            )}
 
             <Button
               type="submit"
