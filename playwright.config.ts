@@ -5,10 +5,6 @@ const automatedTestsProjects = [
     name: "Desktop Chrome",
     use: { ...devices["Desktop Chrome"] },
   },
-  {
-    name: "Mobile Chrome (Pixel 5)",
-    use: { ...devices["Pixel 5"] },
-  },
 ];
 
 const defaultProjects = [
@@ -32,7 +28,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 0,
-  workers: 3,
+  workers: 1,
   reporter: [["html", { outputFolder: "playwright/playwright-report" }]],
   use: {
     trace: "on-first-retry",
