@@ -50,13 +50,10 @@ export function CreateTrackPage(): JSX.Element {
           );
         },
         onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+          const errorMessage =
+            error.message || createTrackToastMessages.error.description;
 
-          showErrorToast(
-            createTrackToastMessages.error.title,
-            errorMessage ?? createTrackToastMessages.error.description
-          );
+          showErrorToast(createTrackToastMessages.error.title, errorMessage);
         },
       });
     } finally {

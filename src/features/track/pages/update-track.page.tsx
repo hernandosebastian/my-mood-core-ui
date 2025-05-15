@@ -71,14 +71,11 @@ export function UpdateTrackPage({
             updateTrackToastMessages.success.description
           );
         },
-        onError: (error: AxiosError) => {
-          const errorMessage = (error.response?.data as { message?: string })
-            ?.message;
+        onError: (error: Error) => {
+          const errorMessage =
+            error.message || updateTrackToastMessages.error.description;
 
-          showErrorToast(
-            updateTrackToastMessages.error.title,
-            errorMessage ?? updateTrackToastMessages.error.description
-          );
+          showErrorToast(updateTrackToastMessages.error.title, errorMessage);
         },
       });
     } finally {
@@ -94,14 +91,11 @@ export function UpdateTrackPage({
           deleteTrackToastMessages.success.description
         );
       },
-      onError: (error: AxiosError) => {
-        const errorMessage = (error.response?.data as { message?: string })
-          ?.message;
+      onError: (error: Error) => {
+        const errorMessage =
+          error.message || deleteTrackToastMessages.error.description;
 
-        showErrorToast(
-          deleteTrackToastMessages.error.title,
-          errorMessage ?? deleteTrackToastMessages.error.description
-        );
+        showErrorToast(deleteTrackToastMessages.error.title, errorMessage);
       },
     });
   }

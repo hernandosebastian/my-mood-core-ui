@@ -57,10 +57,13 @@ export function LogInPage(): JSX.Element {
           navigate("/");
           getMeQuery.refetch();
         },
-        onError: (error: AxiosError) => {
-          const userRegisteredButNotConfirmed = error.response?.status === 403;
+        onError: (error: Error) => {
           const errorMessage =
             error.message || logInToastMessages.error.description;
+
+          const userRegisteredButNotConfirmed =
+            errorMessage ===
+            "La cuenta de usuario no está confirmada. Por favor, confírmala y vuelve a intentarlo";
 
           if (userRegisteredButNotConfirmed) {
             navigate("/confirmar-usuario", {
@@ -78,3 +81,4 @@ export function LogInPage(): JSX.Element {
 
   return <LogInForm form={form} onSubmit={onSubmit} isLoading={isLoading} />;
 }
+

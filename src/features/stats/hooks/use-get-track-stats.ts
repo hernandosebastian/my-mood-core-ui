@@ -30,6 +30,8 @@ export const useGetTrackStats = (): UseQueryResult<
     queryKey: "stats",
     queryFn: async () => getTrackStats(),
     enabled: !!accessToken,
+    retry: 2,
+    retryDelay: 1000,
     select: (response: IGetTrackStatsResponse) => {
       if (
         response.totalTrackStats.length > 0 ||
