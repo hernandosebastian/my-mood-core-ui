@@ -1,16 +1,29 @@
+import { AppRole } from "@/features/authentication/enum";
+import { ITrack } from "@/features/track/interfaces";
+
 export const successUpdateTrackFixture = {
   status: 200,
   body: JSON.stringify({
     id: 1,
     title: "Happy",
     description: "Lorem ipsum dolor sit amet!",
-    date: new Date("2024-10-10T10:00:00").toISOString(),
+    date: new Date(new Date().getFullYear(), new Date().getMonth(), 10),
     ownerId: 123,
-    owner: {},
-    createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
-    updatedAt: new Date("2024-01-01T00:00:00Z").toISOString(),
+    owner: {
+      id: 123,
+      username: "johndoe@example.com",
+      nickname: "John Doe",
+      avatarSrc: "",
+      externalId: "external-id-12345",
+      roles: [AppRole.Regular],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: null,
+    },
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2024-01-01T00:00:00Z"),
     deletedAt: null,
-  }),
+  } as ITrack),
   contentType: "application/json",
 };
 
