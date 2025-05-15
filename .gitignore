@@ -30,6 +30,7 @@ dist-ssr
 /playwright/blob-report/
 /playwright/.cache/
 /playwright/tests-out/
+/dist-playwright/
 
 # ENVIRONMENT VARIABLES
 .env
