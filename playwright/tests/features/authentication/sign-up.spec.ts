@@ -3,24 +3,32 @@ import dotenv from "dotenv";
 import {
   signUpErrorMessages,
   signUpToastMessages,
-} from "@/features/authentication/messages/registrarse.messages";
+} from "@/features/authentication/messages/sign-up.messages";
 import {
   successSignUpFixture,
   errorSignUpFixture,
   axiosErrorSignUpFixture,
-} from "../../../fixtures/features/authentication/registrarse.fixture";
-import { closeSidebarIfMobile, openSidebarIfMobile } from "utils";
+} from "../../../fixtures/features/authentication/sign-up.fixture";
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${BASE_URL}sign-up`);
+  await page.route(/google\.com\/recaptcha\/api2\/.*/, route => {
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ success: true })
+    });
+  });
+  
+  
+  await page.goto(`${BASE_URL}registrarse`);
 });
 
-test.describe("features/authentication", () => {
-  test("should display error for invalid email format", async ({ page }) => {
+test.describe("Sign Up", () => {
+  test("Should display error for invalid email format", async ({ page }) => {
     const emailInput = page.getByTestId("sign-up-username-input");
     const submitButton = page.getByTestId("sign-up-submit-button");
     const emailErrorToastMessage = page.getByText(
@@ -32,7 +40,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for email exceeding max length", async ({
+  test("Should display error for email exceeding max length", async ({
     page,
   }) => {
     const emailInput = page.getByTestId("sign-up-username-input");
@@ -46,7 +54,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for short password", async ({ page }) => {
+  test("Should display error for short password", async ({ page }) => {
     const passwordInput = page.getByTestId("sign-up-password-input");
     const submitButton = page.getByTestId("sign-up-submit-button");
     const passwordErrorToastMessage = page.getByText(
@@ -58,7 +66,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing uppercase letter", async ({
+  test("Should display error for password missing uppercase letter", async ({
     page,
   }) => {
     const passwordInput = page.getByTestId("sign-up-password-input");
@@ -72,7 +80,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing lowercase letter", async ({
+  test("Should display error for password missing lowercase letter", async ({
     page,
   }) => {
     const passwordInput = page.getByTestId("sign-up-password-input");
@@ -86,7 +94,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing number", async ({ page }) => {
+  test("Should display error for password missing number", async ({ page }) => {
     const passwordInput = page.getByTestId("sign-up-password-input");
     const submitButton = page.getByTestId("sign-up-submit-button");
 
@@ -100,7 +108,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error for nickname with special character", async ({
+  test("Should display error for nickname with special character", async ({
     page,
   }) => {
     const nicknameInput = page.getByTestId("sign-up-nickname-input");
@@ -116,7 +124,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error for nickname max length", async ({ page }) => {
+  test("Should display error for nickname max length", async ({ page }) => {
     const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const submitButton = page.getByTestId("sign-up-submit-button");
 
@@ -130,7 +138,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing special character", async ({
+  test("Should display error for password missing special character", async ({
     page,
   }) => {
     const passwordInput = page.getByTestId("sign-up-password-input");
@@ -144,7 +152,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error when passwords don't match", async ({ page }) => {
+  test("Should display error when passwords don't match", async ({ page }) => {
     const passwordInput = page.getByTestId("sign-up-password-input");
     const confirmPasswordInput = page.getByTestId(
       "sign-up-confirm-password-input"
@@ -161,8 +169,8 @@ test.describe("features/authentication", () => {
     await expect(errorMessage).toBeVisible();
   });
 
-  test("should successfully submit when passwords match", async ({ page }) => {
-    await page.route("**/api/v1/auth/registrarse", (route) => {
+  test("Should successfully submit when passwords match", async ({ page }) => {
+    await page.route("**/api/v1/auth/sign-up", (route) => {
       route.fulfill(successSignUpFixture);
     });
 
@@ -186,19 +194,23 @@ test.describe("features/authentication", () => {
     await expect(successMessage).toBeVisible();
   });
 
-  test("should display error toast for failed sign up", async ({ page }) => {
-    await page.route("**/api/v1/auth/registrarse", (route) => {
+  test("Should display error toast for failed sign up", async ({ page }) => {
+    await page.route("**/api/v1/auth/sign-up", (route) => {
       route.fulfill(errorSignUpFixture);
     });
 
     const emailInput = page.getByTestId("sign-up-username-input");
     const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const passwordInput = page.getByTestId("sign-up-password-input");
+    const confirmPasswordInput = page.getByTestId(
+      "sign-up-confirm-password-input"
+    );
     const submitButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill("test@example.com");
     await nicknameInput.fill("JohnDoe");
     await passwordInput.fill("Password123!");
+    await confirmPasswordInput.fill("Password123!");
     await submitButton.click();
 
     const errorToastMessage = page.getByText(
@@ -208,21 +220,25 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error toast with axios message for failed sign up", async ({
+  test("Should display error toast with axios message for failed sign up", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/registrarse", (route) => {
+    await page.route("**/api/v1/auth/sign-up", (route) => {
       route.fulfill(axiosErrorSignUpFixture);
     });
 
     const emailInput = page.getByTestId("sign-up-username-input");
     const nicknameInput = page.getByTestId("sign-up-nickname-input");
     const passwordInput = page.getByTestId("sign-up-password-input");
+    const confirmPasswordInput = page.getByTestId(
+      "sign-up-confirm-password-input"
+    );
     const submitButton = page.getByTestId("sign-up-submit-button");
 
     await emailInput.fill("test@example.com");
     await nicknameInput.fill("JohnDoe");
     await passwordInput.fill("Password123!");
+    await confirmPasswordInput.fill("Password123!");
     await submitButton.click();
 
     const errorMessage = JSON.parse(axiosErrorSignUpFixture.body).message;
@@ -231,7 +247,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should be redirected when click log in button", async ({ page }) => {
+  test("Should be redirected when click log in button", async ({ page }) => {
     const logInButton = page.getByTestId("sign-up-redirect-to-log-in");
 
     await expect(logInButton).toBeVisible();
@@ -239,6 +255,6 @@ test.describe("features/authentication", () => {
 
     await logInButton.click();
 
-    await expect(page).toHaveURL(`${BASE_URL}log-in`);
+    await expect(page).toHaveURL(`${BASE_URL}iniciar-sesion`);
   });
 });

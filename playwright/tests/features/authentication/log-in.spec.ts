@@ -3,27 +3,27 @@ import dotenv from "dotenv";
 import {
   logInErrorMessages,
   logInToastMessages,
-} from "@/features/authentication/messages/iniciar-sesion.messages";
+} from "@/features/authentication/messages/log-in.messages";
 import { successGetMeFixture } from "../../../fixtures/features/authentication/get-me.fixture";
 import {
   successLoginFixture,
   errorLoginFixture,
   axiosErrorLoginFixture,
   unconfirmedUserFixture,
-} from "../../../fixtures/features/authentication/iniciar-sesion.fixture";
-import { closeSidebarIfMobile, openSidebarIfMobile } from "utils";
-import { StorageKeys } from "@/services/local-storage/index";
+} from "../../../fixtures/features/authentication/log-in.fixture";
+import { openSidebarOnMobile } from "utils";
+import { StoredCookies } from "../../../../src/services/cookies";
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${BASE_URL}log-in`);
+  await page.goto(`${BASE_URL}iniciar-sesion`);
 });
 
-test.describe("features/authentication", () => {
-  test("should display error for invalid email format", async ({ page }) => {
+test.describe("Log In", () => {
+  test("Should display error for invalid email format", async ({ page }) => {
     const emailInput = page.getByTestId("log-in-username-input");
     const submitButton = page.getByTestId("log-in-submit-button");
     const emailErrorToastMessage = page.getByText(
@@ -35,7 +35,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for email exceeding max length", async ({
+  test("Should display error for email exceeding max length", async ({
     page,
   }) => {
     const emailInput = page.getByTestId("log-in-username-input");
@@ -49,7 +49,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for short password", async ({ page }) => {
+  test("Should display error for short password", async ({ page }) => {
     const passwordInput = page.getByTestId("log-in-password-input");
     const submitButton = page.getByTestId("log-in-submit-button");
     const passwordErrorToastMessage = page.getByText(
@@ -61,7 +61,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing uppercase letter", async ({
+  test("Should display error for password missing uppercase letter", async ({
     page,
   }) => {
     const passwordInput = page.getByTestId("log-in-password-input");
@@ -75,7 +75,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing lowercase letter", async ({
+  test("Should display error for password missing lowercase letter", async ({
     page,
   }) => {
     const passwordInput = page.getByTestId("log-in-password-input");
@@ -89,7 +89,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing number", async ({ page }) => {
+  test("Should display error for password missing number", async ({ page }) => {
     const passwordInput = page.getByTestId("log-in-password-input");
     const submitButton = page.getByTestId("log-in-submit-button");
     const passwordErrorToastMessage = page.getByText(
@@ -101,7 +101,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for password missing special character", async ({
+  test("Should display error for password missing special character", async ({
     page,
   }) => {
     const passwordInput = page.getByTestId("log-in-password-input");
@@ -115,7 +115,7 @@ test.describe("features/authentication", () => {
     await expect(passwordErrorToastMessage).toBeVisible();
   });
 
-  test("should successfully submit the form and show success message", async ({
+  test("Should successfully submit the form and show success message", async ({
     page,
     isMobile,
   }) => {
@@ -129,12 +129,10 @@ test.describe("features/authentication", () => {
 
     page.goto(`${BASE_URL}`);
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
 
     const sidebarLogInButton = page.getByTestId("sidebar-log-in-button");
     await sidebarLogInButton.click();
-
-    await closeSidebarIfMobile({ page, isMobile });
 
     const emailInput = page.getByTestId("log-in-username-input");
     const passwordInput = page.getByTestId("log-in-password-input");
@@ -150,15 +148,13 @@ test.describe("features/authentication", () => {
 
     await expect(successfulToastMessage).toBeVisible();
 
-    const accessToken = await page.evaluate((key) => {
-      return localStorage.getItem(key);
-    }, StorageKeys.COGNITO_ACCESS_TOKEN);
-
-    const accessTokenValue = JSON.parse(successLoginFixture.body).accessToken;
-    expect(accessToken).toBe(accessTokenValue);
+    const accessTokenCookie = await page.context().cookies([page.url()]);
+    const accessToken = accessTokenCookie.find(c => c.name === StoredCookies.ACCESS_TOKEN);
+    expect(accessToken).toBeDefined();
+    expect(accessToken?.value).toBe(JSON.parse(successLoginFixture.body).accessToken);
   });
 
-  test("should display error toast for failed login", async ({ page }) => {
+  test("Should display error toast for failed login", async ({ page }) => {
     await page.route("**/api/v1/auth/sign-in", (route) => {
       route.fulfill(errorLoginFixture);
     });
@@ -178,7 +174,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error toast with axios message for failed login", async ({
+  test("Should display error toast with axios message for failed login", async ({
     page,
   }) => {
     await page.route("**/api/v1/auth/sign-in", (route) => {
@@ -199,7 +195,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should be redirected when click sign up button", async ({ page }) => {
+  test("Should be redirected when click sign up button", async ({ page }) => {
     const signUpButton = page.getByTestId("log-in-redirect-to-sign-up-button");
 
     await expect(signUpButton).toBeVisible();
@@ -207,10 +203,10 @@ test.describe("features/authentication", () => {
 
     await signUpButton.click();
 
-    await expect(page).toHaveURL(`${BASE_URL}sign-up`);
+    await expect(page).toHaveURL(`${BASE_URL}registrarse`);
   });
 
-  test("should redirect to confirm-user page when user is not confirmed (403)", async ({
+  test("Should redirect to confirm-user page when user is not confirmed (403)", async ({
     page,
   }) => {
     await page.route("**/api/v1/auth/sign-in", (route) => {
@@ -226,12 +222,11 @@ test.describe("features/authentication", () => {
     await passwordInput.fill("Password123!");
     await submitButton.click();
 
-    await expect(page).toHaveURL(`${BASE_URL}confirm-user`);
-
-    const errorToastMessage = page.getByText(
-      "User registered but not confirmed"
-    );
+    const errorMessage = JSON.parse(unconfirmedUserFixture.body).message;
+    const errorToastMessage = page.getByText(errorMessage);
     await expect(errorToastMessage).toBeVisible();
+
+    await expect(page).toHaveURL(`${BASE_URL}confirmar-usuario`);
 
     const usernameInput = page.getByTestId("confirm-user-username-input");
     await expect(usernameInput).toHaveValue(testEmail);

@@ -8,9 +8,9 @@ import {
 } from "../../../fixtures/features/track/delete-track.fixture";
 import { successGetTrackFixture } from "../../../fixtures/features/track/get-track.fixture";
 import {
-  closeSidebarIfMobile,
-  logIn,
-  openSidebarIfMobile,
+  completeLoginForm,
+  getMonthDateRange,
+  openSidebarOnMobile,
   selectDayFromCalendar,
 } from "utils";
 
@@ -19,28 +19,40 @@ dotenv.config();
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T10:00:00");
-  await page.context().newPage();
-  await page.clock.setFixedTime(fixedDate);
-
-  await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
+  const { firstDayOfYear, lastDayOfYear, startDate, endDate } =
+    getMonthDateRange();
 
   await page.route(
-    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
     (route) => {
       route.fulfill(successGetTrackFixture);
     }
   );
 
-  await openSidebarIfMobile({ page, isMobile });
+  await page.route(
+    `**/api/v1/track/by-date-range?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`,
+    (route) => {
+      route.fulfill(successGetTrackFixture);
+    }
+  );
+
+  await page.goto(`${BASE_URL}`);
+
+  await openSidebarOnMobile({ page, isMobile });
+
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
+
+  await openSidebarOnMobile({ page, isMobile });
+
   await selectDayFromCalendar({ page, dayNumber: 10 });
-  await closeSidebarIfMobile({ page, isMobile });
 });
 
-test.describe("features/track - delete", () => {
-  test("should delete a track successfully", async ({ page }) => {
-    await page.route("**/api/v1/registro/1", (route, request) => {
+test.describe("Delete track", () => {
+  test("Should delete a track successfully", async ({ page }) => {
+    await page.route("**/api/v1/track/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(successDeleteTrackFixture);
       }
@@ -68,10 +80,10 @@ test.describe("features/track - delete", () => {
     ).toBeVisible();
   });
 
-  test("should display error message if there is an error", async ({
+  test("Should display error message if there is an error", async ({
     page,
   }) => {
-    await page.route("**/api/v1/registro/1", (route, request) => {
+    await page.route("**/api/v1/track/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(errorDeleteTrackFixture);
       }
@@ -99,10 +111,10 @@ test.describe("features/track - delete", () => {
     await expect(page.getByText(errorResponseBody.message)).toBeVisible();
   });
 
-  test("should display default error message if there is no error message in the body", async ({
+  test("Should display default error message if there is no error message in the body", async ({
     page,
   }) => {
-    await page.route("**/api/v1/registro/1", (route, request) => {
+    await page.route("**/api/v1/track/1", (route, request) => {
       if (request.method() === "DELETE") {
         route.fulfill(errorDeleteTrackFixtureWithoutMessage);
       }
@@ -130,7 +142,7 @@ test.describe("features/track - delete", () => {
     ).toBeVisible();
   });
 
-  test("should cancel deleting a track", async ({ page }) => {
+  test("Should cancel deleting a track", async ({ page }) => {
     const openDeleteTrackDialogButton = page.getByTestId(
       "open-delete-track-dialog-button"
     );

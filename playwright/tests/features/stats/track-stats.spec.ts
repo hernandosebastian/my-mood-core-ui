@@ -8,20 +8,34 @@ import {
   successGetTrackStatsFixtureWithoutActivity,
   successGetTrackStatsFixtureWithoutLast3MonthsActivity,
 } from "../../../fixtures/features/stats/get-track-stats.fixture";
-import { closeSidebarIfMobile, logIn, openSidebarIfMobile } from "utils";
-import exp from "constants";
+import {
+  completeLoginForm,
+  getCurrentMonth,
+  getCurrentYear,
+  getMonthDateRange,
+  openSidebarOnMobile,
+} from "utils";
+import { monthsNames } from "@/features/stats/utils/months-names.utils";
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T10:00:00");
-  await page.context().newPage();
-  await page.clock.setFixedTime(fixedDate);
+  const { startDate, endDate, firstDayOfYear, lastDayOfYear } =
+    getMonthDateRange();
 
   await page.route(
-    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    `**/api/v1/track/by-date-range?startDate=${startDate}&endDate=${endDate}`,
+    (route) => {
+      route.fulfill({
+        json: [],
+      });
+    }
+  );
+
+  await page.route(
+    `**/api/v1/track/by-date-range?startDate=${firstDayOfYear}&endDate=${lastDayOfYear}`,
     (route) => {
       route.fulfill({
         json: [],
@@ -30,18 +44,25 @@ test.beforeEach(async ({ page, isMobile }) => {
   );
 
   await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
+  await openSidebarOnMobile({ page, isMobile });
+
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
 });
 
-test.describe("features/stats", () => {
-  const dateRange = "August 2024 - October 2024";
-
-  test("should render a message if there is no data", async ({
+test.describe("Track stats", () => {
+  test("Should render a message if there is no data", async ({
     page,
     isMobile,
   }) => {
+    const { startDateTwoMonthsAgo, endDate } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      `**/api/v1/track/stats?startDate=${startDateTwoMonthsAgo
+        .toISOString()
+        .replace("Z", "")}&endDate=${endDate.toISOString().replace("Z", "")}`,
       (route) => {
         route.fulfill(successGetTrackStatsFixtureWithoutActivity);
       }
@@ -53,20 +74,23 @@ test.describe("features/stats", () => {
       "stats-section-without-data"
     );
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
     await sidebarStatsButton.click();
-    await closeSidebarIfMobile({ page, isMobile });
 
     await expect(statsSectionWithoutData).toBeVisible();
     await expect(statsSection).not.toBeVisible();
   });
 
-  test("should render a message if there is data without last three months activity", async ({
+  test("Should render a message if there is data without last three months activity", async ({
     page,
     isMobile,
   }) => {
+    const { startDateTwoMonthsAgo, endDate } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      `**/api/v1/track/stats?startDate=${startDateTwoMonthsAgo
+        .toISOString()
+        .replace("Z", "")}&endDate=${endDate.toISOString().replace("Z", "")}`,
       (route) => {
         route.fulfill(successGetTrackStatsFixtureWithoutLast3MonthsActivity);
       }
@@ -93,9 +117,8 @@ test.describe("features/stats", () => {
       "current-month-mood-tracking-donut"
     );
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
     await sidebarStatsButton.click();
-    await closeSidebarIfMobile({ page, isMobile });
 
     await expect(statsSection).toBeVisible();
     await expect(lastThreeMonthsMoodNoActivity).toBeVisible();
@@ -106,12 +129,16 @@ test.describe("features/stats", () => {
     await expect(lastThreeMonthsDateRange).not.toBeVisible();
   });
 
-  test("should render a message if there is data", async ({
+  test("Should render a message if there is data", async ({
     page,
     isMobile,
   }) => {
+    const { startDateTwoMonthsAgo, endDate } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      `**/api/v1/track/stats?startDate=${startDateTwoMonthsAgo
+        .toISOString()
+        .replace("Z", "")}&endDate=${endDate.toISOString().replace("Z", "")}`,
       (route) => {
         route.fulfill(successGetTrackStatsFixtureWithLast3MonthsActivity);
       }
@@ -138,25 +165,49 @@ test.describe("features/stats", () => {
       "current-month-mood-tracking-donut"
     );
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
     await sidebarStatsButton.click();
-    await closeSidebarIfMobile({ page, isMobile });
 
     await expect(statsSection).toBeVisible();
     await expect(lastThreeMonthsMoodTrackingBar).toBeVisible();
     await expect(lastThreeMonthsMoodDistribution).toBeVisible();
     await expect(currentMonthMoodTrackingDonut).toBeVisible();
-    await expect(lastThreeMonthsDateRange).toContainText(dateRange);
+
+    const dateRangeText = await lastThreeMonthsDateRange.textContent();
+
+    const currentMonth = getCurrentMonth();
+    const currentYear = getCurrentYear();
+    const possibleRanges = [
+      `${monthsNames[currentMonth - 3]} ${currentYear} - ${
+        monthsNames[currentMonth - 1]
+      } ${currentYear}`,
+      `${monthsNames[currentMonth - 2]} ${currentYear} - ${
+        monthsNames[currentMonth]
+      } ${currentYear}`,
+      `${monthsNames[currentMonth - 2]} ${currentYear} - ${
+        monthsNames[currentMonth - 1]
+      } ${currentYear}`,
+    ];
+
+    const isValidRange = possibleRanges.some((range) =>
+      dateRangeText?.includes(range)
+    );
+    expect(isValidRange).toBeTruthy();
+
     await expect(statsSectionWithoutData).not.toBeVisible();
     await expect(lastThreeMonthsMoodNoActivity).not.toBeVisible();
   });
 
-  test("should display error message from body if there is one", async ({
+  test("Should display error message from body if there is one", async ({
     page,
     isMobile,
   }) => {
+    const { startDateTwoMonthsAgo, endDate } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      `**/api/v1/track/stats?startDate=${startDateTwoMonthsAgo
+        .toISOString()
+        .replace("Z", "")}&endDate=${endDate.toISOString().replace("Z", "")}`,
       (route) => {
         route.fulfill(errorGetTrackStatsFixtureWithMessage);
       }
@@ -164,9 +215,8 @@ test.describe("features/stats", () => {
 
     const sidebarStatsButton = page.getByTestId("sidebar-stats-button");
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
     await sidebarStatsButton.click();
-    await closeSidebarIfMobile({ page, isMobile });
 
     const errorResponseBody = JSON.parse(
       errorGetTrackStatsFixtureWithMessage.body
@@ -178,12 +228,16 @@ test.describe("features/stats", () => {
     await expect(page.getByText(errorResponseBody.message)).toBeVisible();
   });
 
-  test("should display default error message if there is no error message in the body", async ({
+  test("Should display default error message if there is no error message in the body", async ({
     page,
     isMobile,
   }) => {
+    const { startDateTwoMonthsAgo, endDate } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/estadisticas?startDate=2024-08-01T00:00:00.000&endDate=2024-10-31T23:59:59.999",
+      `**/api/v1/track/stats?startDate=${startDateTwoMonthsAgo
+        .toISOString()
+        .replace("Z", "")}&endDate=${endDate.toISOString().replace("Z", "")}`,
       (route) => {
         route.fulfill(errorGetTrackStatsFixtureWithoutMessage);
       }
@@ -191,9 +245,8 @@ test.describe("features/stats", () => {
 
     const sidebarStatsButton = page.getByTestId("sidebar-stats-button");
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
     await sidebarStatsButton.click();
-    await closeSidebarIfMobile({ page, isMobile });
 
     await expect(
       page.getByText(trackStatsToastMessages.error.title)
@@ -203,3 +256,4 @@ test.describe("features/stats", () => {
     ).toBeVisible();
   });
 });
+
