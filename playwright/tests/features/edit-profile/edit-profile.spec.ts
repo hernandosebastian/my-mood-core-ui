@@ -16,10 +16,6 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
-test.use({
-  storageState: "playwright/.auth/storage.json",
-});
-
 test.beforeEach(async ({ page, isMobile }) => {
   await page.goto(`${BASE_URL}`);
 
