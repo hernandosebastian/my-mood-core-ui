@@ -11,11 +11,7 @@
     },
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "../node_modules/@types",
-      "../types"
-    ]
+    "typeRoots": ["../node_modules/@types", "../types"]
   },
   "include": ["tests/**/*.ts", "../types/**/*.d.ts"]
 }
-

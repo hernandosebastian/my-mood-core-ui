@@ -8,3 +8,4 @@ export {
   getCurrentMonth,
   getCurrentYear,
 } from "./get-formatted-date";
+export { handleDropdownMenu } from "./handle-dropdown-menu";

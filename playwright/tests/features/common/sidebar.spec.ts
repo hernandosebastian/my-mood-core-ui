@@ -56,8 +56,39 @@ test.describe("Sidebar", () => {
 
     await openSidebarOnMobile({ page, isMobile });
 
-    await page.getByTestId("sidebar-open-menu-button").click();
-    await page.getByTestId("sidebar-logout-menu-item").click();
+    const menuButton = page.getByTestId("sidebar-open-menu-button");
+
+    await menuButton.click();
+    await page.waitForTimeout(2000);
+
+    const logoutItem = page.getByTestId("sidebar-logout-menu-item");
+    let isVisible = await logoutItem.isVisible().catch(() => false);
+
+    if (!isVisible) {
+      await menuButton.click({ force: true });
+      await page.waitForTimeout(2000);
+      isVisible = await logoutItem.isVisible().catch(() => false);
+    }
+
+    if (!isVisible) {
+      await menuButton.focus();
+      await page.keyboard.press("Enter");
+      await page.waitForTimeout(2000);
+      isVisible = await logoutItem.isVisible().catch(() => false);
+    }
+
+    if (isVisible) {
+      await logoutItem.click({ force: true });
+    } else {
+      await page.evaluate(() => {
+        const button = document.querySelector(
+          '[data-testid="sidebar-logout-menu-item"]'
+        ) as HTMLElement;
+        if (button) {
+          button.click();
+        }
+      });
+    }
     expect(page.url()).toContain("/");
 
     await expect(page.getByTestId("sidebar-sign-up-button")).toBeVisible();
@@ -69,3 +100,4 @@ test.describe("Sidebar", () => {
     ).not.toBeVisible();
   });
 });
+

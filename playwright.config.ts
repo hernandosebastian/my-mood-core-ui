@@ -45,7 +45,17 @@ export default defineConfig({
     navigationTimeout: 30_000,
     launchOptions: {
       headless: true,
-      slowMo: 50,
+      slowMo: process.env.CI ? 100 : 50,
+      args: [
+        "--disable-web-security",
+        "--disable-features=VizDisplayCompositor",
+        "--disable-background-timer-throttling",
+        "--disable-backgrounding-occluded-windows",
+        "--disable-renderer-backgrounding",
+        "--disable-ipc-flooding-protection",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+      ],
     },
     timezoneId: "UTC",
   },
@@ -57,3 +67,4 @@ export default defineConfig({
     timeout: 120_000,
   },
 });
+
