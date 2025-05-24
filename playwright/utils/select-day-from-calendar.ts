@@ -11,4 +11,3 @@ export async function selectDayFromCalendar({
 }: ISelectDayFromCalendarProps) {
   await page.locator(`button[name="day"]:has-text("${dayNumber}")`).click();
 }
-

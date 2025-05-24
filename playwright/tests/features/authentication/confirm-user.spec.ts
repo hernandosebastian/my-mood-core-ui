@@ -3,23 +3,23 @@ import dotenv from "dotenv";
 import {
   confirmUserErrorMessages,
   confirmUserToastMessages,
-} from "@/features/authentication/messages/confirmar-usuario.messages";
+} from "@/features/authentication/messages/confirm-user.messages";
 import {
   successConfirmUserFixture,
   errorConfirmUserFixture,
   axiosErrorConfirmUserFixture,
-} from "../../../fixtures/features/authentication/confirmar-usuario.fixture";
+} from "../../../fixtures/features/authentication/confirm-user.fixture";
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${BASE_URL}confirm-user`);
+  await page.goto(`${BASE_URL}confirmar-usuario`);
 });
 
-test.describe("features/authentication", () => {
-  test("should display error for invalid email format", async ({ page }) => {
+test.describe("Confirm User", () => {
+  test("Should display error for invalid email format", async ({ page }) => {
     const emailInput = page.getByTestId("confirm-user-username-input");
     const submitButton = page.getByTestId("confirm-user-submit-button");
     const emailErrorToastMessage = page.getByText(
@@ -31,7 +31,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for email exceeding max length", async ({
+  test("Should display error for email exceeding max length", async ({
     page,
   }) => {
     const emailInput = page.getByTestId("confirm-user-username-input");
@@ -45,7 +45,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for non-numeric confirmation code", async ({
+  test("Should display error for non-numeric confirmation code", async ({
     page,
   }) => {
     const otpInput = page.locator('input[data-input-otp="true"]');
@@ -59,7 +59,7 @@ test.describe("features/authentication", () => {
     await expect(codeErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for incorrect confirmation code length", async ({
+  test("Should display error for incorrect confirmation code length", async ({
     page,
   }) => {
     const submitButton = page.getByTestId("confirm-user-submit-button");
@@ -71,10 +71,10 @@ test.describe("features/authentication", () => {
     await expect(codeErrorToastMessage).toBeVisible();
   });
 
-  test("should successfully submit the form and show success message", async ({
+  test("Should successfully submit the form and show success message", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirmar-usuario", (route) => {
+    await page.route("**/api/v1/auth/confirm-user", (route) => {
       route.fulfill(successConfirmUserFixture);
     });
 
@@ -88,7 +88,7 @@ test.describe("features/authentication", () => {
 
     await submitButton.click();
 
-    await expect(page).toHaveURL(`${BASE_URL}log-in`);
+    await expect(page).toHaveURL(`${BASE_URL}iniciar-sesion`);
 
     const successfulToastMessage = page.getByText(
       confirmUserToastMessages.success.description
@@ -100,10 +100,10 @@ test.describe("features/authentication", () => {
     await expect(logInEmailInput).toHaveValue(emailValue);
   });
 
-  test("should display error toast for failed confirmation", async ({
+  test("Should display error toast for failed confirmation", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirmar-usuario", (route) => {
+    await page.route("**/api/v1/auth/confirm-user", (route) => {
       route.fulfill(errorConfirmUserFixture);
     });
 
@@ -123,10 +123,10 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error toast with axios message for failed confirmation", async ({
+  test("Should display error toast with axios message for failed confirmation", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/confirmar-usuario", (route) => {
+    await page.route("**/api/v1/auth/confirm-user", (route) => {
       route.fulfill(axiosErrorConfirmUserFixture);
     });
 
@@ -145,7 +145,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should be redirected when click resend code button", async ({
+  test("Should be redirected when click resend code button", async ({
     page,
   }) => {
     const resendCodeButton = page.locator("#redirect-to-resend-code");
@@ -155,6 +155,6 @@ test.describe("features/authentication", () => {
 
     await resendCodeButton.click();
 
-    await expect(page).toHaveURL(`${BASE_URL}resend-confirmation-code`);
+    await expect(page).toHaveURL(`${BASE_URL}reenviar-codigo-confirmacion`);
   });
 });

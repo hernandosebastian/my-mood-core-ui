@@ -1,16 +1,19 @@
+import { AppRole } from "../../../../src/features/authentication/enum";
+import { IGetMeResponse } from "../../../../src/features/authentication/dto/get-me-response.interface";
+
 export const successEditProfileFixture = {
   status: 200,
   body: JSON.stringify({
     id: 123,
     username: "johndoe@example.com",
     nickname: "TestNickname",
-    avatarSrc: "/assets/avatars/Multiavatar-0af9e888d36c86d96f.png",
+    avatarSrc: "/avatar.jpg",
     externalId: "external-id-12345",
-    roles: ["regular"],
-    createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
-    updatedAt: new Date("2024-01-01T00:00:00Z").toISOString(),
+    roles: [AppRole.Regular],
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2024-01-01T00:00:00Z"),
     deletedAt: null,
-  }),
+  } as IGetMeResponse),
   contentType: "application/json",
 };
 
@@ -20,13 +23,13 @@ export const successEditProfileOnlyAvatarFixture = {
     id: 123,
     username: "johndoe@example.com",
     nickname: "John Doe",
-    avatarSrc: "/assets/avatars/Multiavatar-0af9e888d36c86d96f.png",
+    avatarSrc: "/avatar.jpg",
     externalId: "external-id-12345",
-    roles: ["regular"],
-    createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
-    updatedAt: new Date("2024-01-01T00:00:00Z").toISOString(),
+    roles: [AppRole.Regular],
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2024-01-01T00:00:00Z"),
     deletedAt: null,
-  }),
+  } as IGetMeResponse),
   contentType: "application/json",
 };
 
@@ -36,20 +39,23 @@ export const successEditProfileOnlyNicknameFixture = {
     id: 123,
     username: "johndoe@example.com",
     nickname: "TestNickname",
-    avatarSrc: "/assets/avatars/Multiavatar-0ac91fa47b6b8fea10.png",
+    avatarSrc: "/avatar.jpg",
     externalId: "external-id-12345",
-    roles: ["regular"],
-    createdAt: new Date("2023-01-01T00:00:00Z").toISOString(),
-    updatedAt: new Date("2024-01-01T00:00:00Z").toISOString(),
+    roles: [AppRole.Regular],
+    createdAt: new Date("2023-01-01T00:00:00Z"),
+    updatedAt: new Date("2024-01-01T00:00:00Z"),
     deletedAt: null,
-  }),
+  } as IGetMeResponse),
   contentType: "application/json",
 };
 
 export const errorEditProfileNicknameTakenFixture = {
   status: 400,
   body: JSON.stringify({
-    message: "Nickname is taken",
+    success: false,
+    message: "Nickname is already taken",
+    error: "Conflict",
+    statusCode: 409,
   }),
   contentType: "application/json",
 };

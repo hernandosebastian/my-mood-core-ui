@@ -1,8 +1,10 @@
+import { ISignUpResponse } from "../../../../src/features/authentication/dto/sign-up-response.interface";
+
 export const successSignUpFixture = {
   status: 200,
   body: JSON.stringify({
-    success: true,
-  }),
+    externalId: "external-id-12345",
+  } as ISignUpResponse),
   contentType: "application/json",
 };
 

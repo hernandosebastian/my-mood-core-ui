@@ -1,16 +1,15 @@
 import { Page } from "@playwright/test";
 
-interface IOpenSidebarIfMobileProps {
+interface IOpenSidebarOnMobileProps {
   page: Page;
   isMobile: boolean;
 }
 
-export async function openSidebarIfMobile({
+export async function openSidebarOnMobile({
   page,
   isMobile,
-}: IOpenSidebarIfMobileProps): Promise<void> {
+}: IOpenSidebarOnMobileProps) {
   if (isMobile) {
     await page.getByTestId("toggle-sidebar-trigger").click();
   }
 }
-

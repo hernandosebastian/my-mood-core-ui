@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
-import { logIn } from "utils";
+import { completeLoginForm, openSidebarOnMobile } from "utils";
 
 dotenv.config();
 
@@ -10,29 +10,26 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${BASE_URL}`);
 });
 
-test.describe("features/homepage", () => {
-  test("should show homepage and test get started button", async ({ page }) => {
-    const homepageSection = page.getByTestId("homepage-section");
-    const getStartedButton = page.getByTestId("homepage-get-started-button");
+test.describe("Homepage", () => {
+  test("Should show homepage unlogged", async ({ page }) => {
+    await expect(page.getByTestId("homepage-section")).toBeVisible();
+    await expect(page.getByTestId("homepage-get-started-button")).toBeVisible();
 
-    await expect(homepageSection).toBeVisible();
-    await expect(getStartedButton).toBeVisible();
+    await page.getByTestId("homepage-get-started-button").click();
 
-    await getStartedButton.click();
-
-    await expect(page).toHaveURL(`${BASE_URL}log-in`);
+    expect(page.url()).toContain("/iniciar-sesion");
   });
 
-  test("shouldn't show homepage and test get started button when user is logged in", async ({
-    page,
-    isMobile,
-  }) => {
-    await logIn({ page, isMobile, isSidebarOpen: false });
+  test("Should show homepage logged in", async ({ page, isMobile }) => {
+    await openSidebarOnMobile({ page, isMobile });
 
-    const homepageSection = page.getByTestId("homepage-section");
-    const getStartedButton = page.getByTestId("homepage-get-started-button");
+    await page.getByTestId("sidebar-log-in-button").click();
 
-    await expect(homepageSection).toBeVisible();
-    await expect(getStartedButton).not.toBeVisible();
+    await completeLoginForm({ page });
+
+    await expect(page.getByTestId("homepage-section")).toBeVisible();
+    await expect(
+      page.getByTestId("homepage-get-started-button")
+    ).not.toBeVisible();
   });
 });

@@ -3,23 +3,23 @@ import dotenv from "dotenv";
 import {
   forgotPasswordErrorMessages,
   forgotPasswordToastMessages,
-} from "@/features/authentication/messages/olvidar-contraseña.messages";
+} from "@/features/authentication/messages/forgot-password.messages";
 import {
   successForgotPasswordFixture,
   errorForgotPasswordFixture,
   axiosErrorForgotPasswordFixture,
-} from "../../../fixtures/features/authentication/olvidar-contraseña.fixture";
+} from "../../../fixtures/features/authentication/forgot-password.fixture";
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${BASE_URL}forgot-password`);
+  await page.goto(`${BASE_URL}olvidar-contraseña`);
 });
 
-test.describe("features/authentication", () => {
-  test("should display error for invalid email format", async ({ page }) => {
+test.describe("Forgot Password", () => {
+  test("Should display error for invalid email format", async ({ page }) => {
     const emailInput = page.getByTestId("forgot-password-username-input");
     const submitButton = page.getByTestId("forgot-password-submit-button");
     const emailErrorToastMessage = page.getByText(
@@ -31,13 +31,13 @@ test.describe("features/authentication", () => {
     await expect(emailErrorToastMessage).toBeVisible();
   });
 
-  test("should display error for email exceeding max length", async ({
+  test("Should display error for email exceeding max length", async ({
     page,
   }) => {
     const emailInput = page.getByTestId("forgot-password-username-input");
     const submitButton = page.getByTestId("forgot-password-submit-button");
     const errorValidationMessage = page.getByText(
-      "Email cannot be longer than 50 characters."
+      forgotPasswordErrorMessages.username.maxLength
     );
 
     await emailInput.fill(`${"a".repeat(51)}@example.com`);
@@ -45,10 +45,10 @@ test.describe("features/authentication", () => {
     await expect(errorValidationMessage).toBeVisible();
   });
 
-  test("should successfully submit the form and show success message", async ({
+  test("Should successfully submit the form and show success message", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/olvidar-contraseña", (route) => {
+    await page.route("**/api/v1/auth/forgot-password", (route) => {
       route.fulfill(successForgotPasswordFixture);
     });
 
@@ -71,10 +71,10 @@ test.describe("features/authentication", () => {
     await expect(confirmPasswordEmailInput).toHaveValue(emailInputValue);
   });
 
-  test("should display error toast for failed password reset request", async ({
+  test("Should display error toast for failed password reset request", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/olvidar-contraseña", (route) => {
+    await page.route("**/api/v1/auth/forgot-password", (route) => {
       route.fulfill(errorForgotPasswordFixture);
     });
 
@@ -91,10 +91,10 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error toast with axios message for failed password reset request", async ({
+  test("Should display error toast with axios message for failed password reset request", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/olvidar-contraseña", (route) => {
+    await page.route("**/api/v1/auth/forgot-password", (route) => {
       route.fulfill(axiosErrorForgotPasswordFixture);
     });
 

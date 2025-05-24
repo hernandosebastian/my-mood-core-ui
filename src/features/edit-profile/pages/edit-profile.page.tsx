@@ -10,7 +10,6 @@ import { editProfileSeoConfig } from "@/seo/config";
 import { z } from "zod";
 import { editProfileSchema } from "../schemas/";
 import { editProfileToastMessages } from "../messages";
-import { AxiosError } from "axios";
 
 export function EditProfilePage(): JSX.Element {
   useSEO({
@@ -85,9 +84,7 @@ export function EditProfilePage(): JSX.Element {
         navigate("/");
       }
     } catch (error) {
-      const axiosError = error as AxiosError;
-      const errorMessage = (axiosError.response?.data as { message?: string })
-        ?.message;
+      const errorMessage = (error as { message: string }).message;
       showErrorToast(
         editProfileToastMessages.error.title,
         errorMessage ?? editProfileToastMessages.error.description

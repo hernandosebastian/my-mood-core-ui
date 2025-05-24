@@ -1,8 +1,10 @@
+import { ISuccessfulOperationResponse } from "../../../../src/features/authentication/dto/successful-operation-response.interface";
+
 export const successForgotPasswordFixture = {
   status: 200,
   body: JSON.stringify({
     success: true,
-  }),
+  } as ISuccessfulOperationResponse),
   contentType: "application/json",
 };
 

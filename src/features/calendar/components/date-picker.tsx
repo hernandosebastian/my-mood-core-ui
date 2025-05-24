@@ -36,13 +36,10 @@ export function DatePicker(): JSX.Element {
   });
 
   if (error) {
-    const errorMessage = (error.response?.data as { message?: string })
-      ?.message;
+    const errorMessage =
+      error.message || calendarToastMessages.error.description;
 
-    showErrorToast(
-      calendarToastMessages.error.title,
-      errorMessage ?? calendarToastMessages.error.description
-    );
+    showErrorToast(calendarToastMessages.error.title, errorMessage);
   }
 
   const modifiersForTrackedDaysFromCurrentMonth = tracks?.reduce(

@@ -11,9 +11,9 @@ import {
   errorUpdateTrackFixtureWithoutMessage,
 } from "../../../fixtures/features/track/update-track.fixture";
 import {
-  closeSidebarIfMobile,
-  logIn,
-  openSidebarIfMobile,
+  completeLoginForm,
+  getMonthDateRange,
+  openSidebarOnMobile,
   selectDayFromCalendar,
 } from "utils";
 
@@ -22,27 +22,39 @@ dotenv.config();
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T00:00:00.000Z");
-  await page.context().newPage();
-  await page.clock.setFixedTime(fixedDate);
-
-  await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
+  const { firstDayOfYear, lastDayOfYear, startDate, endDate } =
+    getMonthDateRange();
 
   await page.route(
-    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+    `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
     (route) => {
       route.fulfill(successGetTrackFixture);
     }
   );
 
-  await openSidebarIfMobile({ page, isMobile });
+  await page.route(
+    `**/api/v1/track/by-date-range?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`,
+    (route) => {
+      route.fulfill(successGetTrackFixture);
+    }
+  );
+
+  await page.goto(`${BASE_URL}`);
+
+  await openSidebarOnMobile({ page, isMobile });
+
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
+
+  await openSidebarOnMobile({ page, isMobile });
+
   await selectDayFromCalendar({ page, dayNumber: 10 });
-  await closeSidebarIfMobile({ page, isMobile });
 });
 
-test.describe("features/track - update", () => {
-  test("should validate description max length", async ({ page }) => {
+test.describe("Update track", () => {
+  test("Should validate description max length", async ({ page }) => {
     const createTrackTitleHappyInput = page.getByTestId(
       "update-track-Happy-button"
     );
@@ -68,8 +80,8 @@ test.describe("features/track - update", () => {
     await expect(descriptionErrorMessage).toBeVisible();
   });
 
-  test("should update successfully track", async ({ page }) => {
-    await page.route("**/api/v1/registro/1", (route) => {
+  test("Should update successfully track", async ({ page }) => {
+    await page.route("**/api/v1/track/1", (route) => {
       if (route.request().method() === "PATCH") {
         route.fulfill(successUpdateTrackFixture);
       }
@@ -112,10 +124,10 @@ test.describe("features/track - update", () => {
     ).toBeVisible();
   });
 
-  test("should display error message from body if there is one", async ({
+  test("Should display error message from body if there is one", async ({
     page,
   }) => {
-    await page.route("**/api/v1/registro/1", (route) => {
+    await page.route("**/api/v1/track/1", (route) => {
       if (route.request().method() === "PATCH") {
         route.fulfill(errorUpdateTrackFixtureWithMessage);
       }
@@ -145,10 +157,10 @@ test.describe("features/track - update", () => {
     await expect(page.getByText(errorResponseBody.message)).toBeVisible();
   });
 
-  test("should display default error message if there is no error message in the body", async ({
+  test("Should display default error message if there is no error message in the body", async ({
     page,
   }) => {
-    await page.route("**/api/v1/registro/1", (route) => {
+    await page.route("**/api/v1/track/1", (route) => {
       if (route.request().method() === "PATCH") {
         route.fulfill(errorUpdateTrackFixtureWithoutMessage);
       }

@@ -1,5 +1,11 @@
-export { closeSidebarIfMobile } from "./close-sidebar-if-mobile";
-export { logIn } from "./log-in";
-export { logOut } from "./log-out";
-export { openSidebarIfMobile } from "./open-sidebar-if-mobile";
+export { completeLoginForm } from "./complete-login-form";
+export { openSidebarOnMobile } from "./open-sidebar-on-mobile";
 export { selectDayFromCalendar } from "./select-day-from-calendar";
+export { getMonthDateRange } from "./get-month-date-range";
+export {
+  getFormattedDate,
+  getCurrentDay,
+  getCurrentMonth,
+  getCurrentYear,
+} from "./get-formatted-date";
+export { handleDropdownMenu } from "./handle-dropdown-menu";

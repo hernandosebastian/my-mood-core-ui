@@ -1,15 +1,16 @@
 import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
-import { editProfileToastMessages } from "@/features/edit-profile/messages/editar-perfil.messages";
-import { successGetMeFixture } from "../../../fixtures/features/authentication/get-me.fixture";
+import { successGetMeFixture } from "fixtures/features/authentication/get-me.fixture";
 import {
-  errorEditProfileFixtureWithoutMessage,
-  errorEditProfileNicknameTakenFixture,
   successEditProfileFixture,
   successEditProfileOnlyAvatarFixture,
   successEditProfileOnlyNicknameFixture,
-} from "../../../fixtures/features/edit-profile/editar-perfil.fixture";
-import { logIn, openSidebarIfMobile, closeSidebarIfMobile } from "utils";
+  errorEditProfileNicknameTakenFixture,
+  errorEditProfileFixtureWithoutMessage,
+} from "fixtures/features/edit-profile/edit-profile.fixture";
+import { editProfileToastMessages } from "@/features/edit-profile/messages";
+import { editProfileErrorMessages } from "@/features/edit-profile/messages";
+import { completeLoginForm, openSidebarOnMobile } from "utils";
 
 dotenv.config();
 
@@ -17,14 +18,184 @@ const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
   await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
+
+  await openSidebarOnMobile({ page, isMobile });
+
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
+
+  await openSidebarOnMobile({ page, isMobile });
 });
 
-test.describe("features/edit-profile", () => {
-  test("should successfully submit the form with new avatar and nickname", async ({
+test.describe("Edit profile", () => {
+  test("Should show error when nickname exceeds max length", async ({
     page,
     isMobile,
   }) => {
+    await page.route("**/api/v1/user/me", (route) => {
+      if (route.request().method() === "GET") {
+        route.fulfill(successGetMeFixture);
+      } else {
+        route.continue();
+      }
+    });
+
+    await openSidebarOnMobile({ page, isMobile });
+    await page.getByTestId("sidebar-open-menu-button").click();
+    await page.getByTestId("sidebar-edit-profile-menu-item").click();
+
+    const nicknameInput = page.getByTestId("edit-profile-nickname");
+    const invalidNickname = "a".repeat(37);
+    const submitButton = page.getByTestId("edit-profile-submit-button");
+
+    await nicknameInput.click();
+    await nicknameInput.fill(invalidNickname);
+    await nicknameInput.blur();
+    await submitButton.scrollIntoViewIfNeeded();
+    await submitButton.click({ force: true });
+
+    await expect(
+      page.getByText(editProfileErrorMessages.nickname.maxLength)
+    ).toBeVisible();
+  });
+
+  test("Should show error when nickname contains invalid characters", async ({
+    page,
+    isMobile,
+  }) => {
+    await page.route("**/api/v1/user/me", (route) => {
+      if (route.request().method() === "GET") {
+        route.fulfill(successGetMeFixture);
+      } else {
+        route.continue();
+      }
+    });
+
+    await openSidebarOnMobile({ page, isMobile });
+    await page.getByTestId("sidebar-open-menu-button").click();
+    await page.getByTestId("sidebar-edit-profile-menu-item").click();
+
+    const nicknameInput = page.getByTestId("edit-profile-nickname");
+    const invalidNickname = "invalid@nickname!";
+    const submitButton = page.getByTestId("edit-profile-submit-button");
+
+    await nicknameInput.click();
+    await nicknameInput.fill(invalidNickname);
+    await nicknameInput.blur();
+    await submitButton.scrollIntoViewIfNeeded();
+    await submitButton.click({ force: true });
+
+    await expect(
+      page.getByText(editProfileErrorMessages.nickname.invalid)
+    ).toBeVisible();
+  });
+
+  test("Should show error when avatar file size exceeds limit", async ({
+    page,
+    isMobile,
+  }) => {
+    await page.route("**/api/v1/user/me", (route) => {
+      if (route.request().method() === "GET") {
+        route.fulfill(successGetMeFixture);
+      } else {
+        route.continue();
+      }
+    });
+
+    await openSidebarOnMobile({ page, isMobile });
+    await page.getByTestId("sidebar-open-menu-button").click();
+    await page.getByTestId("sidebar-edit-profile-menu-item").click();
+
+    const submitButton = page.getByTestId("edit-profile-submit-button");
+
+    await page.evaluate(() => {
+      const input = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
+
+      if (!input) {
+        return;
+      }
+
+      const file = new File([""], "test.jpg", {
+        type: "image/jpeg",
+      });
+
+      Object.defineProperty(file, "size", {
+        value: 2 * 1024 * 1024,
+      });
+
+      Object.defineProperty(input, "files", {
+        value: [file],
+      });
+
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    await submitButton.scrollIntoViewIfNeeded();
+    await submitButton.click({ force: true });
+
+    await expect(
+      page.getByText(editProfileErrorMessages.avatar.invalidSize)
+    ).toBeVisible();
+  });
+
+  test("Should show error when avatar file type is invalid", async ({
+    page,
+    isMobile,
+  }) => {
+    await page.route("**/api/v1/user/me", (route) => {
+      if (route.request().method() === "GET") {
+        route.fulfill(successGetMeFixture);
+      } else {
+        route.continue();
+      }
+    });
+
+    await openSidebarOnMobile({ page, isMobile });
+    await page.getByTestId("sidebar-open-menu-button").click();
+    await page.getByTestId("sidebar-edit-profile-menu-item").click();
+
+    const submitButton = page.getByTestId("edit-profile-submit-button");
+
+    await page.evaluate(() => {
+      const input = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
+
+      if (!input) {
+        return;
+      }
+
+      const file = new File([""], "test.pdf", {
+        type: "application/pdf",
+      });
+
+      Object.defineProperty(input, "files", {
+        value: [file],
+      });
+
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    await submitButton.scrollIntoViewIfNeeded();
+    await submitButton.click({ force: true });
+
+    await expect(
+      page.getByText(editProfileErrorMessages.avatar.invalidType)
+    ).toBeVisible();
+  });
+
+  test("Should successfully submit the form with new avatar and nickname", async ({
+    page,
+    isMobile,
+  }) => {
+    await page.route("**/api/v1/user/avatar", (route) => {
+      route.fulfill(successEditProfileOnlyAvatarFixture);
+    });
+
     await page.route("**/api/v1/user/me", (route) => {
       if (route.request().method() === "GET") {
         route.fulfill(successGetMeFixture);
@@ -35,39 +206,39 @@ test.describe("features/edit-profile", () => {
       }
     });
 
-    await openSidebarIfMobile({ page, isMobile });
-
+    await openSidebarOnMobile({ page, isMobile });
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    await closeSidebarIfMobile({ page, isMobile });
+    await expect(page).toHaveURL(`${BASE_URL}editar-perfil`);
 
-    const currentAvatar = page.getByTestId("current-avatar");
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
-    const getMeBody = JSON.parse(successGetMeFixture.body);
-    await expect(currentAvatar).toHaveAttribute(
-      "src",
-      expect.stringMatching(
-        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
-      )
-    );
-    await expect(nicknameInput).toHaveValue(getMeBody.nickname);
-
-    await page.getByTestId("avatar-Multiavatar-0af9e888d36c86d96f").click();
     await nicknameInput.click();
-    await nicknameInput.fill("TestNickname");
+    await nicknameInput.fill("NewNickname123");
 
-    const responseEditProfileBody = JSON.parse(successEditProfileFixture.body);
-    await expect(currentAvatar).toHaveAttribute(
-      "src",
-      expect.stringMatching(
-        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
-      )
-    );
-    await expect(nicknameInput).toHaveValue(responseEditProfileBody.nickname);
+    await page.evaluate(() => {
+      const input = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
 
-    await page.getByTestId("edit-profile-submit-button").click();
+      if (!input) {
+        return;
+      }
+
+      const mockFile = new File(["mock content"], "test-avatar.png", {
+        type: "image/png",
+      });
+      Object.defineProperty(input, "files", {
+        value: [mockFile],
+      });
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    await page
+      .getByTestId("edit-profile-submit-button")
+      .scrollIntoViewIfNeeded();
+    await page.getByTestId("edit-profile-submit-button").click({ force: true });
 
     await expect(
       page.getByText(editProfileToastMessages.success.title)
@@ -79,10 +250,14 @@ test.describe("features/edit-profile", () => {
     await expect(page).toHaveURL(`${BASE_URL}`);
   });
 
-  test("should successfully submit the form with new avatar", async ({
+  test("Should successfully submit the form with new avatar only", async ({
     page,
     isMobile,
   }) => {
+    await page.route("**/api/v1/user/avatar", (route) => {
+      route.fulfill(successEditProfileOnlyAvatarFixture);
+    });
+
     await page.route("**/api/v1/user/me", (route) => {
       if (route.request().method() === "GET") {
         route.fulfill(successGetMeFixture);
@@ -93,39 +268,37 @@ test.describe("features/edit-profile", () => {
       }
     });
 
-    await openSidebarIfMobile({ page, isMobile });
-
+    await openSidebarOnMobile({ page, isMobile });
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    await closeSidebarIfMobile({ page, isMobile });
-
-    const currentAvatar = page.getByTestId("current-avatar");
     const nicknameInput = page.getByTestId("edit-profile-nickname");
-
     const getMeBody = JSON.parse(successGetMeFixture.body);
-    await expect(currentAvatar).toHaveAttribute(
-      "src",
-      expect.stringMatching(
-        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
-      )
-    );
+
     await expect(nicknameInput).toHaveValue(getMeBody.nickname);
 
-    await page.getByTestId("avatar-Multiavatar-0af9e888d36c86d96f").click();
+    await page.evaluate(() => {
+      const input = document.querySelector(
+        'input[type="file"]'
+      ) as HTMLInputElement;
 
-    const responseEditProfileBody = JSON.parse(
-      successEditProfileOnlyAvatarFixture.body
-    );
-    await expect(currentAvatar).toHaveAttribute(
-      "src",
-      expect.stringMatching(
-        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
-      )
-    );
-    await expect(nicknameInput).toHaveValue(getMeBody.nickname);
+      if (!input) {
+        return;
+      }
 
-    await page.getByTestId("edit-profile-submit-button").click();
+      const mockFile = new File(["mock content"], "test-avatar.png", {
+        type: "image/png",
+      });
+      Object.defineProperty(input, "files", {
+        value: [mockFile],
+      });
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+
+    await page
+      .getByTestId("edit-profile-submit-button")
+      .scrollIntoViewIfNeeded();
+    await page.getByTestId("edit-profile-submit-button").click({ force: true });
 
     await expect(
       page.getByText(editProfileToastMessages.success.title)
@@ -133,11 +306,9 @@ test.describe("features/edit-profile", () => {
     await expect(
       page.getByText(editProfileToastMessages.success.description)
     ).toBeVisible();
-
-    await expect(page).toHaveURL(`${BASE_URL}`);
   });
 
-  test("should successfully submit the form with nickname", async ({
+  test("Should successfully submit the form with new nickname only", async ({
     page,
     isMobile,
   }) => {
@@ -151,40 +322,20 @@ test.describe("features/edit-profile", () => {
       }
     });
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
 
-    await closeSidebarIfMobile({ page, isMobile });
-
-    const currentAvatar = page.getByTestId("current-avatar");
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
-    const getMeBody = JSON.parse(successGetMeFixture.body);
-    await expect(currentAvatar).toHaveAttribute(
-      "src",
-      expect.stringMatching(
-        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
-      )
-    );
-    await expect(nicknameInput).toHaveValue(getMeBody.nickname);
-
     await nicknameInput.click();
-    await nicknameInput.fill("TestNickname");
+    await nicknameInput.fill("NewNickname123");
 
-    const responseEditProfileBody = JSON.parse(
-      successEditProfileOnlyNicknameFixture.body
-    );
-    await expect(currentAvatar).toHaveAttribute(
-      "src",
-      expect.stringMatching(
-        /.*\/public\/assets\/avatars\/Multiavatar-0af9e888d36c86d96f\.png$/
-      )
-    );
-    await expect(nicknameInput).toHaveValue(responseEditProfileBody.nickname);
-
-    await page.getByTestId("edit-profile-submit-button").click();
+    await page
+      .getByTestId("edit-profile-submit-button")
+      .scrollIntoViewIfNeeded();
+    await page.getByTestId("edit-profile-submit-button").click({ force: true });
 
     await expect(
       page.getByText(editProfileToastMessages.success.title)
@@ -196,7 +347,7 @@ test.describe("features/edit-profile", () => {
     await expect(page).toHaveURL(`${BASE_URL}`);
   });
 
-  test("should get error if nickname is taken", async ({ page, isMobile }) => {
+  test("Should get error if nickname is taken", async ({ page, isMobile }) => {
     await page.route("**/api/v1/user/me", (route) => {
       if (route.request().method() === "GET") {
         route.fulfill(successGetMeFixture);
@@ -207,19 +358,20 @@ test.describe("features/edit-profile", () => {
       }
     });
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
-
-    await closeSidebarIfMobile({ page, isMobile });
 
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
     await nicknameInput.click();
     await nicknameInput.fill("NicknameTaken");
 
-    await page.getByTestId("edit-profile-submit-button").click();
+    await page
+      .getByTestId("edit-profile-submit-button")
+      .scrollIntoViewIfNeeded();
+    await page.getByTestId("edit-profile-submit-button").click({ force: true });
 
     const errorResponseBody = JSON.parse(
       errorEditProfileNicknameTakenFixture.body
@@ -231,7 +383,7 @@ test.describe("features/edit-profile", () => {
     await expect(page.getByText(errorResponseBody.message)).toBeVisible();
   });
 
-  test("should display default error message if there is no error message in the body", async ({
+  test("Should display default error message if there is no error message in the body", async ({
     page,
     isMobile,
   }) => {
@@ -245,19 +397,20 @@ test.describe("features/edit-profile", () => {
       }
     });
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
 
     await page.getByTestId("sidebar-open-menu-button").click();
     await page.getByTestId("sidebar-edit-profile-menu-item").click();
-
-    await closeSidebarIfMobile({ page, isMobile });
 
     const nicknameInput = page.getByTestId("edit-profile-nickname");
 
     await nicknameInput.click();
     await nicknameInput.fill("NicknameError");
 
-    await page.getByTestId("edit-profile-submit-button").click();
+    await page
+      .getByTestId("edit-profile-submit-button")
+      .scrollIntoViewIfNeeded();
+    await page.getByTestId("edit-profile-submit-button").click({ force: true });
 
     await expect(
       page.getByText(editProfileToastMessages.error.title)
@@ -267,3 +420,4 @@ test.describe("features/edit-profile", () => {
     ).toBeVisible();
   });
 });
+

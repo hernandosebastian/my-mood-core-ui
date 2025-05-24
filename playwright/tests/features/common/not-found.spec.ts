@@ -5,8 +5,8 @@ dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
-test.describe("features/not-found", () => {
-  test("should display not found page if path is not found", async ({
+test.describe("Not found", () => {
+  test("Should display not found page if path is not found", async ({
     page,
   }) => {
     await page.goto(`${BASE_URL}not-found-404`);
@@ -16,7 +16,7 @@ test.describe("features/not-found", () => {
     await expect(notFoundComponent).toBeVisible();
   });
 
-  test("should not display not found page if path is found", async ({
+  test("Should not display not found page if path is found", async ({
     page,
   }) => {
     await page.goto(`${BASE_URL}`);
@@ -26,7 +26,7 @@ test.describe("features/not-found", () => {
     await expect(notFoundComponent).not.toBeVisible();
   });
 
-  test("should test redirection button on not found page", async ({ page }) => {
+  test("Should test redirection button on not found page", async ({ page }) => {
     await page.goto(`${BASE_URL}/not-found-404`);
 
     const notFoundReturnButton = page.getByTestId("not-found-return-button");

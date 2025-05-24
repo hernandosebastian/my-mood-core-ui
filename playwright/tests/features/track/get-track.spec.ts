@@ -6,9 +6,9 @@ import {
   errorGetTrackFixtureWithoutMessage,
 } from "../../../fixtures/features/track/get-track.fixture";
 import {
-  closeSidebarIfMobile,
-  logIn,
-  openSidebarIfMobile,
+  completeLoginForm,
+  getMonthDateRange,
+  openSidebarOnMobile,
   selectDayFromCalendar,
 } from "utils";
 
@@ -17,58 +17,72 @@ dotenv.config();
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T10:00:00");
-  await page.context().newPage();
-  await page.clock.setFixedTime(fixedDate);
-
   await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
+
+  await openSidebarOnMobile({ page, isMobile });
+
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
 });
 
-test.describe("features/track - get", () => {
-  test("should display error message from body if there is one", async ({
+test.describe("Get track", () => {
+  test("Should display error message from body if there is one", async ({
     page,
     isMobile,
   }) => {
+    const { firstDayOfYear, lastDayOfYear } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+      `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
       (route) => {
         route.fulfill(errorGetTrackFixtureWithMessage);
       }
     );
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
+
+    await expect(page.getByTestId("sidebar-date-picker")).toBeVisible();
+
     await selectDayFromCalendar({ page, dayNumber: 10 });
-    await closeSidebarIfMobile({ page, isMobile });
 
     const errorResponseBody = JSON.parse(errorGetTrackFixtureWithMessage.body);
 
     await expect(
-      page.getByText(calendarToastMessages.error.title)
+      page.getByText(calendarToastMessages.error.title, { exact: true })
     ).toBeVisible();
-    await expect(page.getByText(errorResponseBody.message)).toBeVisible();
+    await expect(
+      page.getByText(errorResponseBody.message, { exact: true })
+    ).toBeVisible();
   });
 
-  test("should display default error message if there is no error message in the body", async ({
+  test("Should display default error message if there is no error message in the body", async ({
     page,
     isMobile,
   }) => {
+    const { firstDayOfYear, lastDayOfYear } = getMonthDateRange();
+
     await page.route(
-      "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
+      `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
       (route) => {
         route.fulfill(errorGetTrackFixtureWithoutMessage);
       }
     );
 
-    await openSidebarIfMobile({ page, isMobile });
+    await openSidebarOnMobile({ page, isMobile });
+
+    await expect(page.getByTestId("sidebar-date-picker")).toBeVisible();
+
     await selectDayFromCalendar({ page, dayNumber: 10 });
-    await closeSidebarIfMobile({ page, isMobile });
 
     const errorToastMessageTitle = page.getByText(
-      calendarToastMessages.error.title
+      calendarToastMessages.error.title,
+      { exact: true }
     );
     const errorToastMessageDescription = page.getByText(
-      calendarToastMessages.error.description
+      calendarToastMessages.error.description,
+      { exact: true }
     );
 
     await expect(errorToastMessageTitle).toBeVisible();

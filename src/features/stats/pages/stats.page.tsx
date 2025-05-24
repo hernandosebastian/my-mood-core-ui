@@ -24,13 +24,10 @@ export const StatsPage = (): JSX.Element => {
   const { data: trackStats, isLoading, error } = useGetTrackStats();
 
   if (error) {
-    const errorMessage = (error.response?.data as { message?: string })
-      ?.message;
+    const errorMessage =
+      error.message || trackStatsToastMessages.error.description;
 
-    showErrorToast(
-      trackStatsToastMessages.error.title,
-      errorMessage ?? trackStatsToastMessages.error.description
-    );
+    showErrorToast(trackStatsToastMessages.error.title, errorMessage);
 
     navigate("/");
   }

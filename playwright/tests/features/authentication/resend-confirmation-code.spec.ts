@@ -3,23 +3,23 @@ import dotenv from "dotenv";
 import {
   resendConfirmationCodeErrorMessages,
   resendConfirmationCodeToastMessages,
-} from "@/features/authentication/messages/reenviar-codigo-confirmacion.messages";
+} from "@/features/authentication/messages/resend-confirmation-code.messages";
 import {
   successResendConfirmationCodeFixture,
   errorResendConfirmationCodeFixture,
   axiosErrorResendConfirmationCodeFixture,
-} from "../../../fixtures/features/authentication/reenviar-codigo-confirmacion.fixture";
+} from "../../../fixtures/features/authentication/resend-confirmation-code.fixture";
 
 dotenv.config();
 
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${BASE_URL}resend-confirmation-code`);
+  await page.goto(`${BASE_URL}reenviar-codigo-confirmacion`);
 });
 
-test.describe("features/authentication", () => {
-  test("should display error for invalid email format", async ({ page }) => {
+test.describe("Resend Confirmation Code", () => {
+  test("Should display error for invalid email format", async ({ page }) => {
     const emailInput = page.getByTestId(
       "resend-confirmation-code-username-input"
     );
@@ -35,7 +35,7 @@ test.describe("features/authentication", () => {
     await expect(emailErrorMessage).toBeVisible();
   });
 
-  test("should display error for email exceeding max length", async ({
+  test("Should display error for email exceeding max length", async ({
     page,
   }) => {
     const emailInput = page.getByTestId(
@@ -53,10 +53,10 @@ test.describe("features/authentication", () => {
     await expect(emailErrorMessage).toBeVisible();
   });
 
-  test("should successfully submit the form and show success message", async ({
+  test("Should successfully submit the form and show success message", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/reenviar-codigo-confirmacion", (route) => {
+    await page.route("**/api/v1/auth/resend-confirmation-code", (route) => {
       route.fulfill(successResendConfirmationCodeFixture);
     });
 
@@ -83,10 +83,10 @@ test.describe("features/authentication", () => {
     await expect(confirmUserEmailInput).toHaveValue(emailValue);
   });
 
-  test("should display error toast for failed code resend", async ({
+  test("Should display error toast for failed code resend", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/reenviar-codigo-confirmacion", (route) => {
+    await page.route("**/api/v1/auth/resend-confirmation-code", (route) => {
       route.fulfill(errorResendConfirmationCodeFixture);
     });
 
@@ -106,10 +106,10 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should display error toast with axios message for failed code resend", async ({
+  test("Should display error toast with axios message for failed code resend", async ({
     page,
   }) => {
-    await page.route("**/api/v1/auth/reenviar-codigo-confirmacion", (route) => {
+    await page.route("**/api/v1/auth/resend-confirmation-code", (route) => {
       route.fulfill(axiosErrorResendConfirmationCodeFixture);
     });
 
@@ -131,7 +131,7 @@ test.describe("features/authentication", () => {
     await expect(errorToastMessage).toBeVisible();
   });
 
-  test("should be redirected when click log in button", async ({ page }) => {
+  test("Should be redirected when click log in button", async ({ page }) => {
     const logInButton = page.getByTestId(
       "resend-confirmation-code-redirect-to-log-in"
     );
@@ -141,6 +141,6 @@ test.describe("features/authentication", () => {
 
     await logInButton.click();
 
-    await expect(page).toHaveURL(`${BASE_URL}log-in`);
+    await expect(page).toHaveURL(`${BASE_URL}iniciar-sesion`);
   });
 });

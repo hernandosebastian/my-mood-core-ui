@@ -43,13 +43,10 @@ export function TrackPage(): JSX.Element {
   const { showErrorToast } = useToast();
 
   if (error) {
-    const errorMessage = (error.response?.data as { message?: string })
-      ?.message;
+    const errorMessage =
+      error.message || calendarToastMessages.error.description;
 
-    showErrorToast(
-      calendarToastMessages.error.title,
-      errorMessage ?? calendarToastMessages.error.description
-    );
+    showErrorToast(calendarToastMessages.error.title, errorMessage);
 
     navigate("/");
   }

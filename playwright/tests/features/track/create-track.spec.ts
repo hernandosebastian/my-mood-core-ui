@@ -1,19 +1,19 @@
 import { expect, test } from "@playwright/test";
 import dotenv from "dotenv";
 import {
-  createTrackToastMessages,
-  createTrackErrorMessages,
-} from "@/features/track/messages/create-track.messages";
-import {
   errorCreateTrackFixtureWithMessage,
   errorCreateTrackFixtureWithoutMessage,
   successCreateTrackFixture,
 } from "../../../fixtures/features/track/create-track.fixture";
 import {
-  closeSidebarIfMobile,
-  logIn,
-  openSidebarIfMobile,
+  createTrackToastMessages,
+  createTrackErrorMessages,
+} from "@/features/track/messages/create-track.messages";
+import {
+  completeLoginForm,
+  openSidebarOnMobile,
   selectDayFromCalendar,
+  getMonthDateRange,
 } from "utils";
 
 dotenv.config();
@@ -21,29 +21,45 @@ dotenv.config();
 const BASE_URL = process.env.VITE_APP_BASE_URL || "http://localhost:5173/";
 
 test.beforeEach(async ({ page, isMobile }) => {
-  const fixedDate = new Date("2024-10-29T10:00:00");
-  await page.context().newPage();
-  await page.clock.setFixedTime(fixedDate);
-
   await page.goto(`${BASE_URL}`);
-  await logIn({ page, isMobile, isSidebarOpen: false });
 
-  await page.route(
-    "**/api/v1/registro/by-date-range?startDate=2024-10-01T00:00:00.000Z&endDate=2024-10-31T23:59:59.999Z",
-    (route) => {
-      route.fulfill({
-        json: [],
-      });
-    }
-  );
+  await openSidebarOnMobile({ page, isMobile });
 
-  await openSidebarIfMobile({ page, isMobile });
-  await selectDayFromCalendar({ page, dayNumber: 10 });
-  await closeSidebarIfMobile({ page, isMobile });
+  await page.getByTestId("sidebar-log-in-button").click();
+  expect(page.url()).toContain("/iniciar-sesion");
+
+  await completeLoginForm({ page });
 });
 
-test.describe("features/track - create", () => {
-  test("should validate description max length", async ({ page }) => {
+test.describe("Create track", () => {
+  test("Should validate description max length", async ({ page, isMobile }) => {
+    const { firstDayOfYear, lastDayOfYear, startDate, endDate } =
+      getMonthDateRange();
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await openSidebarOnMobile({ page, isMobile });
+
+    await expect(page.getByTestId("sidebar-date-picker")).toBeVisible();
+
+    await selectDayFromCalendar({ page, dayNumber: 10 });
+
     const createTrackTitleSadInput = page.getByTestId(
       "create-track-Sad-button"
     );
@@ -65,12 +81,38 @@ test.describe("features/track - create", () => {
     await expect(descriptionErrorMessage).toBeVisible();
   });
 
-  test("should create successfully track", async ({ page }) => {
-    await page.route("**/api/v1/registro", (route) => {
+  test("Should create successfully track", async ({ page, isMobile }) => {
+    const { firstDayOfYear, lastDayOfYear, startDate, endDate } =
+      getMonthDateRange();
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route("**/api/v1/track", (route) => {
       route.fulfill(successCreateTrackFixture);
     });
 
+    await openSidebarOnMobile({ page, isMobile });
+
+    await selectDayFromCalendar({ page, dayNumber: 10 });
+
     const createTrackTitle = page.getByTestId("create-track-title");
+    const updateTrackTitle = page.getByTestId("update-track-title");
     const createTrackTitleSadInput = page.getByTestId(
       "create-track-Sad-button"
     );
@@ -80,16 +122,23 @@ test.describe("features/track - create", () => {
     const createTrackDoneButton = page.getByTestId(
       "create-track-submit-button"
     );
+    const updateTrackDescriptionInput = page.getByTestId(
+      "update-track-description-input"
+    );
+    const descriptionText = "Lorem ipsum dolor sit amet";
 
-    expect(createTrackTitle).toHaveText("Track Your Mood | 10-10-2024");
+    await expect(createTrackTitle).toBeVisible();
+    await expect(updateTrackTitle).not.toBeVisible();
 
     await createTrackTitleSadInput.click();
     await createTrackDescriptionInput.click();
-    await createTrackDescriptionInput.fill("Lorem ipsum dolor sit amet");
+    await createTrackDescriptionInput.fill(descriptionText);
     await createTrackDoneButton.click();
 
-    const updateTrackTitle = page.getByTestId("update-track-title");
-    expect(updateTrackTitle).toHaveText("Update Your Track | 10-10-2024");
+    await expect(createTrackTitle).not.toBeVisible();
+    await expect(updateTrackTitle).toBeVisible();
+
+    await expect(updateTrackDescriptionInput).toHaveText(descriptionText);
 
     await expect(
       page.getByText(createTrackToastMessages.success.title)
@@ -99,14 +148,41 @@ test.describe("features/track - create", () => {
     ).toBeVisible();
   });
 
-  test("should display error message from body if there is one", async ({
+  test("Should display error message from body if there is one", async ({
     page,
+    isMobile,
   }) => {
-    await page.route("**/api/v1/registro", (route) => {
+    const { firstDayOfYear, lastDayOfYear, startDate, endDate } =
+      getMonthDateRange();
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route("**/api/v1/track", (route) => {
       route.fulfill(errorCreateTrackFixtureWithMessage);
     });
 
+    await openSidebarOnMobile({ page, isMobile });
+
+    await selectDayFromCalendar({ page, dayNumber: 10 });
+
     const createTrackTitle = page.getByTestId("create-track-title");
+    const updateTrackTitle = page.getByTestId("update-track-title");
     const createTrackTitleSadInput = page.getByTestId(
       "create-track-Sad-button"
     );
@@ -114,10 +190,14 @@ test.describe("features/track - create", () => {
       "create-track-submit-button"
     );
 
-    expect(createTrackTitle).toHaveText("Track Your Mood | 10-10-2024");
+    await expect(createTrackTitle).toBeVisible();
+    await expect(updateTrackTitle).not.toBeVisible();
 
     await createTrackTitleSadInput.click();
     await createTrackDoneButton.click();
+
+    await expect(createTrackTitle).toBeVisible();
+    await expect(updateTrackTitle).not.toBeVisible();
 
     const errorResponseBody = JSON.parse(
       errorCreateTrackFixtureWithMessage.body
@@ -129,14 +209,41 @@ test.describe("features/track - create", () => {
     await expect(page.getByText(errorResponseBody.message)).toBeVisible();
   });
 
-  test("should display default error message if there is no error message in the body", async ({
+  test("Should display default error message if there is no error message in the body", async ({
     page,
+    isMobile,
   }) => {
-    await page.route("**/api/v1/registro", (route) => {
+    const { firstDayOfYear, lastDayOfYear, startDate, endDate } =
+      getMonthDateRange();
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${firstDayOfYear.toISOString()}&endDate=${lastDayOfYear.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route(
+      `**/api/v1/track/by-date-range?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`,
+      (route) => {
+        route.fulfill({
+          json: [],
+        });
+      }
+    );
+
+    await page.route("**/api/v1/track", (route) => {
       route.fulfill(errorCreateTrackFixtureWithoutMessage);
     });
 
+    await openSidebarOnMobile({ page, isMobile });
+
+    await selectDayFromCalendar({ page, dayNumber: 10 });
+
     const createTrackTitle = page.getByTestId("create-track-title");
+    const updateTrackTitle = page.getByTestId("update-track-title");
     const createTrackTitleSadInput = page.getByTestId(
       "create-track-Sad-button"
     );
@@ -144,10 +251,14 @@ test.describe("features/track - create", () => {
       "create-track-submit-button"
     );
 
-    expect(createTrackTitle).toHaveText("Track Your Mood | 10-10-2024");
+    await expect(createTrackTitle).toBeVisible();
+    await expect(updateTrackTitle).not.toBeVisible();
 
     await createTrackTitleSadInput.click();
     await createTrackDoneButton.click();
+
+    await expect(createTrackTitle).toBeVisible();
+    await expect(updateTrackTitle).not.toBeVisible();
 
     await expect(
       page.getByText(createTrackToastMessages.error.title)

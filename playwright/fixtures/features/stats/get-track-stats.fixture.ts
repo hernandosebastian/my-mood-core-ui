@@ -1,9 +1,12 @@
+import { IGetTrackStatsResponse } from "@/features/stats/interfaces";
+import { getCurrentMonth, getCurrentYear } from "utils";
+
 export const successGetTrackStatsFixtureWithoutActivity = {
   status: 200,
   body: JSON.stringify({
     totalTrackStats: [],
     tracksLast3MonthsStats: [],
-  }),
+  } as IGetTrackStatsResponse),
   contentType: "application/json",
 };
 
@@ -45,7 +48,7 @@ export const successGetTrackStatsFixtureWithoutLast3MonthsActivity = {
       },
     ],
     tracksLast3MonthsStats: [],
-  }),
+  } as IGetTrackStatsResponse),
   contentType: "application/json",
 };
 
@@ -88,8 +91,8 @@ export const successGetTrackStatsFixtureWithLast3MonthsActivity = {
     ],
     tracksLast3MonthsStats: [
       {
-        month: 10,
-        year: 2024,
+        month: getCurrentMonth(),
+        year: getCurrentYear(),
         moods: [
           {
             mood: "Happy",
@@ -126,8 +129,8 @@ export const successGetTrackStatsFixtureWithLast3MonthsActivity = {
         ],
       },
       {
-        month: 9,
-        year: 2024,
+        month: getCurrentMonth() - 1,
+        year: getCurrentYear(),
         moods: [
           {
             mood: "Happy",
@@ -164,8 +167,8 @@ export const successGetTrackStatsFixtureWithLast3MonthsActivity = {
         ],
       },
       {
-        month: 8,
-        year: 2024,
+        month: getCurrentMonth() - 2,
+        year: getCurrentYear(),
         moods: [
           {
             mood: "Happy",
@@ -202,7 +205,7 @@ export const successGetTrackStatsFixtureWithLast3MonthsActivity = {
         ],
       },
     ],
-  }),
+  } as IGetTrackStatsResponse),
   contentType: "application/json",
 };
 
@@ -221,4 +224,3 @@ export const errorGetTrackStatsFixtureWithoutMessage = {
   }),
   contentType: "application/json",
 };
-
