@@ -10,7 +10,6 @@ import { useSEO } from "@/seo/hooks";
 import { authenticationSeoConfig } from "@/seo/config";
 import { useToast } from "@/hooks";
 import { logInToastMessages } from "../messages";
-import { AxiosError } from "axios";
 import { StoredCookies, getCookie } from "@/services/cookies";
 
 export function LogInPage(): JSX.Element {
@@ -81,4 +80,3 @@ export function LogInPage(): JSX.Element {
 
   return <LogInForm form={form} onSubmit={onSubmit} isLoading={isLoading} />;
 }
-

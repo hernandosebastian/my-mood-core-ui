@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AxiosError } from "axios";
 import { updateTrackSchema } from "../schemas";
 import { Track } from "../entity";
 import { useDeleteTrack, useUpdateTrack } from "../hooks";
