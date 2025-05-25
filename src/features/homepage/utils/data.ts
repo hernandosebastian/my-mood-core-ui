@@ -1,28 +1,32 @@
-import { BarChart2, Brain, TrendingUp, Users } from "lucide-react";
-
 export const whyTrackYourMoodData = [
   {
-    icon: BarChart2,
-    title: "Visualiza tu estado de ánimo",
+    image: "/assets/homepage/mood-visualization.png",
+    title: "Visualizá tu estado de ánimo",
     description:
-      "Haz un seguimiento de tu estado de ánimo a lo largo del tiempo y observa cómo fluctúa con estadísticas y gráficos fáciles de leer.",
+      "Registrá cómo te sentís con solo unos clics y descubrí cómo cambian tus emociones con el tiempo gracias a estadísticas claras y visuales.",
   },
   {
-    icon: Brain,
-    title: "Desarrolla autoconciencia",
+    image: "/assets/homepage/progress-tracking.png",
+    title: "Seguimiento de tu evolución",
     description:
-      "Reflexiona sobre tu estado emocional diario y comprende mejor los factores que afectan tu estado de ánimo.",
+      "Observá tus tendencias emocionales, celebrá avances o detectá momentos donde necesitás prestarte más atención.",
   },
   {
-    icon: TrendingUp,
-    title: "Monitorea tu progreso",
+    image: "/assets/homepage/emotional-history.png",
+    title: "Explorá tu historial emocional",
     description:
-      "Observa las tendencias en tu estado de ánimo a lo largo del tiempo y celebra las mejoras o identifica áreas que necesitan atención.",
+      "Accedé fácilmente a los días que registraste desde el calendario principal. Los colores te muestran tu estado de ánimo a lo largo del tiempo de un solo vistazo.",
   },
   {
-    icon: Users,
-    title: "Uso personal únicamente",
+    image: "/assets/homepage/mobile-access.png",
+    title: "Accedé desde tu celular",
     description:
-      "Esta herramienta es solo para el seguimiento personal. No ofrece asesoramiento profesional ni apoyo en salud mental.",
+      "Usá My Mood cómodamente desde el navegador de tu teléfono, sin necesidad de instalar ninguna aplicación.",
+  },
+  {
+    image: "/assets/homepage/personal-space.png",
+    title: "Un espacio solo tuyo",
+    description:
+      "Personalizá tu perfil con un apodo y una foto. Es tu espacio privado para registrar y entender tus emociones con total libertad.",
   },
 ];
