@@ -14,6 +14,9 @@ test.describe("Homepage", () => {
   test("Should show homepage unlogged", async ({ page }) => {
     await expect(page.getByTestId("homepage-section")).toBeVisible();
     await expect(page.getByTestId("homepage-get-started-button")).toBeVisible();
+    await expect(
+      page.getByTestId("homepage-get-started-button-two")
+    ).toBeVisible();
 
     await page.getByTestId("homepage-get-started-button").click();
 
@@ -30,6 +33,9 @@ test.describe("Homepage", () => {
     await expect(page.getByTestId("homepage-section")).toBeVisible();
     await expect(
       page.getByTestId("homepage-get-started-button")
+    ).not.toBeVisible();
+    await expect(
+      page.getByTestId("homepage-get-started-button-two")
     ).not.toBeVisible();
   });
 });
