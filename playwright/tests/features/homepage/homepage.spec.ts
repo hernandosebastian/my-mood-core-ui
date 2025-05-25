@@ -36,6 +36,6 @@ test.describe("Homepage", () => {
     ).not.toBeVisible();
     await expect(
       page.getByTestId("homepage-get-started-button-two")
-    ).toBeVisible();
+    ).not.toBeVisible();
   });
 });
